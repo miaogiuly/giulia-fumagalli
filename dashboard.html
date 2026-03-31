@@ -188,7 +188,11 @@
     try {
       const res = await fetch(SHEETS_URL + '?gruppo=' + encodeURIComponent(gruppo));
       const data = await res.json();
-      return data;
+      // Converti pct da stringa "18%" a numero 18
+      return data.map(r => ({
+        ...r,
+        pct: typeof r.pct === 'string' ? parseInt(r.pct) : r.pct
+      }));
     } catch(e) {
       return JSON.parse(localStorage.getItem('alpha_test_results_' + gruppo) || '[]');
     }

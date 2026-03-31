@@ -145,7 +145,10 @@
     try {
       const res = await fetch(SHEETS_URL + '?gruppo=' + encodeURIComponent(gruppo));
       const data = await res.json();
-      return data;
+      return data.map(r => ({
+        ...r,
+        pct: typeof r.pct === 'string' ? parseInt(r.pct) : r.pct
+      }));
     } catch(e) {
       if (gruppo === 'ALL') return JSON.parse(localStorage.getItem('alpha_test_results_ALL') || '[]');
       return JSON.parse(localStorage.getItem('alpha_test_results_' + gruppo) || '[]');

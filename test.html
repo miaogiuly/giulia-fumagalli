@@ -518,7 +518,7 @@
     const NUM_QUESTIONS = 30;
 
     // ── Carica domande ──
-    fetch('data/domande.json')
+    fetch('domande.json')
       .then(r => r.json())
       .then(data => {
         allQuestions = data;

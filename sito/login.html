@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accesso Aziendale — Giulia Fumagalli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2540;
+      --navy-light: #243058;
+      --gold: #b8943f;
+      --gold-light: #d4af6a;
+      --cream: #f5f2ee;
+      --text: #1a2540;
+      --text-muted: #6b7694;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,148,63,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 100%, rgba(36,48,88,0.8) 0%, transparent 60%);
+    }
+
+    /* Grid pattern */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 32px;
+      left: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+      z-index: 10;
+    }
+
+    .back-btn:hover { color: var(--gold-light); }
+
+    .login-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 56px 52px;
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(20px);
+      animation: appear 0.6s ease both;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .login-logo img {
+      max-width: 200px;
+      max-height: 64px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    .login-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .login-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    input::placeholder { color: rgba(255,255,255,0.2); }
+
+    input:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn-login {
+      width: 100%;
+      margin-top: 32px;
+      padding: 16px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-login:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-login:active { transform: translateY(0); }
+
+    .error-msg {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: #e07070;
+      min-height: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .error-msg.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-btn">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Home
+  </a>
+
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="assets/logo_3a.png" alt="Logo azienda" id="logo-img" />
+    </div>
+
+    <div class="login-label">Area Riservata</div>
+    <div class="login-title">Accesso<br />Dashboard</div>
+
+    <div class="form-group">
+      <label for="user-id">ID Utente</label>
+      <input type="text" id="user-id" placeholder="Inserisci il tuo ID" autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" />
+    </div>
+
+    <button class="btn-login" onclick="doLogin()">Entra</button>
+    <div class="error-msg" id="error-msg">ID o password non corretti</div>
+  </div>
+
+  <script>
+    // Credenziali (modificabili direttamente qui)
+    const CREDENZIALI = {
+      "3a": [
+        { id: "3A2026", password: "sicurezza2026" }
+      ]
+    };
+
+    // Ricava il parametro azienda dall'URL
+    const params = new URLSearchParams(window.location.search);
+    const azienda = params.get('azienda') || '3a';
+
+    function doLogin() {
+      const inputId = document.getElementById('user-id').value.trim();
+      const inputPw = document.getElementById('password').value;
+      const errorEl = document.getElementById('error-msg');
+
+      const lista = CREDENZIALI[azienda] || [];
+      const match = lista.find(c => c.id === inputId && c.password === inputPw);
+
+      if (match) {
+        sessionStorage.setItem('auth_azienda', azienda);
+        sessionStorage.setItem('auth_user', inputId);
+        window.location.href = 'dashboard.html';
+      } else {
+        errorEl.classList.add('show');
+        setTimeout(() => errorEl.classList.remove('show'), 3000);
+      }
+    }
+
+    // Consenti invio con tasto Enter
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doLogin();
+    });
+  </script>
+</body>
+</html>

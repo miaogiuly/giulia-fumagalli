@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Giulia Fumagalli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2540;
+      --navy-light: #243058;
+      --gold: #b8943f;
+      --gold-light: #d4af6a;
+      --cream: #f5f2ee;
+      --text: #1a2540;
+      --text-muted: #6b7694;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 260px;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      padding: 40px 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 0 28px 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar-logo img {
+      max-width: 140px;
+      max-height: 48px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    .sidebar-section {
+      padding: 32px 28px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 28px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-right: 2px solid transparent;
+    }
+
+    .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+
+    .nav-item.active {
+      color: var(--gold-light);
+      background: rgba(184,148,63,0.08);
+      border-right-color: var(--gold);
+    }
+
+    .nav-item svg { opacity: 0.7; flex-shrink: 0; }
+    .nav-item.active svg { opacity: 1; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 20px 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .user-info {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 12px;
+    }
+
+    .user-info strong { color: rgba(255,255,255,0.6); display: block; }
+
+    .logout-btn {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-btn:hover { color: #e07070; }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 48px 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+    }
+
+    .page-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+
+    /* ── CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid rgba(26,37,64,0.08);
+      border-radius: 10px;
+      padding: 36px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(184,148,63,0.3);
+      box-shadow: 0 8px 40px rgba(26,37,64,0.1);
+      transform: translateY(-3px);
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-card.coming-soon {
+      opacity: 0.45;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(184,148,63,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .service-badge.active {
+      background: rgba(184,148,63,0.12);
+      color: var(--gold);
+    }
+
+    .service-badge.soon {
+      background: rgba(107,118,148,0.1);
+      color: var(--text-muted);
+    }
+
+    /* ── STATS PREVIEW ── */
+    .stats-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .stat-box {
+      background: var(--white);
+      border: 1px solid rgba(26,37,64,0.08);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 32px 24px; }
+      .stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo_3a.png" alt="Logo" id="sidebar-logo" />
+    </div>
+
+    <div class="sidebar-section">Menu</div>
+
+    <a class="nav-item active" onclick="showSection('dashboard')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-item" onclick="goToTest()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Alpha Test 2026
+    </a>
+    <a class="nav-item" onclick="showSection('statistiche')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 13l4-5 4 3 4-7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Statistiche
+    </a>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <strong id="user-display">—</strong>
+        Utente connesso
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 7h7M9 5l3 2-3 2M5 2H2v10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Esci
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- SEZIONE DASHBOARD -->
+    <div id="section-dashboard">
+      <div class="topbar">
+        <div>
+          <div class="page-label">Dashboard</div>
+          <div class="page-title">Servizi<br />Disponibili</div>
+        </div>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Alpha Test 2026 -->
+        <div class="service-card" onclick="goToTest()">
+          <div class="service-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 6h14M4 10h10M4 14h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="16" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M17 14.5v1.8l1 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="service-name">Alpha Test 2026</div>
+          <div class="service-desc">Simulazione esame a risposta multipla. 30 domande casuali dall'archivio. Risultati e statistiche salvati automaticamente.</div>
+          <div class="service-badge active">
+            <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="currentColor"/></svg>
+            Disponibile
+          </div>
+        </div>
+
+        <!-- Placeholder futuro -->
+        <div class="service-card coming-soon">
+          <div class="service-icon" style="background:rgba(107,118,148,0.1); color:var(--text-muted)">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 8v6M8 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="service-name" style="color:var(--text-muted)">Nuovo Servizio</div>
+          <div class="service-desc">Il prossimo servizio sarà disponibile a breve.</div>
+          <div class="service-badge soon">Prossimamente</div>
+        </div>
+      </div>
+
+      <!-- Stats preview -->
+      <div class="stats-section">
+        <h3>Le tue Statistiche</h3>
+        <div class="stats-row" id="stats-row">
+          <div class="stat-box">
+            <div class="stat-number" id="stat-totale">0</div>
+            <div class="stat-label">Test completati</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="stat-media">—</div>
+            <div class="stat-label">Punteggio medio</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="stat-migliore">—</div>
+            <div class="stat-label">Miglior risultato</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEZIONE STATISTICHE -->
+    <div id="section-statistiche" style="display:none">
+      <div class="topbar">
+        <div>
+          <div class="page-label">Alpha Test 2026</div>
+          <div class="page-title">Le tue<br />Statistiche</div>
+        </div>
+      </div>
+      <div id="stats-detail-container"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Auth check
+  const user = sessionStorage.getItem('auth_user');
+  if (!user) { window.location.href = 'login.html?azienda=3a'; }
+  document.getElementById('user-display').textContent = user || '';
+
+  function logout() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  }
+
+  function goToTest() {
+    window.location.href = 'test.html';
+  }
+
+  function showSection(name) {
+    document.querySelectorAll('[id^="section-"]').forEach(el => el.style.display = 'none');
+    document.getElementById('section-' + name).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    if (name === 'statistiche') renderStatsDetail();
+  }
+
+  // Carica statistiche dal localStorage
+  function loadStats() {
+    const raw = localStorage.getItem('alpha_test_results');
+    return raw ? JSON.parse(raw) : [];
+  }
+
+  function updateStatsPreview() {
+    const results = loadStats();
+    document.getElementById('stat-totale').textContent = results.length;
+    if (results.length > 0) {
+      const scores = results.map(r => r.pct);
+      const media = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+      const best = Math.max(...scores);
+      document.getElementById('stat-media').textContent = media + '%';
+      document.getElementById('stat-migliore').textContent = best + '%';
+    }
+  }
+
+  function renderStatsDetail() {
+    const results = loadStats();
+    const container = document.getElementById('stats-detail-container');
+
+    if (results.length === 0) {
+      container.innerHTML = `<p style="color:var(--text-muted); font-size:15px;">Nessun test completato. <a href="test.html" style="color:var(--gold)">Inizia il primo test →</a></p>`;
+      return;
+    }
+
+    // Per macrotema
+    const byTema = {};
+    results.forEach(r => {
+      if (r.byTema) {
+        Object.entries(r.byTema).forEach(([tema, data]) => {
+          if (!byTema[tema]) byTema[tema] = { correct: 0, total: 0 };
+          byTema[tema].correct += data.correct;
+          byTema[tema].total += data.total;
+        });
+      }
+    });
+
+    let html = `<div style="margin-bottom:36px">
+      <table style="width:100%; border-collapse:collapse; background:white; border-radius:10px; overflow:hidden; border:1px solid rgba(26,37,64,0.08)">
+        <thead>
+          <tr style="background:var(--navy); color:white;">
+            <th style="padding:14px 20px; text-align:left; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:500;">Data</th>
+            <th style="padding:14px 20px; text-align:center; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:500;">Domande</th>
+            <th style="padding:14px 20px; text-align:center; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:500;">Corrette</th>
+            <th style="padding:14px 20px; text-align:center; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:500;">Punteggio</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+    results.slice().reverse().forEach((r, i) => {
+      const bg = i % 2 === 0 ? 'white' : '#f9f8f6';
+      html += `<tr style="background:${bg}">
+        <td style="padding:12px 20px; font-size:14px; color:var(--text-muted)">${r.data}</td>
+        <td style="padding:12px 20px; text-align:center; font-size:14px">${r.total}</td>
+        <td style="padding:12px 20px; text-align:center; font-size:14px">${r.correct}</td>
+        <td style="padding:12px 20px; text-align:center; font-size:15px; font-weight:600; color:${r.pct >= 70 ? 'var(--gold)' : '#e07070'}">${r.pct}%</td>
+      </tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+
+    if (Object.keys(byTema).length > 0) {
+      html += `<h4 style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--navy); margin-bottom:16px">Performance per Macrotema</h4>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px">`;
+
+      Object.entries(byTema).forEach(([tema, data]) => {
+        const pct = Math.round((data.correct / data.total) * 100);
+        html += `<div style="background:white; border:1px solid rgba(26,37,64,0.08); border-radius:10px; padding:20px 24px">
+          <div style="font-size:13px; font-weight:500; color:var(--navy); margin-bottom:8px">${tema}</div>
+          <div style="font-size:28px; font-family:'Cormorant Garamond',serif; font-weight:300; color:${pct >= 70 ? 'var(--gold)' : '#e07070'}; margin-bottom:4px">${pct}%</div>
+          <div style="font-size:11px; color:var(--text-muted)">${data.correct}/${data.total} corrette</div>
+          <div style="margin-top:10px; height:4px; background:rgba(26,37,64,0.08); border-radius:2px; overflow:hidden">
+            <div style="height:100%; width:${pct}%; background:${pct >= 70 ? 'var(--gold)' : '#e07070'}; border-radius:2px; transition:width 0.8s ease"></div>
+          </div>
+        </div>`;
+      });
+
+      html += `</div>`;
+    }
+
+    container.innerHTML = html;
+  }
+
+  updateStatsPreview();
+</script>
+</body>
+</html>

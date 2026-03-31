@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giulia Fumagalli — Security & Safety Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2540;
+      --navy-light: #243058;
+      --gold: #b8943f;
+      --gold-light: #d4af6a;
+      --cream: #f5f2ee;
+      --text: #1a2540;
+      --text-muted: #6b7694;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(26,37,64,0.04) 0%, transparent 70%),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(26,37,64,0.03) 80px);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      background: var(--navy);
+      display: flex;
+      align-items: flex-end;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,37,64,0.6) 0%, transparent 50%);
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(15%) contrast(1.05);
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 70px 80px 60px;
+      position: relative;
+    }
+
+    .hero-tag {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-title-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      margin-bottom: 40px;
+    }
+
+    .hero-bio {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--navy);
+      max-width: 440px;
+      margin-bottom: 48px;
+    }
+
+    .scroll-cue {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .scroll-cue:hover { color: var(--navy); }
+    .scroll-cue svg { animation: bounce 2s infinite; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* ── PROFILE SECTION ── */
+    .profile {
+      padding: 100px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(184,148,63,0.4), transparent);
+      max-width: 200px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .profile-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+
+    .education-item {
+      border-left: 2px solid var(--gold);
+      padding-left: 24px;
+      margin-bottom: 32px;
+    }
+
+    .education-item .year {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .education-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .education-item .institution {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .education-item .grade {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(184,148,63,0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .education-item .thesis {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Editorial */
+    .editorial-card {
+      background: var(--navy);
+      color: var(--white);
+      padding: 32px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .editorial-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      right: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px;
+      color: rgba(184,148,63,0.15);
+      line-height: 1;
+    }
+
+    .editorial-card .pub {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    .editorial-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .editorial-card p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    /* Courses */
+    .course-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(26,37,64,0.08);
+    }
+
+    .course-item:last-child { border-bottom: none; }
+
+    .course-year {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      min-width: 36px;
+      padding-top: 2px;
+    }
+
+    .course-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── AZIENDE ── */
+    .aziende {
+      background: var(--navy);
+      padding: 100px 80px;
+    }
+
+    .aziende .section-label {
+      color: var(--gold-light);
+      max-width: 1200px;
+      margin: 0 auto 48px;
+    }
+
+    .aziende .section-label::after {
+      background: linear-gradient(to right, rgba(212,175,106,0.4), transparent);
+    }
+
+    .aziende-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .aziende-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .aziende-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 60px;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .aziende-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .azienda-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 40px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .azienda-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(184,148,63,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .azienda-card:hover {
+      border-color: rgba(184,148,63,0.5);
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .azienda-card:hover::before { opacity: 1; }
+
+    .azienda-logo {
+      max-width: 180px;
+      max-height: 70px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .azienda-card:hover .azienda-logo { opacity: 1; }
+
+    .azienda-access {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0e1626;
+      padding: 40px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    footer .copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { height: 50vh; }
+      .hero-right { padding: 48px 32px; }
+      .profile { padding: 60px 32px; }
+      .profile-grid { grid-template-columns: 1fr; gap: 48px; }
+      .aziende { padding: 60px 32px; }
+      footer { flex-direction: column; gap: 12px; padding: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <img src="assets/foto.png" alt="Giulia Fumagalli" class="hero-photo" />
+    </div>
+    <div class="hero-right fade-in">
+      <div class="hero-tag">Security &amp; Safety Specialist</div>
+      <h1>Giulia<br /><em>Fumagalli</em></h1>
+      <div class="hero-title-sub">Milano · Roma</div>
+      <div class="divider"></div>
+      <p class="hero-bio">
+        Consulente specializzata in Enterprise Risk &amp; Security Management, Travel Risk Management e progettazione di percorsi formativi per la certificazione professionale UNI 10459:2017.
+      </p>
+      <div class="scroll-cue" onclick="document.querySelector('.profile').scrollIntoView({behavior:'smooth'})">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Scopri il profilo
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILO -->
+  <section class="profile">
+    <div class="section-label">Profilo</div>
+    <div class="profile-grid">
+
+      <!-- Formazione -->
+      <div class="profile-block fade-in">
+        <h2>Formazione<br />Accademica</h2>
+
+        <div class="education-item">
+          <div class="year">2024</div>
+          <h3>Laurea Magistrale in Scienze Criminologiche per l'Investigazione e la Sicurezza</h3>
+          <div class="institution">Alma Mater Studiorum, Bologna</div>
+          <span class="grade">110/110 con lode</span>
+          <p class="thesis">Tesi: "GUN VIOLENCE: un confronto tra Italia e Stati Uniti sulla natura e le implicazioni della violenza armata"</p>
+        </div>
+
+        <div class="education-item">
+          <div class="year">2022</div>
+          <h3>Laurea Triennale in Scienze Sociali</h3>
+          <div class="institution">Università degli Studi di Firenze</div>
+          <span class="grade">110/110 con lode</span>
+          <p class="thesis">Tesi: "Famiglie negligenti e lavoro di prevenzione"</p>
+        </div>
+
+        <!-- Contributo editoriale -->
+        <div class="editorial-card fade-in">
+          <div class="pub">Contributo Editoriale · Alpes Italia, 2023</div>
+          <h3>"Dal disagio psichico alla salute mentale: Il lavoro relazionale e la promozione del benessere"</h3>
+          <p>Autrice del capitolo <em>"La negligenza parentale e le famiglie vulnerabili"</em> — analisi dell'impatto del maltrattamento sullo sviluppo psicologico del bambino, con focus sulla resilienza.</p>
+        </div>
+      </div>
+
+      <!-- Corsi -->
+      <div class="profile-block fade-in">
+        <h2>Corsi &amp;<br />Certificazioni</h2>
+
+        <div class="course-item">
+          <span class="course-year">2024</span>
+          <span class="course-text">Certificate of Completion — Essentials of Security Risk Assessment, <strong>ASIS International</strong></span>
+        </div>
+        <div class="course-item">
+          <span class="course-year">2024</span>
+          <span class="course-text">Relatrice al seminario "Applicazioni pratiche del Risk Management (UNI ISO 31.000)" — <strong>Università di Bologna</strong></span>
+        </div>
+        <div class="course-item">
+          <span class="course-year">2024</span>
+          <span class="course-text">Vincitrice del contest <strong>"Security is You(th)!"</strong> — ASIS Italy Chapter, Milano</span>
+        </div>
+        <div class="course-item">
+          <span class="course-year">2024</span>
+          <span class="course-text">Certificato IACA — Digital Forensic e manipolazione delle immagini con intelligenza artificiale</span>
+        </div>
+        <div class="course-item">
+          <span class="course-year">2023</span>
+          <span class="course-text">Certificato — Sicurezza e Salute ai sensi del D.lgs 81/08 e Accordo Stato Regioni (8 ore)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AZIENDE -->
+  <section class="aziende" id="aziende">
+    <div class="aziende-inner">
+      <div class="section-label">Area Riservata</div>
+      <h2 class="aziende-title fade-in">Accesso Aziendale</h2>
+      <p class="aziende-sub fade-in">Seleziona la tua organizzazione per accedere alla dashboard e ai servizi dedicati.</p>
+
+      <div class="aziende-grid">
+        <a href="login.html?azienda=3a" class="azienda-card fade-in">
+          <img src="assets/logo_3a.png" alt="Scuola Internazionale Etica & Sicurezza" class="azienda-logo" />
+          <div class="azienda-access">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 5V3.5a2.5 2.5 0 015 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Accedi
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="name">Giulia Fumagalli</div>
+    <div class="copy">© 2026 — Tutti i diritti riservati</div>
+  </footer>
+
+  <script>
+    // Intersection Observer per le animazioni fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

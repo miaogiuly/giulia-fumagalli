@@ -1,0 +1,976 @@
+[
+  {
+    "id": 1,
+    "fonte": "Test ingresso",
+    "domanda": "Nella piramide di Maslow quale livello occupa il bisogno di sicurezza?",
+    "opzioni": {
+      "A": "Quinto",
+      "B": "Primo",
+      "C": "Secondo"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 2,
+    "fonte": "Test ingresso",
+    "domanda": "Definizione del concetto di rischio puro:",
+    "opzioni": {
+      "A": "Evento che si manifesta in azienda e dal quale è possibile guadagnare o perdere",
+      "B": "Evento esclusivamente doloso che procura danni diretti, indiretti e consequenziali",
+      "C": "Rischio che comporta esclusivamente la possibilità di una perdita o un danno"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 3,
+    "fonte": "Test ingresso",
+    "domanda": "Definizione di rischio speculativo",
+    "opzioni": {
+      "A": "Evento che può procurare un guadagno",
+      "B": "Evento che può procurare una perdita o un guadagno",
+      "C": "Evento che può procurare una perdita o nessuna perdita"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 4,
+    "fonte": "Test ingresso",
+    "domanda": "Qual è l’obiettivo prioritario del Risk Management?",
+    "opzioni": {
+      "A": "Individuare le polizze assicurative più idonee",
+      "B": "Conoscere il profilo dei rischi da fronteggiare",
+      "C": "Decidere come gestire le emergenze"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 5,
+    "fonte": "Test ingresso",
+    "domanda": "Lo Standard sulla gestione dei rischi è:",
+    "opzioni": {
+      "A": "Norma ISO 22301",
+      "B": "Norma ISO UNI 31000",
+      "C": "Norma UNI 10459"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 6,
+    "fonte": "Test ingresso",
+    "domanda": "Secondo la definizione dell’art. 133 T.U.L.P.S. le finalità delle guardie particolari giurate consistono:",
+    "opzioni": {
+      "A": "Nella vigilanza o custodia delle proprietà mobiliari od immobiliari",
+      "B": "Nella close protection di persone beni e veicoli",
+      "C": "Nell’attività di pronto intervento su allarmi"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 7,
+    "fonte": "Test ingresso",
+    "domanda": "Il Sistema di Gestione della Security Aziendale:",
+    "opzioni": {
+      "A": "È un processo che può essere applicato a tutte le organizzazioni e si basa su una valutazione del rischio",
+      "B": "È un processo che riguarda solo le infrastrutture critiche",
+      "C": "È un processo che riguarda solo concessionari di pubblici servizi"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 8,
+    "fonte": "Test ingresso",
+    "domanda": "Il ciclo di Deming utilizzato anche per la gestione ottimale della security aziendale di quali fasi si compone?",
+    "opzioni": {
+      "A": "Plan, Do, Check, Act",
+      "B": "Strategy, Plan, Act, Control",
+      "C": "Plan, Act, Control, Redesign"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 9,
+    "fonte": "Test ingresso",
+    "domanda": "In che modo le attività di Sicurezza incidono sul valore economico di un’impresa?",
+    "opzioni": {
+      "A": "Riducendo il tasso di rischiosità e stabilizzando i flussi di reddito",
+      "B": "Aumentando i flussi di reddito",
+      "C": "Riducendo il tasso di rischiosità",
+      "D": "Abbassando le spese di ripristino dopo un incidente."
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 10,
+    "fonte": "Test ingresso",
+    "domanda": "Chi sono gli stakeholder in un’azienda:",
+    "opzioni": {
+      "A": "Gli azionisti, le istituzioni e le banche",
+      "B": "I dipendenti, i manager, CEO e CDA",
+      "C": "Fornitori e clienti",
+      "D": "Tutte le precedenti"
+    },
+    "risposta": "D",
+    "mescola": false,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 11,
+    "fonte": "Test ingresso",
+    "domanda": "Come si articola tradizionalmente la security aziendale?",
+    "opzioni": {
+      "A": "Sicurezza in azienda, sicurezza nei cantieri e dei sistemi informativi",
+      "B": "Sicurezza del lavoro, sicurezza delle persone, sicurezza delle cose",
+      "C": "Sicurezza organizzativa, sicurezza fisica e sicurezza logica",
+      "D": "Sicurezza delle azioni, sicurezza dei pensieri"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 12,
+    "fonte": "Test ingresso",
+    "domanda": "Che cosa si intende per white collar crime?",
+    "opzioni": {
+      "A": "Reato commesso da una persona rispettabile e di elevata condizione sociale nel corso della sua occupazione",
+      "B": "Reato commesso da un esterno",
+      "C": "Reato commesso da un operaio"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 13,
+    "fonte": "Test ingresso",
+    "domanda": "Quali sono le principali misure di sicurezza fisica:",
+    "opzioni": {
+      "A": "Reattive e proattive",
+      "B": "Passive, Attive, Umano-metodologiche",
+      "C": "Tecnologiche e procedurali"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 14,
+    "fonte": "Test ingresso",
+    "domanda": "La policy nella funzione di security è un documento che:",
+    "opzioni": {
+      "A": "Descrive le strategie e la pianificazione della Security",
+      "B": "Descrive le linee generali degli obiettivi e le responsabilità delle risorse",
+      "C": "Indica chi deve fare che cosa su ogni aspetto della Security"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 15,
+    "fonte": "Test ingresso",
+    "domanda": "Qual è la normativa che determina i requisiti dell’attività svolta dagli Istituti di Vigilanza privata e dalle Agenzie di Investigazione Privata?",
+    "opzioni": {
+      "A": "R.D. 06.05.1940, n. 635",
+      "B": "D.P.R. 4 agosto 2008 n. 153",
+      "C": "D.M. del 1° dicembre 2010, n. 269"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 16,
+    "fonte": "Test ingresso",
+    "domanda": "La Norma UNI10459:2017 definisce quali profili del professionista della Security:",
+    "opzioni": {
+      "A": "Security Expert",
+      "B": "Security Manager",
+      "C": "Senior Security Manager",
+      "D": "Tutte le precedenti"
+    },
+    "risposta": "D",
+    "mescola": false,
+    "macrotema": "Sicurezza informazioni"
+  },
+  {
+    "id": 17,
+    "fonte": "Test ingresso",
+    "domanda": "Sicurezza delle informazioni - Con il termine \"parametri di sicurezza\" si fa riferimento ai seguenti attributi dell'informazione:",
+    "opzioni": {
+      "A": "Riservatezza, Immediatezza, Disponibilità",
+      "B": "Riservatezza, Integrità, Disponibilità",
+      "C": "Identificazione, Autorizzazione, Autenticazione",
+      "D": "Correttezza, Identificabilità, Tracciabilità"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 18,
+    "fonte": "Test ingresso",
+    "domanda": "Per dato personale ai sensi del d.lgs.196/03 e del regolamento UE 2016/679 s’intende?",
+    "opzioni": {
+      "A": "Nome e cognome della persona cui il dato si riferisce",
+      "B": "Qualunque informazione relativa a persona fisica identificata o identificabile",
+      "C": "Solo l’immagine della persona fisica",
+      "D": "Nessuna delle risposte è corretta"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Sicurezza informazioni"
+  },
+  {
+    "id": 19,
+    "fonte": "Test ingresso",
+    "domanda": "Quali sono le principali categorie di strumenti per la sicurezza delle informazioni?",
+    "opzioni": {
+      "A": "Antivirus e back up",
+      "B": "Sistemi di monitoraggio (IDS, IPS) e firewall",
+      "C": "Sicurezza fisica",
+      "D": "Tutte le risposte"
+    },
+    "risposta": "D",
+    "mescola": false,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 20,
+    "fonte": "Test ingresso",
+    "domanda": "Il diritto di querela si esaurisce in:",
+    "opzioni": {
+      "A": "Tre mesi",
+      "B": "Novanta giorni",
+      "C": "Mai, se previsto dalla legge"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 21,
+    "fonte": "Test ingresso",
+    "domanda": "Il Decreto Legislativo 231/01 introduce quale elemento d’innovazione?",
+    "opzioni": {
+      "A": "La responsabilità dei soggetti apicali e subordinati",
+      "B": "La responsabilità punitiva diretta degli enti derivanti da reati commessi nell’interesse e vantaggio dell’ente",
+      "C": "L’introduzione del principio dell’inversione dell’onere della prova",
+      "D": "L’adozione di un modello organizzativo adeguato"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 22,
+    "fonte": "Test ingresso",
+    "domanda": "Quali sono i principali requisiti perché un ente possa evitare la responsabilità amministrativa ex d.lgs. 231/2001?",
+    "opzioni": {
+      "A": "L’adozione del solo Codice Etico",
+      "B": "L’adozione di un efficace Modello di Organizzazione Gestione e Controllo e la nomina di un Organismo di Vigilanza",
+      "C": "L’adozione di un Manuale della Qualità che faccia esplicito riferimento alla prevenzione della responsabilità amministrativa"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Normativa"
+  },
+  {
+    "id": 23,
+    "fonte": "Test ingresso",
+    "domanda": "Esiste in Italia una normativa che prevede la tutela delle infrastrutture critiche?",
+    "opzioni": {
+      "A": "No",
+      "B": "Il D.Lgs. 61/2011",
+      "C": "Direttiva 2008/114/CE"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 24,
+    "fonte": "Test ingresso",
+    "domanda": "Che cosa s’intende per “cigno nero”?",
+    "opzioni": {
+      "A": "Evento pianificabile non inserito nei rischi",
+      "B": "Evento previsto con grande impatto",
+      "C": "Evento inaspettato con grande impatto che solo dopo potrà essere prevedibile "
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 25,
+    "fonte": "Test ingresso",
+    "domanda": "Quali sono le caratteristiche tipiche di un evento per essere considerato crisi in un’azienda?",
+    "opzioni": {
+      "A": "Importanza e gravità",
+      "B": "Bassa prevedibilità e poco tempo",
+      "C": "Tutte le precedenti"
+    },
+    "risposta": "C",
+    "mescola": false,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 26,
+    "fonte": "Test ingresso",
+    "domanda": "Il servizio “Emergenza 112” (N.U.E):",
+    "opzioni": {
+      "A": "È il numero telefonico per contattare solo il pronto intervento dei carabinieri",
+      "B": "È il Numero Unico dell’Emergenza da contattare per attivare i soccorsi in qualsiasi tipo di emergenza",
+      "C": "Attivo su tutto il territorio nazionale",
+      "D": "Attivo solo in Italia"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 27,
+    "fonte": "Test ingresso",
+    "domanda": "Informazione e formazione dei viaggiatori aziendali sono:",
+    "opzioni": {
+      "A": "Consigliate",
+      "B": "Scelta del datore di lavoro",
+      "C": "Obbligo di legge"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 28,
+    "fonte": "Test ingresso",
+    "domanda": "L’etica:",
+    "opzioni": {
+      "A": "Identifica ciò che è corretto e lo differenzia da ciò che è illecito",
+      "B": "Studia i fondamenti oggettivi e razionali che permettono di distinguere i comportamenti umani in leciti o inappropriati",
+      "C": "Fornisce chiavi di lettura per interpretare i comportamenti altrui",
+      "D": "In un contesto prettamente religioso indica come concretizzare i principi dottrinali"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 29,
+    "fonte": "Test ingresso",
+    "domanda": "Cosa è il codice etico aziendale?",
+    "opzioni": {
+      "A": "È la carta costituzionale dell’impresa e racchiude l’insieme delle norme di comportamento e di valori etici a cui la Società si ispira e ai quali devono adeguarsi Amministratori dipendenti, collaboratori ed anche fornitori e consulenti",
+      "B": "L’insieme delle policy e procedure che devono essere rispettate da tutti i dipendenti dell’azienda",
+      "C": "Corrisponde alla carta dei valori aziendali condivisa da tutti gli stakeholder"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 30,
+    "fonte": "Test ingresso",
+    "domanda": "Etimologia del termine sicurezza",
+    "opzioni": {
+      "A": "Sine cura = senza preoccupazione",
+      "B": "Attenzione alla percezione degli eventi in un'azienda ",
+      "C": "Analisi e progettazione di contromisure per la prevenzione"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 31,
+    "fonte": "Modulo 1",
+    "domanda": "Una minaccia:",
+    "opzioni": {
+      "A": "È una proprietà intrinseca o qualità di un determinato fattore",
+      "B": "È un evento certo o incerto",
+      "C": "È una fonte di rischio può potenzialmente causare conseguenze indesiderate",
+      "D": "Non è mai un agente o un evento intenzionale o esterno che sfrutta una vulnerabilità"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 32,
+    "fonte": "Modulo 1",
+    "domanda": "Un disastro naturale è:",
+    "opzioni": {
+      "A": "Un rischio speculativo",
+      "B": "Un rischio puro",
+      "C": "Un rischio strategico",
+      "D": "Un rischio comune"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 33,
+    "fonte": "Modulo 1",
+    "domanda": "Si definisce pericolo:",
+    "opzioni": {
+      "A": "Proprietà intrinseca o qualità di un determinato fattore che potenzialmente può causare danni",
+      "B": "La probabilità che un certo evento si verifichi e l’impatto che ne può derivare",
+      "C": "Elemento che possiede il potenziale di originare il rischio",
+      "D": "Elemento che non possiede il potenziale di originare un rischio"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 34,
+    "fonte": "Modulo 1",
+    "domanda": "Quale delle seguenti affermazioni si riferisce al valore di mercato di un'azienda?",
+    "opzioni": {
+      "A": "Capacità dell’organizzazione di produrre reddito e risultati finanziari nel tempo",
+      "B": "Insieme delle risorse tangibili e intangibili che costituiscono la solidità strutturale dell’organizzazione",
+      "C": "Capitale immateriale costruito nel tempo attraverso comportamenti coerenti e responsabili",
+      "D": "Valutazione attribuita all’impresa dagli investitori e dagli stakeholder esterni"
+    },
+    "risposta": "D",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 35,
+    "fonte": "Modulo 1",
+    "domanda": "Il rischio:",
+    "opzioni": {
+      "A": "Può essere descritto utilizzando la formula che moltiplica la probabilità di accadimento di un determinato evento per l’impatto provocato da tale evento",
+      "B": "È sempre oggettivo",
+      "C": "Non può essere calcolato perché riguarda eventi e conseguenze incerte",
+      "D": "È definito dalla probabilità di accadimento di un determinato evento moltiplicato per la relativa frequenza di accadimento"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 36,
+    "fonte": "Modulo 1",
+    "domanda": "La UNI ISO 31000 come definisce il rischio?",
+    "opzioni": {
+      "A": "Evento che può avere un effetto negativo sugli obiettivi, misurato in termini di conseguenze e di probabilità",
+      "B": "Possibile evento che influenzerà negativamente il raggiungimento degli obiettivi",
+      "C": "Effetto dell’incertezza in relazione agli obiettivi",
+      "D": "Situazione o circostanza di incertezza sul raggiungimento degli obiettivi e dei programmi"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 37,
+    "fonte": "Modulo 1",
+    "domanda": "Le tipologie di rischio si possono classificare con quali tassonomie?",
+    "opzioni": {
+      "A": "Puri e speculativi",
+      "B": "Esterni e interni",
+      "C": "Strategici e operativi & Sistematici e specifici",
+      "D": "Tutte le risposte precedenti"
+    },
+    "risposta": "D",
+    "mescola": false,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 38,
+    "fonte": "Modulo 1",
+    "domanda": "Quali scenari globali è utile prendere in considerazione per comprendere i rischi?",
+    "opzioni": {
+      "A": "Tecnologici e Socio-economici",
+      "B": "Ambientali e Alimentari",
+      "C": "Geopolitici",
+      "D": "Tutte le risposte precedenti"
+    },
+    "risposta": "D",
+    "mescola": false,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 39,
+    "fonte": "Modulo 1",
+    "domanda": "La security si occupa principalmente di:",
+    "opzioni": {
+      "A": "Prevenire, fronteggiare e superare eventi causati da azioni in prevalenza illecite contro beni e persone",
+      "B": "Prevenire, fronteggiare e superare eventi causati da azioni in prevalenza illecite contro beni",
+      "C": "Prevenire, fronteggiare e superare rischi causati da azioni in prevalenza illecite contro persone",
+      "D": "Prevenire, fronteggiare e superare rischi causati da azioni in prevalenza illecite contro l'ambiente"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 40,
+    "fonte": "Modulo 1",
+    "domanda": "Come si è evoluta negli anni la funzione di security?",
+    "opzioni": {
+      "A": "Modello Risk Financing e poi Risk Controlling",
+      "B": "Modello Castle Based, Business Oriented e infine Total Risk Governance",
+      "C": "Modello Castle Based, Perimeter Security e infine Business Oriented",
+      "D": "Nessuna delle risposte precedenti"
+    },
+    "risposta": "B",
+    "mescola": false,
+    "macrotema": "Geopolitica"
+  },
+  {
+    "id": 41,
+    "fonte": "Modulo 1",
+    "domanda": "Secondo la definizione di \"Sistema Paese\", quale delle seguenti affermazioni ne interpreta correttamente il significato strategico?",
+    "opzioni": {
+      "A": "È l’insieme delle politiche di sicurezza e difesa adottate da uno Stato per contrastare minacce interne ed esterne",
+      "B": "È la somma dei fattori interni di uno Stato che ne determinano la stabilità politica ed economica",
+      "C": "È l’insieme integrato di fattori interni ed esterni attribuibili a uno Stato, che ne influenzano la posizione internazionale e sono orientati alla tutela dell’interesse nazionale",
+      "D": "È il coordinamento operativo tra istituzioni civili e militari finalizzato alla gestione delle emergenze internazionali"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Geopolitica"
+  },
+  {
+    "id": 42,
+    "fonte": "Modulo 1",
+    "domanda": "Quale delle seguenti affermazioni descrive in modo più accurato il legame tra struttura demografica e rischio politico-sociale?",
+    "opzioni": {
+      "A": "I Paesi con popolazione giovane sono intrinsecamente più stabili",
+      "B": "I Paesi con popolazione giovane possono esprimere un forte potenziale di sviluppo, ma in assenza di adeguati investimenti risultano più esposti a instabilità socio-politica",
+      "C": "I Paesi con popolazione anziana presentano minori costi sociali e quindi maggiore stabilità politica",
+      "D": "La distribuzione per età incide esclusivamente sulla spesa sanitaria"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Geopolitica"
+  },
+  {
+    "id": 43,
+    "fonte": "Modulo 1",
+    "domanda": "Quale delle seguenti definizioni corrisponde con maggior aderenza al termine \"geopolitica\":",
+    "opzioni": {
+      "A": "Lo studio dell’influenza del dato geografico sulle relazioni tra potenze",
+      "B": "La disciplina che identifica le relazioni tra Paesi",
+      "C": "La disciplina che analizza le relazioni economiche tra sistemi Paese",
+      "D": "Lo studio dei fenomeni internazionali politici"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Geopolitica"
+  },
+  {
+    "id": 44,
+    "fonte": "Modulo 1",
+    "domanda": "Quale delle seguenti combinazioni di impatti riflette in modo più completo gli effetti del rischio geopolitico sull’organizzazione?",
+    "opzioni": {
+      "A": "Interruzione della supply chain, incremento dei costi e rischio legale e reputazionale",
+      "B": "Aumento temporaneo dei costi di trasporto",
+      "C": "Miglioramento relazioni commerciali",
+      "D": "Un impatto limitato alla gestione delle trasferte del personale"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 45,
+    "fonte": "Modulo 2",
+    "domanda": "Quale tra le seguenti può essere una causa dell’effetto Domino dei problemi della catena di fornitura?",
+    "opzioni": {
+      "A": "Irrazionalità o panico",
+      "B": "Mancato coordinamento",
+      "C": "Opportunismo",
+      "D": "Lock-in di forniture"
+    },
+    "risposta": "D",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 46,
+    "fonte": "Modulo 2",
+    "domanda": "Un sistema di ERM è/deve essere?",
+    "opzioni": {
+      "A": "Statico e immutabile nel tempo",
+      "B": "Circolare (PDCA – Plan Do Check Act) e adattivo",
+      "C": "Rigorosamente analitico e senza approssimazioni di sorta",
+      "D": "Nessuna delle risposte precedenti"
+    },
+    "risposta": "B",
+    "mescola": false,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 47,
+    "fonte": "Modulo 2",
+    "domanda": "Nell’Analisi del Contesto, quali livelli devono essere analizzati?",
+    "opzioni": {
+      "A": "Interno ed Esterno",
+      "B": "Internazionale e Nazionale",
+      "C": "Geopolitico e Geoeconomico",
+      "D": "Ambientale e Sanitario"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 48,
+    "fonte": "Modulo 2",
+    "domanda": "Il costo totale del rischio si calcola tenendo conto di:",
+    "opzioni": {
+      "A": "Costi diretti + Costi indiretti + costi di prevenzione + costi di protezione",
+      "B": "Solo i costi diretti e indiretti",
+      "C": "Costi diretti + Costi indiretti + costi di prevenzione + costi di protezione + costi per il trasferimento",
+      "D": "Solo i costi di prevenzione e protezione"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 49,
+    "fonte": "Modulo 2",
+    "domanda": "Quale tra questi NON è un aspetto da tenere in considerazione per l’analisi del contesto interno:",
+    "opzioni": {
+      "A": "Risorse",
+      "B": "Infrastrutture",
+      "C": "Attività",
+      "D": "Processi"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 50,
+    "fonte": "Modulo 2",
+    "domanda": "Nell’attività di Risk Assessment, quali fasi seguono la Risk Identification?",
+    "opzioni": {
+      "A": "Risk Analysis e Risk Evaluation",
+      "B": "Recording & Reporting",
+      "C": "Monitoring & Review",
+      "D": "Communication & Consultation"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 51,
+    "fonte": "Modulo 2",
+    "domanda": "Quale tra queste è una politica di gestione del rischio?",
+    "opzioni": {
+      "A": "Rinvio",
+      "B": "Neutralizzazione",
+      "C": "Trasferimento",
+      "D": "Centralizzazione"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 52,
+    "fonte": "Modulo 2",
+    "domanda": "Quali sono gli strumenti utili per l’analisi del settore?",
+    "opzioni": {
+      "A": "PESTLE Analysis, Porter’s Five Forces e SWOT",
+      "B": "Balanced Scorecard, Canvas e Gantt",
+      "C": "Benchmarking, Audit e Brainstorming",
+      "D": "Organigramma, Budget e KPI"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 53,
+    "fonte": "Modulo 2",
+    "domanda": "Il rischio viene calcolato come:",
+    "opzioni": {
+      "A": "Frequenza + impatto",
+      "B": "Probabilità × impatto",
+      "C": "Vulnerabilità × minaccia",
+      "D": "Minaccia × contromisura"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 54,
+    "fonte": "Modulo 2",
+    "domanda": "L’attività di prevenzione è volta a:",
+    "opzioni": {
+      "A": "Ridurre la gravità dell’evento",
+      "B": "Trasferire il rischio a terzi",
+      "C": "Ridurre la probabilità di un evento",
+      "D": "Aumentare il risk appetite"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 55,
+    "fonte": "Modulo 2",
+    "domanda": "Qual è l’obiettivo principale dell’attività di protezione?",
+    "opzioni": {
+      "A": "Eliminare completamente il rischio",
+      "B": "Ridurre la gravità di un evento",
+      "C": "Ridurre la probabilità di un evento",
+      "D": "Trasferire il rischio a terzi"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 56,
+    "fonte": "Modulo 2",
+    "domanda": "Nel risk treatment, a cosa si riferisce il risk financing?",
+    "opzioni": {
+      "A": "Alla scelta tra rischio accettabile e non accettabile",
+      "B": "Alla riduzione della probabilità che un rischio si verifichi",
+      "C": "All’individuazione dei mezzi di finanziamento per ripristinare la capacità produttiva dopo un evento dannoso",
+      "D": "All’eliminazione preventiva di ogni rischio operativo"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 57,
+    "fonte": "Modulo 2",
+    "domanda": "Nel risk control, quale decisione deve essere assunta rispetto al rischio?",
+    "opzioni": {
+      "A": "Scegliere se il rischio è accettabile o non accettabile",
+      "B": "Stabilire il budget annuale della funzione security",
+      "C": "Trasferire automaticamente tutti i rischi all’assicurazione",
+      "D": "Quantificare esclusivamente il danno economico finale"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 58,
+    "fonte": "Modulo 2",
+    "domanda": "Le politiche di gestione del rischio sono:",
+    "opzioni": {
+      "A": "Prevenzione, Protezione, Trasferimento, Ritenzione, Elusione",
+      "B": "Prevenzione, Protezione, Trasferimento",
+      "C": "Protezione, Ritenzione, Prevenzione, Elusione",
+      "D": "Nessuna delle risposte precedenti"
+    },
+    "risposta": "A",
+    "mescola": false,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 59,
+    "fonte": "Modulo 2",
+    "domanda": "Qual è la differenza principale tra contromisure di sicurezza passive e attive?",
+    "opzioni": {
+      "A": "Le contromisure passive eliminano il rischio, le contromisure attive lo trasferiscono",
+      "B": "Le contromisure passive fungono da deterrente, le contromisure attive innescano una risposta",
+      "C": "Le contromisure passive sono solo tecnologiche, le contromisure attive solo organizzative",
+      "D": "Le contromisure passive riducono il danno economico, le contromisure attive il danno reputazionale"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 60,
+    "fonte": "Modulo 2",
+    "domanda": "Nel Risk Management, quale categoria di rischi comprende quelli al di fuori del controllo dell’organizzazione?",
+    "opzioni": {
+      "A": "Esterni",
+      "B": "Parzialmente indirizzabili",
+      "C": "Interni",
+      "D": "Strategici"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 61,
+    "fonte": "Modulo 2",
+    "domanda": "La cultura del rischio è rappresentata come integrazione di due livelli distinti. Quali?",
+    "opzioni": {
+      "A": "Prevenzione e protezione",
+      "B": "Controllo e finanziamento",
+      "C": "Strategia e compliance",
+      "D": "Governance e comportamenti"
+    },
+    "risposta": "D",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 62,
+    "fonte": "Modulo 2",
+    "domanda": "Quale affermazione descrive correttamente il modello di Risk Management Anticipatorio (RMA)?",
+    "opzioni": {
+      "A": "Si concentra soprattutto su profili di rischio noti e su processi semplificati",
+      "B": "È basato su standard, regole e sistemi chiusi",
+      "C": "Si fonda sui Futures Studies e sulla gestione dell’incertezza autentica",
+      "D": "È orientato prevalentemente a dati quantitativi e informazione accessibile"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 63,
+    "fonte": "Modulo 2",
+    "domanda": "Per quale motivo i modelli RMR e RMA vengono definiti sistemi complementari?",
+    "opzioni": {
+      "A": "Per la completa eliminazione dell’incertezza",
+      "B": "Per la resilienza culturale dell’organizzazione",
+      "C": "Per la riduzione dei soli rischi interni",
+      "D": "Per la sostituzione del modello reattivo con quello anticipatorio"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 64,
+    "fonte": "Modulo 2",
+    "domanda": "Nella Business Impact Analysis, che cosa indica l’RTO (Recovery Time Objective)?",
+    "opzioni": {
+      "A": "Il livello minimo di operatività necessario per garantire la continuità del business",
+      "B": "Il tempo massimo tollerabile di interruzione prima che il danno diventi insostenibile",
+      "C": "Il tempo obiettivo entro cui ripristinare l’operatività dopo un’interruzione",
+      "D": "La quantità di dati che l’organizzazione può perdere senza subire impatti rilevanti"
+    },
+    "risposta": "C",
+    "mescola": true,
+    "macrotema": "Crisis & emergenze"
+  },
+  {
+    "id": 65,
+    "fonte": "Modulo 2",
+    "domanda": "Quale tra queste è una delle cinque componenti principali del framework COSO per l’Enterprise Risk Management?",
+    "opzioni": {
+      "A": "Governance & Culture",
+      "B": "Crisis & Recovery",
+      "C": "Physical Security & Control Room",
+      "D": "Audit & Compliance Mapping"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Security aziendale"
+  },
+  {
+    "id": 66,
+    "fonte": "Modulo 2",
+    "domanda": "Nel primo passo di definizione degli obiettivi del modello ERM, cosa significa SMART?",
+    "opzioni": {
+      "A": "Specifico, Misurabile, Attuabile, Rilevante, basato sul Tempo",
+      "B": "Strategico, Monitorato, Applicabile, Rapido, Tracciabile",
+      "C": "Semplice, Misurabile, Analitico, Responsabile, Tempestivo",
+      "D": "Specifico, Monitorabile, Adeguato, Razionale, Tecnico"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 67,
+    "fonte": "Modulo 2",
+    "domanda": "Nel modello ERM, quale funzione svolge la SWOT Analysis rispetto agli obiettivi?",
+    "opzioni": {
+      "A": "Definisce le scadenze temporali per il raggiungimento degli obiettivi",
+      "B": "Analizza gli obiettivi rispetto a punti di forza, debolezze, opportunità e minacce",
+      "C": "Misura esclusivamente i rischi economico-finanziari dell’organizzazione",
+      "D": "Stabilisce il budget necessario per attuare il piano strategico"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 68,
+    "fonte": "Modulo 2",
+    "domanda": "Nel contesto dei problemi della catena di fornitura, che cosa descrive l’effetto Forrester?",
+    "opzioni": {
+      "A": "La riduzione delle inefficienze operative grazie al coordinamento tra tutti i fornitori",
+      "B": "La diminuzione delle esposizioni al rischio nei vari livelli della catena produttiva",
+      "C": "Il risultato finale di una catena di fattori di incidenti",
+      "D": "L’amplificazione delle fluttuazioni della domanda allontanandosi man mano dal cliente finale"
+    },
+    "risposta": "D",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 69,
+    "fonte": "Modulo 2",
+    "domanda": "Nel modello ERM, quale concetto indica il livello di rischio che l’organizzazione vuole sopportare rispetto ai propri obiettivi?",
+    "opzioni": {
+      "A": "Risk appetite",
+      "B": "Risk capacity",
+      "C": "Risk tolerance",
+      "D": "Risk assessment"
+    },
+    "risposta": "A",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 70,
+    "fonte": "Modulo 2",
+    "domanda": "Nel modello ERM, quale tra questi concetti rappresenta l’ampiezza entro cui l’organizzazione può discostarsi dai propri obiettivi?",
+    "opzioni": {
+      "A": "Risk appetite",
+      "B": "Risk tolerance",
+      "C": "Risk capacity",
+      "D": "Risk response"
+    },
+    "risposta": "B",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  },
+  {
+    "id": 71,
+    "fonte": "Modulo 2",
+    "domanda": "Nel monitoraggio dei rischi (KRI), quale tra questi indicatori è associato al rischio finanziario?",
+    "opzioni": {
+      "A": "Numero di incidenti informatici e percentuale di dati non protetti",
+      "B": "Numero di reclami, liquidità e verifiche interne non conformi",
+      "C": "Copertura mediatica negativa e competenze critiche",
+      "D": "Deviazione dal budget, debito pubblico e liquidità"
+    },
+    "risposta": "D",
+    "mescola": true,
+    "macrotema": "Risk Management"
+  }
+]

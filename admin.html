@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Dashboard Aula</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #1a2540; --gold: #b8943f; --gold-light: #d4af6a; --cream: #f5f2ee; --text: #1a2540; --text-muted: #6b7694; --white: #ffffff; --green: #3a8c5c; --red: #c0392b; }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar { width: 250px; background: var(--navy); display: flex; flex-direction: column; padding: 36px 0; position: fixed; top:0; left:0; bottom:0; z-index:100; }
+    .sidebar-brand { padding: 0 24px 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-icon { width: 44px; height: 44px; background: linear-gradient(135deg, rgba(184,148,63,0.3), rgba(184,148,63,0.08)); border: 1px solid rgba(184,148,63,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--gold-light); margin-bottom: 10px; }
+    .sidebar-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.8); line-height: 1.4; }
+    .admin-badge { display: inline-block; margin-top: 6px; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); background: rgba(184,148,63,0.15); padding: 3px 10px; border-radius: 20px; }
+    .sidebar-section { padding: 24px 24px 8px; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; font-size: 14px; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; border-right: 2px solid transparent; }
+    .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-item.active { color: var(--gold-light); background: rgba(184,148,63,0.08); border-right-color: var(--gold); }
+    .sidebar-footer { margin-top: auto; padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .logout-btn { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.3); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+    .logout-btn:hover { color: #e07070; }
+    .main { margin-left: 250px; flex: 1; padding: 48px 52px; }
+    .page-label { font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--navy); margin-bottom: 40px; line-height: 1.1; }
+
+    /* GRUPPO FILTER */
+    .gruppo-tabs { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .gruppo-tab { padding: 8px 20px; border: 1.5px solid rgba(26,37,64,0.15); border-radius: 30px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s; background: white; }
+    .gruppo-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+    /* STAT ROW */
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
+    .stat-card { background: var(--white); border: 1px solid rgba(26,37,64,0.08); border-radius: 10px; padding: 24px; }
+    .stat-card .num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+    .stat-card .lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+    .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 36px; }
+    .chart-card { background: var(--white); border: 1px solid rgba(26,37,64,0.08); border-radius: 10px; padding: 28px; }
+    .chart-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--navy); margin-bottom: 20px; }
+
+    /* TEMI WEAKNESS */
+    .temi-weakness { background: var(--white); border: 1px solid rgba(26,37,64,0.08); border-radius: 10px; padding: 28px; margin-bottom: 32px; }
+    .tema-row { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(26,37,64,0.05); }
+    .tema-row:last-child { border-bottom: none; }
+    .tema-row-name { font-size: 14px; font-weight: 500; color: var(--navy); min-width: 180px; }
+    .tema-row-bar-wrap { flex: 1; height: 8px; background: rgba(26,37,64,0.06); border-radius: 4px; overflow: hidden; }
+    .tema-row-bar { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+    .tema-row-pct { font-size: 14px; font-weight: 600; min-width: 44px; text-align: right; }
+    .tema-row-count { font-size: 12px; color: var(--text-muted); min-width: 80px; text-align: right; }
+
+    .empty-state { padding: 60px; text-align: center; color: var(--text-muted); font-size: 15px; }
+
+    @media (max-width: 1000px) { .stat-row { grid-template-columns: repeat(2,1fr); } .charts-row { grid-template-columns: 1fr; } }
+    @media (max-width: 800px) { .sidebar { display:none; } .main { margin-left:0; padding:32px 20px; } }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L3 6v6c0 4.5 3.3 8.7 8 9.8 4.7-1.1 8-5.3 8-9.8V6L11 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M7.5 11l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sidebar-name">Scuola Internazionale<br/>Etica & Sicurezza</div>
+      <div class="admin-badge">Admin</div>
+    </div>
+    <div class="sidebar-section">Gestione</div>
+    <div class="nav-item active">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
+      Dashboard Aula
+    </div>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 7h7M9 5l3 2-3 2M5 2H2v10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Esci
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-label">Pannello Admin</div>
+    <div class="page-title">Resoconto<br/>dell'Aula</div>
+
+    <!-- FILTRO GRUPPO -->
+    <div class="gruppo-tabs" id="gruppo-tabs">
+      <div class="gruppo-tab active" onclick="setGruppo('ALL', this)">Tutti i gruppi</div>
+      <div class="gruppo-tab" onclick="setGruppo('Interaziendale', this)">Interaziendale</div>
+      <div class="gruppo-tab" onclick="setGruppo('ISP', this)">ISP</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stat-row">
+      <div class="stat-card"><div class="num" id="a-total">0</div><div class="lbl">Test completati</div></div>
+      <div class="stat-card"><div class="num" id="a-media">—</div><div class="lbl">Media aula</div></div>
+      <div class="stat-card"><div class="num" id="a-best">—</div><div class="lbl">Miglior risultato</div></div>
+      <div class="stat-card"><div class="num" id="a-worst">—</div><div class="lbl">Risultato più basso</div></div>
+    </div>
+
+    <!-- GRAFICI -->
+    <div class="charts-row" id="charts-row" style="display:none">
+      <div class="chart-card">
+        <div class="chart-title">Andamento Aula nel Tempo</div>
+        <canvas id="chart-aula" height="220"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Distribuzione Punteggi</div>
+        <canvas id="chart-dist" height="220"></canvas>
+      </div>
+    </div>
+
+    <!-- PUNTI DEBOLI -->
+    <div class="temi-weakness" id="temi-section" style="display:none">
+      <div class="chart-title">Performance per Macrotema</div>
+      <div id="temi-rows"></div>
+    </div>
+
+    <div id="empty-state" class="empty-state">
+      Nessun risultato ancora disponibile per questo gruppo.<br/>
+      <span style="font-size:13px; margin-top:8px; display:block">I risultati appariranno qui non appena gli studenti completeranno il primo test.</span>
+    </div>
+  </main>
+</div>
+
+<script>
+  if (sessionStorage.getItem('auth_ruolo') !== 'admin') window.location.href = 'login.html';
+  let currentGruppo = 'ALL';
+
+  function logout() { sessionStorage.clear(); window.location.href = 'index.html'; }
+
+  function setGruppo(g, el) {
+    currentGruppo = g;
+    document.querySelectorAll('.gruppo-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    renderAdmin();
+  }
+
+  function loadResults(gruppo) {
+    if (gruppo === 'ALL') {
+      return JSON.parse(localStorage.getItem('alpha_test_results_ALL') || '[]');
+    }
+    return JSON.parse(localStorage.getItem('alpha_test_results_' + gruppo) || '[]');
+  }
+
+  function renderAdmin() {
+    const results = loadResults(currentGruppo);
+
+    if (results.length === 0) {
+      document.getElementById('empty-state').style.display = 'block';
+      document.getElementById('charts-row').style.display = 'none';
+      document.getElementById('temi-section').style.display = 'none';
+      document.getElementById('a-total').textContent = 0;
+      ['a-media','a-best','a-worst'].forEach(id => document.getElementById(id).textContent = '—');
+      return;
+    }
+
+    document.getElementById('empty-state').style.display = 'none';
+    document.getElementById('charts-row').style.display = 'grid';
+    document.getElementById('temi-section').style.display = 'block';
+
+    const scores = results.map(r => r.pct);
+    document.getElementById('a-total').textContent = results.length;
+    document.getElementById('a-media').textContent = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) + '%';
+    document.getElementById('a-best').textContent = Math.max(...scores) + '%';
+    document.getElementById('a-worst').textContent = Math.min(...scores) + '%';
+
+    // Chart andamento
+    const ctx1 = document.getElementById('chart-aula').getContext('2d');
+    if (window._ca1) window._ca1.destroy();
+    window._ca1 = new Chart(ctx1, {
+      type: 'line',
+      data: { labels: results.map((_,i)=>'#'+(i+1)), datasets: [{ label:'%', data:scores, borderColor:'#b8943f', backgroundColor:'rgba(184,148,63,0.08)', borderWidth:2, pointBackgroundColor:'#b8943f', tension:0.4, fill:true }] },
+      options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:100,grid:{color:'rgba(26,37,64,0.05)'}},x:{grid:{display:false}}} }
+    });
+
+    // Distribuzione
+    const fasce = [0,0,0,0,0]; // <40, 40-59, 60-69, 70-84, 85+
+    scores.forEach(s => {
+      if (s < 40) fasce[0]++;
+      else if (s < 60) fasce[1]++;
+      else if (s < 70) fasce[2]++;
+      else if (s < 85) fasce[3]++;
+      else fasce[4]++;
+    });
+    const ctx2 = document.getElementById('chart-dist').getContext('2d');
+    if (window._ca2) window._ca2.destroy();
+    window._ca2 = new Chart(ctx2, {
+      type: 'bar',
+      data: { labels: ['< 40%','40–59%','60–69%','70–84%','≥ 85%'], datasets: [{ data:fasce, backgroundColor:['rgba(192,57,43,0.7)','rgba(192,57,43,0.4)','rgba(184,148,63,0.5)','rgba(58,140,92,0.5)','rgba(58,140,92,0.8)'], borderRadius:6 }] },
+      options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,ticks:{stepSize:1},grid:{color:'rgba(26,37,64,0.05)'}},x:{grid:{display:false}}} }
+    });
+
+    // Macrotemi aggregati
+    const byTema = {};
+    results.forEach(r => {
+      if (r.byTema) Object.entries(r.byTema).forEach(([t,d]) => {
+        if (!byTema[t]) byTema[t] = {correct:0, total:0};
+        byTema[t].correct += d.correct; byTema[t].total += d.total;
+      });
+    });
+    const temiSorted = Object.entries(byTema).map(([t,d]) => ({ t, pct: Math.round((d.correct/d.total)*100), correct:d.correct, total:d.total })).sort((a,b)=>a.pct-b.pct);
+    document.getElementById('temi-rows').innerHTML = temiSorted.map(item => {
+      const color = item.pct >= 70 ? 'var(--green)' : item.pct >= 60 ? '#d4af6a' : 'var(--red)';
+      return `<div class="tema-row">
+        <div class="tema-row-name">${item.t}</div>
+        <div class="tema-row-bar-wrap"><div class="tema-row-bar" style="width:${item.pct}%; background:${color}"></div></div>
+        <div class="tema-row-pct" style="color:${color}">${item.pct}%</div>
+        <div class="tema-row-count">${item.correct}/${item.total} risp.</div>
+      </div>`;
+    }).join('');
+  }
+
+  renderAdmin();
+</script>
+</body>
+</html>

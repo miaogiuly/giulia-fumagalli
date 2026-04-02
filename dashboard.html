@@ -316,7 +316,7 @@
     { n:6, titolo:'Physical Security A', date:'21-23 maggio 2026', presenza:false },
     { n:7, titolo:'Physical Security B', date:'4-6 giugno 2026', presenza:true },
     { n:8, titolo:'Safety e Security', date:'17-20 giugno 2026', presenza:false },
-    { n:9, titolo:'Emergency & Crisis Management (L'Aquila)', date:'30 giugno - 2 luglio 2026', presenza:true },
+    { n:9, titolo:'Emergency e Crisis Management - L\u0027Aquila', date:'30 giugno - 2 luglio 2026', presenza:true },
     { n:10, titolo:'Incident Management & Business Continuity', date:'10-12 settembre 2026', presenza:false },
     { n:11, titolo:'Information & Cyber Security', date:'24-26 settembre 2026', presenza:true },
     { n:12, titolo:'Security & Resilience Compliance', date:'8-10 ottobre 2026', presenza:false },
@@ -337,76 +337,47 @@
     const d = domanda.toLowerCase();
     const oggi = new Date();
 
-    // Prossima lezione
-    if (d.includes('prossim') || d.includes('prossim') || d.includes('quando') && (d.includes('lezi') || d.includes('modul'))) {
+    if (d.includes('prossim') || (d.includes('quando') && (d.includes('lezi') || d.includes('modul')))) {
       const idx = MODULI_DATES.findIndex(dt => dt >= oggi);
       if (idx === -1) return 'Il corso è terminato. Gli esami finali si sono tenuti il 26-27 novembre 2026.';
       const m = MODULI[idx];
       return `Il prossimo appuntamento è il Modulo ${m.n} — ${m.titolo}, in programma ${m.date}.${m.presenza ? ' 🌸 Si tratta di una lezione IN PRESENZA.' : ' La lezione si svolge online.'}`;
     }
 
-    // Esami
     if (d.includes('esam') || d.includes('prova') || d.includes('26 novembre') || d.includes('27 novembre')) {
       if (d.includes('modal') || d.includes('come') || d.includes('struttur') || d.includes('funzion')) {
-        return 'L'esame finale si compone di 3 prove, tutte in presenza il 26-27 novembre 2026:
-
-1️⃣ Prova scritta a risposta multipla — 100 domande in 1 ora
-2️⃣ Progetto di Security (scritto) — 1 ora e 30 minuti
-3️⃣ Prova orale — 15 minuti per presentare la tesina su un argomento a scelta nel mondo della Security';
+        return `L'esame finale si compone di 3 prove, tutte in presenza il 26-27 novembre 2026:\n\n1️⃣ Prova scritta a risposta multipla — 100 domande in 1 ora\n2️⃣ Progetto di Security (scritto) — 1 ora e 30 minuti\n3️⃣ Prova orale — 15 minuti per presentare la tesina su un argomento a scelta nel mondo della Security`;
       }
-      return 'Gli esami finali si tengono il 26-27 novembre 2026 in presenza. Si compongono di 3 prove: una scritta a risposta multipla (100 domande, 1 ora), il Progetto di Security (1h30), e la prova orale con presentazione della tesina (15 minuti).';
+      return `Gli esami finali si tengono il 26-27 novembre 2026 in presenza. Sono composte da 3 prove: scritta a risposta multipla (100 domande, 1 ora), Progetto di Security (1h30) e prova orale con presentazione della tesina (15 minuti).`;
     }
 
-    // Presenza
     if (d.includes('presenza') || d.includes('presenz') || d.includes('fisic') || d.includes('vivo')) {
       const inPresenza = MODULI.filter(m => m.presenza);
-      return 'Le lezioni in presenza 🌸 sono:
-
-' + inPresenza.map(m => `• Modulo ${m.n} — ${m.titolo} (${m.date})`).join('
-');
+      return 'Le lezioni in presenza 🌸 sono:\n\n' + inPresenza.map(m => `• Modulo ${m.n} — ${m.titolo} (${m.date})`).join('\n');
     }
 
-    // Calendario completo
     if (d.includes('calendar') || d.includes('tutti') || d.includes('programm') || d.includes('moduli')) {
-      return 'Ecco il calendario completo del corso:
-
-' + MODULI.map(m => `Mod. ${m.n} — ${m.titolo}
-   📅 ${m.date}${m.presenza ? ' 🌸' : ''}`).join('
-
-');
+      return 'Ecco il calendario completo del corso:\n\n' + MODULI.map(m => `Mod. ${m.n} — ${m.titolo}\n   📅 ${m.date}${m.presenza ? ' 🌸' : ''}`).join('\n\n');
     }
 
-    // Tesina / orale
     if (d.includes('tesin') || d.includes('oral') || d.includes('argomento')) {
-      return 'La prova orale consiste nella presentazione di una tesina su un argomento a scelta nel mondo della Security. Avrete 15 minuti per la presentazione. La scelta dell'argomento è libera, purché attinente ai temi del corso.';
+      return `La prova orale consiste nella presentazione di una tesina su un argomento a scelta nel mondo della Security. Avrete 15 minuti per la presentazione. La scelta dell'argomento è libera, purché attinente ai temi del corso.`;
     }
 
-    // Certificazione
     if (d.includes('certif') || d.includes('10459') || d.includes('qualific')) {
-      return 'Al termine del corso è possibile conseguire la certificazione "Professionista di Security" in conformità alla norma UNI 10459:2017, nei livelli: Security Expert, Security Manager o Senior Security Manager.';
+      return `Al termine del corso è possibile conseguire la certificazione "Professionista di Security" in conformità alla norma UNI 10459:2017, nei livelli: Security Expert, Security Manager o Senior Security Manager.`;
     }
 
-    // Specifico modulo
     for (let m of MODULI) {
-      if (d.includes('modulo ' + m.n) || d.includes('mod ' + m.n) || d.includes(m.titolo.toLowerCase().split(' ').slice(0,2).join(' '))) {
-        return `Modulo ${m.n} — ${m.titolo}
-📅 Date: ${m.date}
-📍 Modalità: ${m.presenza ? 'IN PRESENZA 🌸' : 'Online'}`;
+      if (d.includes('modulo ' + m.n) || d.includes('mod ' + m.n)) {
+        return `Modulo ${m.n} — ${m.titolo}\n📅 Date: ${m.date}\n📍 Modalità: ${m.presenza ? 'IN PRESENZA 🌸' : 'Online'}`;
       }
     }
 
-    // Default
-    return 'Posso aiutarti con informazioni su:
-• 📅 Date e calendario delle lezioni
-• 🏫 Lezioni in presenza
-• 📝 Modalità e struttura degli esami
-• 📚 Programma e contenuti dei moduli
-• 🎓 Certificazione finale
-
-Prova a chiedermi qualcosa di più specifico!';
+    return `Posso aiutarti con informazioni su:\n• 📅 Date e calendario delle lezioni\n• 🏫 Lezioni in presenza\n• 📝 Modalità e struttura degli esami\n• 📚 Programma e contenuti dei moduli\n• 🎓 Certificazione finale\n\nProva a chiedermi qualcosa di più specifico!`;
   }
 
-  function addMsg(role, text) {
+    function addMsg(role, text) {
     const div = document.getElementById('ai-messages');
     const el = document.createElement('div');
     el.className = role === 'user' ? 'ai-msg-user' : 'ai-msg-bot';

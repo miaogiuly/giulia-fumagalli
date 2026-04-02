@@ -109,13 +109,18 @@
       <div class="page-label">Dashboard</div>
       <div class="page-title">Benvenuti<br/>nell'Area Formazione</div>
 
-      <div class="stat-row" id="stat-row">
+      <!-- 4 CASELLE TOP -->
+      <div class="stat-row">
         <div class="stat-card"><div class="num" id="s-total">0</div><div class="lbl">Test completati</div></div>
         <div class="stat-card"><div class="num" id="s-media">—</div><div class="lbl">Punteggio medio</div></div>
-        <div class="stat-card"><div class="num" id="s-giorni">—</div><div class="lbl">Giorni dall'ultimo test</div></div>
+        <div class="stat-card" id="countdown-card">
+          <div class="num" id="s-countdown" style="font-size:22px;letter-spacing:-1px">—</div>
+          <div class="lbl">All'esame finale</div>
+        </div>
         <div class="stat-card"><div class="num" id="s-tempo">—</div><div class="lbl">Tempo medio/dom</div></div>
       </div>
 
+      <!-- SERVIZI -->
       <div class="services-grid">
         <div class="service-card" onclick="window.location.href='test.html'">
           <div class="service-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 6h14M4 10h10M4 14h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="16" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M17 14.5v1.8l1 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div>
@@ -131,9 +136,10 @@
         </div>
       </div>
 
+      <!-- GRAFICI -->
       <div class="charts-row" id="charts-row" style="display:none">
         <div class="chart-card">
-          <div class="chart-title">Andamento nel Tempo</div>
+          <div class="chart-title">Media Progressiva nel Tempo</div>
           <canvas id="chart-trend" height="200"></canvas>
         </div>
         <div class="chart-card">
@@ -141,9 +147,33 @@
           <canvas id="chart-temi" height="200"></canvas>
         </div>
       </div>
+
+      <!-- ASSISTENTE AI -->
+      <div class="chart-card" style="margin-top:0" id="ai-box">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div style="width:40px;height:40px;background:linear-gradient(135deg,rgba(184,148,63,0.3),rgba(184,148,63,0.08));border:1px solid rgba(184,148,63,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.3"/><path d="M9 6v4M9 12v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="chart-title" style="margin-bottom:2px">Assistente del Corso</div>
+            <div style="font-size:12px;color:var(--text-muted)">Fai una domanda su date, programma o modalità d'esame</div>
+          </div>
+        </div>
+        <div id="ai-messages" style="min-height:80px;max-height:320px;overflow-y:auto;margin-bottom:16px;display:flex;flex-direction:column;gap:12px"></div>
+        <div style="display:flex;gap:10px">
+          <input id="ai-input" type="text" placeholder="Es: quando è il prossimo modulo?" style="flex:1;padding:12px 16px;border:1.5px solid rgba(26,37,64,0.12);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;outline:none;background:var(--cream)" onkeydown="if(event.key==='Enter')sendAI()"/>
+          <button onclick="sendAI()" style="padding:12px 20px;background:var(--navy);color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;transition:background 0.2s" onmouseover="this.style.background='#243058'" onmouseout="this.style.background='var(--navy)'">Invia</button>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap" id="ai-suggerimenti">
+          <span onclick="quickAsk(this)" style="font-size:11px;padding:4px 12px;background:rgba(184,148,63,0.08);color:var(--gold);border-radius:20px;cursor:pointer;border:1px solid rgba(184,148,63,0.2)">Prossima lezione</span>
+          <span onclick="quickAsk(this)" style="font-size:11px;padding:4px 12px;background:rgba(184,148,63,0.08);color:var(--gold);border-radius:20px;cursor:pointer;border:1px solid rgba(184,148,63,0.2)">Quando sono gli esami?</span>
+          <span onclick="quickAsk(this)" style="font-size:11px;padding:4px 12px;background:rgba(184,148,63,0.08);color:var(--gold);border-radius:20px;cursor:pointer;border:1px solid rgba(184,148,63,0.2)">Modalità d'esame</span>
+          <span onclick="quickAsk(this)" style="font-size:11px;padding:4px 12px;background:rgba(184,148,63,0.08);color:var(--gold);border-radius:20px;cursor:pointer;border:1px solid rgba(184,148,63,0.2)">Lezioni in presenza</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- STATS -->
     <div id="section-stats" style="display:none">
       <div class="page-label">Statistiche</div>
       <div class="page-title">Il Vostro<br/>Andamento</div>
@@ -173,6 +203,7 @@
   document.getElementById('gruppo-display').textContent = gruppo;
 
   const TEMI = ['Risk Management','Security aziendale','Normativa','Crisis & emergenze','Geopolitica','Sicurezza informazioni'];
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwgb-mm9AedoDRlqUjxcvw6N0JDmvsdkiBbBEVfUzZLv964OK2JN4jD2qPbU2KMavCDYw/exec';
 
   function logout() { sessionStorage.clear(); window.location.href = 'index.html'; }
 
@@ -192,27 +223,47 @@
   function getTemiPcts(results) {
     return TEMI.map(t => {
       const vals = results.map(r => {
-        if (r.byTema && r.byTema[t] && r.byTema[t].total > 0) {
+        if (r.byTema && r.byTema[t] && r.byTema[t].total > 0)
           return Math.round((r.byTema[t].correct / r.byTema[t].total) * 100);
-        }
         return null;
       }).filter(v => v !== null);
       return vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : null;
     });
   }
 
+  // ── CONTO ALLA ROVESCIA ──
+  function startCountdown() {
+    const esameDate = gruppo === 'ISP'
+      ? new Date('2026-12-03T09:00:00')
+      : new Date('2026-11-26T09:00:00');
+
+    function update() {
+      const now = new Date();
+      const diff = esameDate - now;
+      if (diff <= 0) {
+        document.getElementById('s-countdown').textContent = 'Esame oggi!';
+        return;
+      }
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const secs = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById('s-countdown').textContent =
+        days + 'g ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+    }
+    update();
+    setInterval(update, 1000);
+  }
+
+  // ── SOMMARIO ──
   function updateSummary() {
     const results = loadResults();
+    startCountdown();
     if (results.length === 0) return;
     const scores = results.map(r => r.pct);
     const tempi = results.map(r => r.avgTempo).filter(v => v && v !== '—' && !isNaN(v));
     document.getElementById('s-total').textContent = results.length;
     document.getElementById('s-media').textContent = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) + '%';
-    const lastTs = results[results.length-1].timestamp;
-    if (lastTs) {
-      const giorni = Math.floor((Date.now() - Number(lastTs)) / (1000*60*60*24));
-      document.getElementById('s-giorni').textContent = giorni === 0 ? 'Oggi' : giorni + 'g';
-    }
     if (tempi.length) document.getElementById('s-tempo').textContent = Math.round(tempi.reduce((a,b)=>a+ +b,0)/tempi.length) + 's';
     renderHomeCharts(results);
     document.getElementById('charts-row').style.display = 'grid';
@@ -221,35 +272,26 @@
   function renderHomeCharts(results) {
     const scores = results.map(r => r.pct);
     const medie = scores.map((_, i) => Math.round(scores.slice(0,i+1).reduce((a,b)=>a+b,0)/(i+1)));
-
     const ctx1 = document.getElementById('chart-trend').getContext('2d');
     if (window._c1) window._c1.destroy();
     window._c1 = new Chart(ctx1, {
       type: 'line',
-      data: {
-        labels: scores.map((_,i) => 'Test '+(i+1)),
-        datasets: [
-          { label: 'Punteggio', data: scores, borderColor: 'rgba(184,148,63,0.35)', borderWidth: 1.5, pointRadius: 3, pointBackgroundColor: 'rgba(184,148,63,0.35)', tension: 0.3, fill: false, borderDash: [4,4] },
-          { label: 'Media', data: medie, borderColor: '#b8943f', backgroundColor: 'rgba(184,148,63,0.08)', borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#b8943f', tension: 0.4, fill: true }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { display: true, position: 'bottom', labels: { font: { family: 'Outfit', size: 11 }, boxWidth: 12 } } }, scales: { y: { min: 0, max: 100, grid: { color: 'rgba(26,37,64,0.05)' }, ticks: { callback: v => v+'%' } }, x: { grid: { display: false } } } }
+      data: { labels: scores.map((_,i)=>'Test '+(i+1)), datasets: [
+        { label:'Punteggio', data:scores, borderColor:'rgba(184,148,63,0.35)', borderWidth:1.5, pointRadius:3, pointBackgroundColor:'rgba(184,148,63,0.35)', tension:0.3, fill:false, borderDash:[4,4] },
+        { label:'Media', data:medie, borderColor:'#b8943f', backgroundColor:'rgba(184,148,63,0.08)', borderWidth:2.5, pointRadius:4, pointBackgroundColor:'#b8943f', tension:0.4, fill:true }
+      ]},
+      options: { responsive:true, plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Outfit',size:11},boxWidth:12}}}, scales:{y:{min:0,max:100,grid:{color:'rgba(26,37,64,0.05)'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}} }
     });
-
     const temiPcts = getTemiPcts(results);
-    const temiConDati = TEMI.filter((_,i) => temiPcts[i] !== null);
-    const pcts = temiPcts.filter(v => v !== null);
-
+    const temiConDati = TEMI.filter((_,i)=>temiPcts[i]!==null);
+    const pcts = temiPcts.filter(v=>v!==null);
     if (temiConDati.length > 0) {
       const ctx2 = document.getElementById('chart-temi').getContext('2d');
       if (window._c2) window._c2.destroy();
       window._c2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-          labels: temiConDati.map(t => t.length > 16 ? t.substring(0,16)+'…' : t),
-          datasets: [{ data: pcts, backgroundColor: pcts.map(p => p>=70?'rgba(58,140,92,0.7)':'rgba(192,57,43,0.6)'), borderRadius: 6 }]
-        },
-        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { min:0, max:100, grid: { color: 'rgba(26,37,64,0.05)' }, ticks: { callback: v => v+'%' } }, x: { grid: { display:false }, ticks: { font: { size: 10 } } } } }
+        type:'bar',
+        data:{labels:temiConDati.map(t=>t.length>16?t.substring(0,16)+'…':t),datasets:[{data:pcts,backgroundColor:pcts.map(p=>p>=70?'rgba(58,140,92,0.7)':'rgba(192,57,43,0.6)'),borderRadius:6}]},
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,grid:{color:'rgba(26,37,64,0.05)'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
       });
     }
   }
@@ -258,33 +300,212 @@
     const results = loadResults();
     if (results.length === 0) { document.getElementById('history-table').innerHTML = '<p style="color:var(--text-muted)">Nessun test ancora completato.</p>'; return; }
     const scores = results.map(r => r.pct);
-
     const ctx = document.getElementById('chart-trend2').getContext('2d');
     if (window._c3) window._c3.destroy();
     window._c3 = new Chart(ctx, {
-      type: 'line',
-      data: { labels: scores.map((_,i)=>'Test '+(i+1)), datasets: [{ data: scores, borderColor:'#b8943f', backgroundColor:'rgba(184,148,63,0.08)', borderWidth:2, pointBackgroundColor:'#b8943f', tension:0.4, fill:true }] },
-      options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}} }
+      type:'line',
+      data:{labels:scores.map((_,i)=>'Test '+(i+1)),datasets:[{data:scores,borderColor:'#b8943f',backgroundColor:'rgba(184,148,63,0.08)',borderWidth:2,pointBackgroundColor:'#b8943f',tension:0.4,fill:true}]},
+      options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
     });
-
     const temiPcts = getTemiPcts(results);
-    const temiConDati = TEMI.filter((_,i) => temiPcts[i] !== null);
-    const temiErrori = temiPcts.filter(v => v !== null).map(v => Math.round(100-v));
-
+    const temiConDati = TEMI.filter((_,i)=>temiPcts[i]!==null);
+    const temiErrori = temiPcts.filter(v=>v!==null).map(v=>Math.round(100-v));
     if (temiConDati.length > 0) {
       const ctx2 = document.getElementById('chart-errori').getContext('2d');
       if (window._c4) window._c4.destroy();
       window._c4 = new Chart(ctx2, {
-        type: 'bar',
-        data: { labels: temiConDati.map(t=>t.length>16?t.substring(0,16)+'…':t), datasets:[{ data:temiErrori, backgroundColor:temiErrori.map(p=>p>=30?'rgba(192,57,43,0.6)':'rgba(58,140,92,0.6)'), borderRadius:6 }] },
-        options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}} }
+        type:'bar',
+        data:{labels:temiConDati.map(t=>t.length>16?t.substring(0,16)+'…':t),datasets:[{data:temiErrori,backgroundColor:temiErrori.map(p=>p>=30?'rgba(192,57,43,0.6)':'rgba(58,140,92,0.6)'),borderRadius:6}]},
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
       });
     }
+    document.getElementById('history-table').innerHTML = `<table><thead><tr><th>Data</th><th>Domande</th><th>Corrette</th><th>Punteggio</th><th>Tempo medio</th></tr></thead><tbody>${results.slice().reverse().map((r,i)=>`<tr style="background:${i%2===0?'white':'#faf9f7'}"><td>${r.data||'—'}</td><td>${r.total||'—'}</td><td>${r.correct||'—'}</td><td><span class="score-pill" style="background:${r.pct>=70?'rgba(58,140,92,0.1)':'rgba(192,57,43,0.08)'};color:${r.pct>=70?'var(--green)':'var(--red)'}">${r.pct}%</span></td><td>${r.avgTempo&&r.avgTempo!=='—'?r.avgTempo+'s':'—'}</td></tr>`).join('')}</tbody></table>`;
+  }
 
-    document.getElementById('history-table').innerHTML = `<table><thead><tr><th>Data</th><th>Domande</th><th>Corrette</th><th>Punteggio</th><th>Tempo medio</th></tr></thead><tbody>${results.slice().reverse().map((r,i)=>`<tr style="background:${i%2===0?'white':'#faf9f7'}"><td>${r.data||'—'}</td><td>${r.total||'—'}</td><td>${r.correct||'—'}</td><td><span class="score-pill" style="background:${r.pct>=70?'rgba(58,140,92,0.1)':'rgba(192,57,43,0.08)'}; color:${r.pct>=70?'var(--green)':'var(--red)'}">${r.pct}%</span></td><td>${r.avgTempo&&r.avgTempo!=='—'?r.avgTempo+'s':'—'}</td></tr>`).join('')}</tbody></table>`;
+  // ── ASSISTENTE AI ──
+  const SYSTEM_PROMPT = `Sei l'assistente virtuale del corso "Il Professionista di Security: competenze e abilità per nuove strategie integrate di sicurezza" - XXIV edizione, gruppo Interaziendale.
+
+Rispondi in italiano, in modo cordiale e preciso. Rispondi SOLO a domande relative al corso: date, programma, moduli, esami, modalità. Per domande non pertinenti, di' gentilmente che puoi rispondere solo a domande sul corso.
+
+MODALITÀ D'ESAME (3 prove in presenza il 26-27/11/2026):
+1. PROVA SCRITTA A RISPOSTA MULTIPLA: 100 domande, 1 ora di tempo
+2. PROGETTO DI SECURITY (scritto): 1 ora e 30 minuti di tempo
+3. PROVA ORALE: 15 minuti per presentare la tesina su un argomento a scelta nel mondo della Security
+
+STRUTTURA CORSO: 180 ore totali (130 ore online, 24 ore in presenza, 26 ore esercitazioni)
+Le lezioni online si tengono il giovedì e venerdì dalle 14:00 alle 18:00, e il sabato dalle 9:00 alle 13:00.
+I moduli 🌸 IN PRESENZA richiedono la presenza fisica.
+
+CALENDARIO COMPLETO (🌸 = in presenza):
+MODULO 1 - Security Management
+- 11/02/2026: Apertura corso, tavola rotonda (10:30-13:00) 🌸 IN PRESENZA
+- 11/02/2026: Introduzione al corso (14:30-15:00)
+- 11/02/2026: Scenari geopolitici e geoeconomici (15:00-17:00)
+- 11/02/2026: Test di ingresso (17:00-18:00)
+- 12/02/2026: Il professionista della Security - UNI 10459:2017 (09:00-13:00)
+- 12/02/2026: Security Management - principi base (14:00-16:00)
+
+MODULO 2 - Enterprise Risk Management
+- 05/03/2026: Test 1 (14:00-14:30)
+- 05/03/2026: Enterprise Risk Security Management - Security Risk Map
+- 06/03/2026: Enterprise Risk Management - UNI ISO 31.000
+- 07/03/2026: Esercitazione progetto
+
+MODULO 3 - Sicurezza Integrata
+- 26/03/2026: Test 2 (14:00-14:30) 🌸 IN PRESENZA
+- 26/03/2026: Sicurezza privata - TULPS, DM 269/2010 (14:30-18:00) 🌸 IN PRESENZA
+- 27/03/2026: Sicurezza pubblica - Costituzione italiana (14:00-16:00) 🌸 IN PRESENZA
+- 27/03/2026: Sicurezza pubblica - ruoli e responsabilità (16:00-18:00) 🌸 IN PRESENZA
+- 28/03/2026: Elementi di criminologia (09:00-11:00)
+- 28/03/2026: Sicurezza urbana (11:00-13:00)
+
+MODULO 4 - Strategie, Management e Budgeting
+- 09/04/2026: Test 3
+- 09/04/2026: Strategia, pianificazione e controllo aziendale
+- 09/04/2026: Time & Project Management (parte 1)
+- 10/04/2026: Time & Project Management (parte 2)
+- 10/04/2026: Budgeting e finanza aziendale (Mod. A)
+- 11/04/2026: Budgeting e finanza aziendale (Mod. B)
+
+MODULO 5 - Psicologia del rischio e organizzazione aziendale
+- 07/05/2026: Psicologia del rischio e comunicazione 🌸 IN PRESENZA
+- 08/05/2026: Strumenti organizzativi della Security
+- 09/05/2026: Test 4
+- 09/05/2026: Organizzazione aziendale
+
+MODULO 6 - Physical Security (A)
+- 21/05/2026: Test 5
+- 21/05/2026: Elementi di sicurezza fisica
+- 22/05/2026: Tecnologie di physical security
+- 22/05/2026: AI applicata alla physical security
+- 23/05/2026: Esercitazione progetto
+
+MODULO 7 - Physical Security (B)
+- 04/06/2026: Test 6 🌸 IN PRESENZA
+- 04/06/2026: Capitolati tecnici per la sicurezza 🌸 IN PRESENZA
+- 05/06/2026: Due diligence e audit fornitori
+- 06/06/2026: Esercitazione progetto
+
+MODULO 8 - Safety e Security
+- 17/06/2026: Test 7
+- 17/06/2026: Safety Management
+- 19/06/2026: Salute, stress e benessere organizzativo
+- 19/06/2026: Sicurezza degli eventi e manifestazioni
+- 20/06/2026: Workplace Violence e Travel Risk Management
+
+MODULO 9 - Emergency & Crisis Management
+- 30/06/2026 - 02/07/2026: Emergency & Crisis Management a L'Aquila 🌸 IN PRESENZA (3 giorni)
+
+MODULO 10 - Incident Management & Business Continuity
+- 10/09/2026: Business Continuity & Disaster Recovery
+- 10/09/2026: Fondamenti di Incident Analysis
+- 11/09/2026: Esercitazione 🌸 IN PRESENZA
+- 11/09/2026: Incident Management & Reporting
+- 12/09/2026: Organizzazioni ad alta affidabilità
+- 12/09/2026: Test 8 + 9
+
+MODULO 11 - Information & Cyber Security
+- 24/09/2026: Test 10 🌸 IN PRESENZA
+- 24/09/2026: Rischi e Reati Informatici - Tecniche di attacco
+- 25/09/2026: Information & Cyber Security (Mod. A)
+- 26/09/2026: Information & Cyber Security (Mod. B)
+- 26/09/2026: Cyber & Physical Security
+
+MODULO 12 - Security & Resilience Compliance
+- 08/10/2026: Test 11
+- 08/10/2026: Digital Compliance (GDPR, NIS2, AI Act, DORA, CER) - Mod. A
+- 09/10/2026: Digital Compliance - Mod. B
+- 10/10/2026: Tutela risorse intangibili e Intelligence istituzionale
+
+MODULO 13 - Diritto, Investigation & Intelligence
+- 22/10/2026: Test 12 🌸 IN PRESENZA
+- 22/10/2026: Elementi di Diritto Penale 🌸 IN PRESENZA
+- 23/10/2026: Investigazioni aziendali
+- 23/10/2026: Security Intelligence in azienda
+- 24/10/2026: Esercitazione progetto
+
+MODULO 14 - Etica e Diritto
+- 05/11/2026: Test 13
+- 05/11/2026: Sistemi di gestione integrati
+- 06/11/2026: Responsabilità d'impresa (231)
+- 06/11/2026: Etica & Sicurezza
+- 07/11/2026: Esercitazione progetto
+
+MODULO 15 - ESAMI FINALI
+- 26/11/2026 - 27/11/2026: Esami finali 🌸 IN PRESENZA
+
+CERTIFICAZIONE: Al termine è possibile conseguire la certificazione "Professionista di Security" (Security Expert, Security Manager, Senior Security Manager) in conformità alla Norma UNI 10459:2017.`;
+
+  let aiMessages = [];
+
+  function addMessage(role, text) {
+    const div = document.getElementById('ai-messages');
+    const msg = document.createElement('div');
+    msg.style.cssText = role === 'user'
+      ? 'align-self:flex-end;background:var(--navy);color:white;padding:10px 14px;border-radius:12px 12px 2px 12px;font-size:14px;max-width:80%;line-height:1.5'
+      : 'align-self:flex-start;background:var(--cream);color:var(--navy);padding:10px 14px;border-radius:12px 12px 12px 2px;font-size:14px;max-width:85%;line-height:1.5;border:1px solid rgba(26,37,64,0.08)';
+    msg.textContent = text;
+    div.appendChild(msg);
+    div.scrollTop = div.scrollHeight;
+  }
+
+  function addTyping() {
+    const div = document.getElementById('ai-messages');
+    const msg = document.createElement('div');
+    msg.id = 'typing-indicator';
+    msg.style.cssText = 'align-self:flex-start;background:var(--cream);color:var(--text-muted);padding:10px 14px;border-radius:12px 12px 12px 2px;font-size:13px;border:1px solid rgba(26,37,64,0.08)';
+    msg.textContent = '...';
+    div.appendChild(msg);
+    div.scrollTop = div.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typing-indicator');
+    if (el) el.remove();
+  }
+
+  function quickAsk(el) {
+    document.getElementById('ai-input').value = el.textContent;
+    sendAI();
+  }
+
+  async function sendAI() {
+    const input = document.getElementById('ai-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    addMessage('user', text);
+    aiMessages.push({ role: 'user', content: text });
+    addTyping();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 500,
+          system: SYSTEM_PROMPT,
+          messages: aiMessages
+        })
+      });
+      const data = await res.json();
+      removeTyping();
+      const reply = data.content?.[0]?.text || 'Mi dispiace, non ho capito. Puoi riformulare la domanda?';
+      addMessage('assistant', reply);
+      aiMessages.push({ role: 'assistant', content: reply });
+    } catch(e) {
+      removeTyping();
+      addMessage('assistant', 'Mi dispiace, si è verificato un errore. Riprova tra qualche istante.');
+    }
   }
 
   updateSummary();
+  // Messaggio di benvenuto AI
+  setTimeout(() => {
+    addMessage('assistant', 'Ciao! Sono il tuo assistente del corso. Puoi chiedermi informazioni sulle date delle lezioni, il programma, le modalità d'esame e molto altro. Come posso aiutarti?');
+  }, 500);
 </script>
 </body>
 </html>

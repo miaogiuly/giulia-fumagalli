@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafePass — Crisis & Travel Security Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--navy:#1a2540;--gold:#b8943f;--gold-light:#d4af6a;--cream:#f5f2ee;--text:#1a2540;--text-muted:#6b7694;--white:#ffffff;--green:#3a8c5c;--red:#c0392b}
+    body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
+
+    /* LOGIN */
+    #login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;background:radial-gradient(ellipse at 30% 50%,rgba(184,148,63,0.08) 0%,transparent 60%),var(--navy)}
+    .login-icon{width:72px;height:72px;background:linear-gradient(135deg,rgba(184,148,63,0.3),rgba(184,148,63,0.06));border:1.5px solid rgba(184,148,63,0.4);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);margin-bottom:28px}
+    .login-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;letter-spacing:-1px;margin-bottom:6px}
+    .login-sub{font-size:13px;color:rgba(255,255,255,0.35);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px}
+    .login-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:36px;width:100%;max-width:380px}
+    .login-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;display:block}
+    .login-input{width:100%;padding:14px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--white);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;margin-bottom:20px}
+    .login-input:focus{border-color:rgba(184,148,63,0.5)}
+    .login-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+    .login-btn:hover{background:var(--gold-light)}
+    .login-error{font-size:13px;color:#e74c3c;text-align:center;margin-top:12px;display:none}
+    .conn-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 12px;border-radius:20px;margin-top:24px;border:1px solid}
+    .badge-on{background:rgba(58,140,92,0.2);color:#2ecc71;border-color:rgba(58,140,92,0.3)}
+    .badge-off{background:rgba(192,57,43,0.2);color:#e74c3c;border-color:rgba(192,57,43,0.3)}
+
+    /* APP */
+    #app-screen{display:none;min-height:100vh;flex-direction:column}
+    .topbar{background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+    .topbar-brand{display:flex;align-items:center;gap:12px}
+    .brand-icon{width:36px;height:36px;background:rgba(184,148,63,0.2);border:1px solid rgba(184,148,63,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--gold-light)}
+    .brand-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300}
+    .topbar-right{display:flex;align-items:center;gap:14px}
+    .status-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.4)}
+    .sdot{width:8px;height:8px;border-radius:50%}
+    .sdot-on{background:#2ecc71;box-shadow:0 0 6px #2ecc71}
+    .sdot-off{background:#e74c3c}
+    .tabs{display:flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+    .tab{padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;color:rgba(255,255,255,0.5);border:none;background:none;white-space:nowrap}
+    .tab.active{background:var(--gold);color:var(--navy)}
+    .logout-btn{font-size:12px;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer}
+    .logout-btn:hover{color:#e07070}
+
+    .layout{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 65px)}
+
+    /* SIDEBAR */
+    .sidebar{background:rgba(255,255,255,0.02);border-right:1px solid rgba(255,255,255,0.06);overflow-y:auto;padding:16px 0}
+    .sb-section{padding:16px 18px 6px;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.2)}
+    .sb-item{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;transition:all 0.2s;border-right:2px solid transparent}
+    .sb-item:hover{background:rgba(255,255,255,0.04)}
+    .sb-item.active{background:rgba(184,148,63,0.08);border-right-color:var(--gold)}
+    .sb-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+    .sb-name{font-size:13px;color:rgba(255,255,255,0.65)}
+    .sb-cnt{font-size:11px;color:rgba(255,255,255,0.25);margin-left:auto}
+    .sb-item.active .sb-name{color:var(--gold-light)}
+
+    /* MAIN */
+    .main{overflow-y:auto;padding:28px 32px}
+    .search-wrap{position:relative;margin-bottom:28px}
+    .search-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3)}
+    .search-in{width:100%;padding:14px 18px 14px 48px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--white);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:all 0.2s}
+    .search-in:focus{border-color:rgba(184,148,63,0.4);background:rgba(255,255,255,0.08)}
+    .search-in::placeholder{color:rgba(255,255,255,0.25)}
+
+    /* AI PANEL */
+    #panel-ai{display:block}
+    .ai-hdr{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding:18px;background:rgba(184,148,63,0.08);border:1px solid rgba(184,148,63,0.2);border-radius:10px}
+    .ai-hdr-ico{width:42px;height:42px;background:rgba(184,148,63,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--gold-light);flex-shrink:0}
+    .ai-hdr h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-bottom:2px}
+    .ai-hdr p{font-size:12px;color:rgba(255,255,255,0.4)}
+    .ai-msgs{min-height:280px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+    .msg-u{align-self:flex-end;background:var(--gold);color:var(--navy);padding:11px 15px;border-radius:12px 12px 2px 12px;font-size:14px;max-width:75%;line-height:1.5;font-weight:500}
+    .msg-b{align-self:flex-start;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.9);padding:11px 15px;border-radius:12px 12px 12px 2px;font-size:14px;max-width:82%;line-height:1.6;border:1px solid rgba(255,255,255,0.08);white-space:pre-line}
+    .msg-src{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;font-style:italic}
+    .ai-row{display:flex;gap:10px}
+    .ai-in{flex:1;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;outline:none}
+    .ai-in:focus{border-color:rgba(184,148,63,0.4)}
+    .ai-in::placeholder{color:rgba(255,255,255,0.25)}
+    .ai-send{padding:12px 22px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer}
+    .sugs{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+    .sug{font-size:11px;padding:4px 11px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:20px;cursor:pointer;transition:all 0.2s}
+    .sug:hover{background:rgba(184,148,63,0.1);color:var(--gold-light);border-color:rgba(184,148,63,0.2)}
+
+    /* DB PANEL */
+    #panel-db{display:none}
+    .panel-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:6px}
+    .panel-sub{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:24px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+    .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all 0.25s;border-left:3px solid transparent}
+    .card:hover{background:rgba(255,255,255,0.07);border-left-color:var(--gold);transform:translateX(2px)}
+    .card-hdr{display:flex;align-items:flex-start;gap:12px}
+    .card-em{font-size:22px;flex-shrink:0;margin-top:2px}
+    .card-title{font-size:15px;font-weight:500;margin-bottom:4px;line-height:1.3}
+    .card-prev{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5}
+    .card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+    .tag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+    .tr{background:rgba(192,57,43,0.2);color:#e74c3c}
+    .to{background:rgba(211,84,0,0.2);color:#e67e22}
+    .tb{background:rgba(36,113,163,0.2);color:#5dade2}
+    .tg{background:rgba(58,140,92,0.2);color:#2ecc71}
+    .tl{background:rgba(184,148,63,0.2);color:var(--gold-light)}
+    .no-res{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3)}
+
+    /* PAESI PANEL */
+    #panel-paesi{display:none}
+    .paese-search-wrap{margin-bottom:24px}
+    .region-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .rtab{padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s}
+    .rtab.active,.rtab:hover{background:rgba(184,148,63,0.15);border-color:rgba(184,148,63,0.3);color:var(--gold-light)}
+    .paesi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+    .paese-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px}
+    .paese-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(184,148,63,0.3)}
+    .paese-flag{font-size:24px}
+    .paese-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.8)}
+    .paese-region{font-size:11px;color:rgba(255,255,255,0.3)}
+
+    /* DETAIL OVERLAY */
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;overflow-y:auto;padding:40px 20px}
+    .overlay.open{display:flex;align-items:flex-start;justify-content:center}
+    .det-box{background:#1e2d4a;border:1px solid rgba(255,255,255,0.1);border-radius:14px;width:100%;max-width:720px;padding:36px;position:relative;margin:auto}
+    .det-close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.5);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+    .det-close:hover{background:rgba(255,255,255,0.12);color:white}
+    .det-em{font-size:40px;margin-bottom:14px}
+    .det-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;margin-bottom:6px}
+    .det-meta{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
+    .det-body{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.8}
+    .det-body h4{font-size:12px;font-weight:600;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;margin:18px 0 8px}
+    .det-body ul{padding-left:20px}
+    .det-body li{margin-bottom:5px}
+    .alert-box{background:rgba(192,57,43,0.15);border-left:3px solid #e74c3c;padding:11px 15px;border-radius:4px;margin:14px 0;font-size:13px;color:#f1948a}
+    .tip-box{background:rgba(58,140,92,0.12);border-left:3px solid #2ecc71;padding:11px 15px;border-radius:4px;margin:14px 0;font-size:13px;color:#82e0aa}
+    .fonte{font-size:11px;color:rgba(255,255,255,0.25);margin-top:20px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06)}
+    .fonte a{color:rgba(184,148,63,0.7);text-decoration:none}
+
+    /* PAESE DETAIL */
+    .paese-det-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:22px}
+    .info-block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px}
+    .info-block h4{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px}
+    .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;gap:10px}
+    .info-row:last-child{border-bottom:none}
+    .info-label{color:rgba(255,255,255,0.4);flex-shrink:0}
+    .info-val{color:rgba(255,255,255,0.85);text-align:right}
+    .info-val a{color:var(--gold-light);text-decoration:none}
+    .map-frame{width:100%;height:340px;border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin-bottom:14px}
+    .map-frame iframe{width:100%;height:100%;border:none}
+    .map-links{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .map-link{padding:7px 14px;font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+    .map-link:hover{background:rgba(184,148,63,0.1);border-color:rgba(184,148,63,0.3);color:var(--gold-light)}
+    .rischio-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:16px}
+    .rischio-1{background:rgba(58,140,92,0.2);color:#2ecc71;border:1px solid rgba(58,140,92,0.3)}
+    .rischio-2{background:rgba(184,148,63,0.2);color:var(--gold-light);border:1px solid rgba(184,148,63,0.3)}
+    .rischio-3{background:rgba(211,84,0,0.2);color:#e67e22;border:1px solid rgba(211,84,0,0.3)}
+    .rischio-4{background:rgba(192,57,43,0.2);color:#e74c3c;border:1px solid rgba(192,57,43,0.3)}
+
+    @media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{display:none}.paese-det-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-icon">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 3L5 8.5v9c0 6.5 4.5 12.5 11 14.5 6.5-2 11-8 11-14.5v-9L16 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 16l3.5 3.5 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="login-title">SafePass</div>
+  <div class="login-sub">Crisis & Travel Security Guide</div>
+  <div class="login-box">
+    <label class="login-label">Codice di accesso</label>
+    <input class="login-input" type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Accedi</button>
+    <div class="login-error" id="lerr">Codice non valido. Riprova.</div>
+  </div>
+  <div class="conn-badge" id="cbadge"><span class="sdot"></span><span id="ctext">Verifica connessione...</span></div>
+</div>
+
+<!-- APP -->
+<div id="app-screen" style="display:none;flex-direction:column;min-height:100vh">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="brand-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5L2.5 4.75v5.25c0 3.75 2.6 7.25 6.5 8.5 3.9-1.25 6.5-4.75 6.5-8.5V4.75L9 1.5z" stroke="currentColor" stroke-width="1.3"/><path d="M6 9l2.5 2.5L13 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-name">SafePass</div>
+    </div>
+    <div class="topbar-right">
+      <div class="status-pill"><div class="sdot" id="sdot"></div><span id="stxt" style="font-size:12px">Online</span></div>
+      <div class="tabs">
+        <button class="tab active" id="t-ai" onclick="setMode('ai')">🤖 AI Assistant</button>
+        <button class="tab" id="t-db" onclick="setMode('db')">📚 Procedure</button>
+        <button class="tab" id="t-paesi" onclick="setMode('paesi')">🌍 Paesi</button>
+      </div>
+      <button class="logout-btn" onclick="logout()">Esci</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sb-section">Procedure</div>
+      <div class="sb-item active" onclick="filterCat('all',this)"><div class="sb-ico" style="background:rgba(184,148,63,0.15)">🌍</div><span class="sb-name">Tutte</span><span class="sb-cnt" id="c-all">0</span></div>
+      <div class="sb-item" onclick="filterCat('naturale',this)"><div class="sb-ico" style="background:rgba(211,84,0,0.2)">🌋</div><span class="sb-name">Calamità naturali</span><span class="sb-cnt" id="c-naturale">0</span></div>
+      <div class="sb-item" onclick="filterCat('emergenza',this)"><div class="sb-ico" style="background:rgba(192,57,43,0.2)">🆘</div><span class="sb-name">Emergenze</span><span class="sb-cnt" id="c-emergenza">0</span></div>
+      <div class="sb-item" onclick="filterCat('sicurezza',this)"><div class="sb-ico" style="background:rgba(36,113,163,0.2)">🛡️</div><span class="sb-name">Sicurezza personale</span><span class="sb-cnt" id="c-sicurezza">0</span></div>
+      <div class="sb-item" onclick="filterCat('salute',this)"><div class="sb-ico" style="background:rgba(58,140,92,0.2)">🏥</div><span class="sb-name">Salute & Primo soccorso</span><span class="sb-cnt" id="c-salute">0</span></div>
+      <div class="sb-item" onclick="filterCat('logistica',this)"><div class="sb-ico" style="background:rgba(142,68,173,0.2)">✈️</div><span class="sb-name">Logistica & Trasporti</span><span class="sb-cnt" id="c-logistica">0</span></div>
+      <div class="sb-item" onclick="filterCat('numeri',this)"><div class="sb-ico" style="background:rgba(184,148,63,0.15)">📞</div><span class="sb-name">Numeri utili</span><span class="sb-cnt" id="c-numeri">0</span></div>
+      <div class="sb-section" style="margin-top:16px">Paesi</div>
+      <div class="sb-item" onclick="setMode('paesi');filterRegion('europa')"><div class="sb-ico" style="background:rgba(36,113,163,0.2)">🇪🇺</div><span class="sb-name">Europa</span></div>
+      <div class="sb-item" onclick="setMode('paesi');filterRegion('medioriente')"><div class="sb-ico" style="background:rgba(211,84,0,0.2)">🏜️</div><span class="sb-name">Medio Oriente</span></div>
+      <div class="sb-item" onclick="setMode('paesi');filterRegion('americhe')"><div class="sb-ico" style="background:rgba(58,140,92,0.2)">🌎</div><span class="sb-name">Americhe</span></div>
+      <div class="sb-item" onclick="setMode('paesi');filterRegion('asia')"><div class="sb-ico" style="background:rgba(142,68,173,0.2)">🌏</div><span class="sb-name">Asia</span></div>
+      <div class="sb-item" onclick="setMode('paesi');filterRegion('africa')"><div class="sb-ico" style="background:rgba(184,148,63,0.15)">🌍</div><span class="sb-name">Africa</span></div>
+    </aside>
+
+    <main class="main">
+      <div class="search-wrap">
+        <div class="search-ico"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M13 13l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <input class="search-in" id="srch" type="text" placeholder="Cerca procedura, paese, situazione di emergenza..." oninput="onSearch()"/>
+      </div>
+
+      <!-- AI -->
+      <div id="panel-ai">
+        <div class="ai-hdr">
+          <div class="ai-hdr-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.3"/><path d="M11 7.5v5M11 14.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div><h3>SafePass AI Assistant</h3><p>Descrivi la situazione — rispondo con procedure pratiche e fonti verificate</p></div>
+        </div>
+        <div class="ai-msgs" id="ai-msgs"></div>
+        <div class="ai-row">
+          <input class="ai-in" id="ai-in" type="text" placeholder="Es: terremoto in corso, cosa faccio?" onkeydown="if(event.key==='Enter')sendAI()"/>
+          <button class="ai-send" onclick="sendAI()">Invia</button>
+        </div>
+        <div class="sugs">
+          <span class="sug" onclick="qa('Terremoto in corso, procedura immediata')">🌍 Terremoto</span>
+          <span class="sug" onclick="qa('Blackout elettrico totale prolungato')">⚡ Blackout</span>
+          <span class="sug" onclick="qa('Mi trovo in zona di conflitto armato')">⚠️ Conflitto armato</span>
+          <span class="sug" onclick="qa('Ho perso il passaporto all estero')">📄 Passaporto perso</span>
+          <span class="sug" onclick="qa('Emergenza medica grave in trasferta')">🏥 Emergenza medica</span>
+          <span class="sug" onclick="qa('Attacco terroristico nelle vicinanze')">🚨 Attacco terroristico</span>
+          <span class="sug" onclick="qa('Alluvione in corso nella mia area')">🌊 Alluvione</span>
+        </div>
+      </div>
+
+      <!-- PROCEDURE -->
+      <div id="panel-db" style="display:none">
+        <div class="panel-title" id="db-title">Tutte le procedure</div>
+        <div class="panel-sub">Seleziona una scheda per la procedura completa con fonti</div>
+        <div class="cards" id="cards"></div>
+        <div class="no-res" id="no-res" style="display:none"><p style="font-size:16px;margin-bottom:8px">Nessun risultato</p><p style="font-size:13px">Prova con parole chiave diverse o usa l'AI Assistant</p></div>
+      </div>
+
+      <!-- PAESI -->
+      <div id="panel-paesi" style="display:none">
+        <div class="panel-title">Informazioni per paese</div>
+        <div class="panel-sub">Ambasciata italiana, numeri di emergenza, ospedali e polizia — Fonte: Farnesina MAECI</div>
+        <div class="region-tabs" id="rtabs">
+          <div class="rtab active" onclick="filterRegion('tutti',this)">🌍 Tutti</div>
+          <div class="rtab" onclick="filterRegion('europa',this)">🇪🇺 Europa</div>
+          <div class="rtab" onclick="filterRegion('medioriente',this)">🏜️ Medio Oriente</div>
+          <div class="rtab" onclick="filterRegion('americhe',this)">🌎 Americhe</div>
+          <div class="rtab" onclick="filterRegion('asia',this)">🌏 Asia</div>
+          <div class="rtab" onclick="filterRegion('africa',this)">🌍 Africa</div>
+        </div>
+        <div class="paesi-grid" id="paesi-grid"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- OVERLAY PROCEDURE -->
+<div class="overlay" id="ov-proc">
+  <div class="det-box">
+    <button class="det-close" onclick="closeOv('ov-proc')">✕</button>
+    <div class="det-em" id="d-em"></div>
+    <div class="det-title" id="d-title"></div>
+    <div class="det-meta" id="d-meta"></div>
+    <div class="det-body" id="d-body"></div>
+    <div class="fonte" id="d-fonte"></div>
+  </div>
+</div>
+
+<!-- OVERLAY PAESE -->
+<div class="overlay" id="ov-paese">
+  <div class="det-box" style="max-width:780px">
+    <button class="det-close" onclick="closeOv('ov-paese')">✕</button>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px">
+      <div style="font-size:48px" id="p-flag"></div>
+      <div>
+        <div class="det-title" id="p-name" style="margin-bottom:4px"></div>
+        <div class="det-meta" id="p-region"></div>
+        <div id="p-rischio"></div>
+      </div>
+    </div>
+    <div class="paese-det-grid">
+      <div class="info-block">
+        <h4>🇮🇹 Ambasciata Italiana</h4>
+        <div id="p-amb"></div>
+      </div>
+      <div class="info-block">
+        <h4>🚨 Emergenze locali</h4>
+        <div id="p-emg"></div>
+      </div>
+    </div>
+    <div class="paese-det-grid">
+      <div class="info-block">
+        <h4>🏥 Ospedale di riferimento</h4>
+        <div id="p-osp"></div>
+      </div>
+      <div class="info-block">
+        <h4>👮 Polizia</h4>
+        <div id="p-pol"></div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;font-weight:500">📍 Mappa — clicca per aprire in Google Maps</div>
+    <div class="map-links" id="p-maplinks"></div>
+    <div class="map-frame" id="p-map"></div>
+    <div class="fonte">Fonti: <a href="https://www.viaggiaresicuri.it" target="_blank">Farnesina — Viaggiare Sicuri</a> · <a href="https://www.esteri.it/it/servizi-consolari-e-visti/italiani-all-estero/sportello-consolare/" target="_blank">MAECI Sportello Consolare</a> · dati verificati 2024–2025</div>
+  </div>
+</div>
+
+<script>
+const PWD='TRM2026';
+let online=navigator.onLine,mode='ai',curCat='all',curRegion='tutti';
+
+// AUTH
+function login(){
+  if(document.getElementById('pwd').value===PWD){
+    document.getElementById('login-screen').style.display='none';
+    const a=document.getElementById('app-screen');a.style.display='flex';
+    init();
+  } else {
+    document.getElementById('lerr').style.display='block';
+  }
+}
+function logout(){
+  document.getElementById('app-screen').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('pwd').value='';
+}
+
+// CONN
+function updateConn(){
+  online=navigator.onLine;
+  const b=document.getElementById('cbadge'),ct=document.getElementById('ctext');
+  const sd=document.getElementById('sdot'),st=document.getElementById('stxt');
+  if(online){b.className='conn-badge badge-on';ct.textContent='Connesso — AI disponibile';sd.className='sdot sdot-on';st.textContent='Online';}
+  else{b.className='conn-badge badge-off';ct.textContent='Offline — Database disponibile';sd.className='sdot sdot-off';st.textContent='Offline';}
+  document.getElementById('t-ai').style.opacity=online?'1':'0.4';
+  if(!online&&mode==='ai')setMode('db');
+}
+window.addEventListener('online',updateConn);
+window.addEventListener('offline',updateConn);
+updateConn();
+
+// MODE
+function setMode(m){
+  mode=m;
+  ['ai','db','paesi'].forEach(p=>{
+    document.getElementById('panel-'+p).style.display=p===m?'block':'none';
+    document.getElementById('t-'+p).classList.toggle('active',p===m);
+  });
+  if(m==='db')renderCards(DB,curCat);
+  if(m==='paesi')renderPaesi(curRegion);
+}
+
+// SEARCH
+function onSearch(){
+  const q=document.getElementById('srch').value.toLowerCase().trim();
+  if(!q){if(mode==='db')renderCards(DB,curCat);if(mode==='paesi')renderPaesi(curRegion);return;}
+  // Search procedures
+  const rp=DB.filter(e=>e.title.toLowerCase().includes(q)||e.preview.toLowerCase().includes(q)||e.tags.some(t=>t.includes(q))||e.body.toLowerCase().includes(q));
+  const rpa=PAESI.filter(p=>p.name.toLowerCase().includes(q)||p.region.toLowerCase().includes(q));
+  if(mode==='paesi'&&rpa.length>0){renderPaesi('tutti',q);return;}
+  setMode('db');renderCards(rp,'all',q);
+}
+
+// ── DATABASE PROCEDURE ──
+const DB=[
+  {id:1,cat:'naturale',em:'🌍',urg:'alta',title:'Terremoto',tags:['naturale','sisma','evacuazione'],prev:'Procedure prima, durante e dopo una scossa sismica.',
+  body:`<h4>🔴 Durante la scossa</h4><ul><li>Riparati sotto un tavolo robusto o contro un muro portante interno</li><li>Allontanati da finestre, specchi e oggetti che possono cadere</li><li>Non usare l'ascensore — non uscire durante la scossa</li><li>Se sei in strada: allontanati da edifici e lampioni</li><li>Se sei in auto: fermati lontano da ponti, resta dentro</li></ul><div class="alert-box">⚠️ La maggior parte delle vittime si verifica fuori dagli edifici durante il sisma. Non correre verso le uscite finché la terra trema.</div><h4>✅ Dopo la scossa</h4><ul><li>Esci con calma usando le scale dopo che la scossa è cessata</li><li>Raggiungi uno spazio aperto lontano da strutture</li><li>Non rientrare fino all'autorizzazione delle autorità</li><li>Attenzione alle scosse di assestamento</li><li>Verifica se ci sono feriti nelle vicinanze</li></ul><h4>📞 Numeri immediati</h4><ul><li>Emergenze EU: <strong>112</strong></li><li>Unità di Crisi Farnesina: <strong>+39 06 36225</strong></li></ul><div class="tip-box">💡 Tieni sempre scarpe robuste vicino al letto in zone sismiche — i vetri rotti sono causa frequente di ferimento.</div>`,
+  fonte:'Fonti: <a href="https://www.protezionecivile.gov.it/it/approfondimento/come-comportarsi-durante-e-dopo-il-terremoto" target="_blank">Protezione Civile Italiana</a> · <a href="https://www.usgs.gov/faqs/what-should-i-do-during-earthquake" target="_blank">USGS Earthquake Hazards Program</a>'},
+
+  {id:2,cat:'emergenza',em:'⚡',urg:'media',title:'Blackout elettrico prolungato',tags:['emergenza','infrastrutture','blackout'],prev:'Gestione di un'interruzione prolungata della corrente elettrica.',
+  body:`<h4>🔴 Azioni immediate</h4><ul><li>Attiva la torcia del telefono — risparmia la batteria al massimo</li><li>Non aprire inutilmente il frigorifero (conserva il freddo fino a 4 ore)</li><li>Scollega apparecchi elettronici sensibili dalla presa</li><li>Identifica l'uscita di emergenza dell'edificio</li></ul><h4>📍 Valutazione</h4><ul><li>Verifica se il blackout è locale o di area — affacciati alla finestra</li><li>Ascolta la radio a batterie per aggiornamenti ufficiali</li><li>Se dura oltre 2 ore: contatta referente aziendale</li></ul><h4>🌙 Blackout notturno</h4><ul><li>Non usare candele senza sorveglianza — rischio incendio</li><li>Mantieni il telefono in carica con powerbank</li><li>Segnala la tua posizione al referente aziendale</li></ul><div class="tip-box">💡 Prima di ogni trasferta: scarica le mappe offline, tieni la batteria sopra 50%, porta un powerbank.</div>`,
+  fonte:'Fonti: <a href="https://www.ready.gov/power-outages" target="_blank">FEMA Ready.gov — Power Outages</a> · <a href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/power-outage.html" target="_blank">American Red Cross</a>'},
+
+  {id:3,cat:'sicurezza',em:'⚠️',urg:'alta',title:'Zona di conflitto o instabilità politica',tags:['sicurezza','conflitto','evacuazione'],prev:'Procedure in aree ad alto rischio politico o militare.',
+  body:`<h4>🔴 Segnali di allerta</h4><ul><li>Presenza insolita di forze militari o di polizia</li><li>Manifestazioni o assembramenti improvvisi</li><li>Chiusura improvvisa di negozi e attività pubbliche</li><li>Allerta di autorità locali o diplomatici</li></ul><div class="alert-box">⚠️ Alla prima percezione di pericolo: non aspettare conferma. Allontanati subito.</div><h4>✅ Comportamento</h4><ul><li>Registrati sull'app <strong>Farnesina</strong> prima della partenza</li><li>Tieni sempre con te documenti, contanti locali e borsa d'emergenza</li><li>Conosci l'ubicazione dell'ambasciata italiana</li><li>Evita manifestazioni anche se sembrano pacifiche</li><li>Non indossare simboli che ti identifichino come straniero</li><li>Varia orari e percorsi quotidiani</li></ul><h4>🚗 Evacuazione</h4><ul><li>Segui le indicazioni dell'ambasciata e del referente aziendale</li><li>Tieni il serbatoio sempre sopra metà</li><li>Conosci almeno due percorsi alternativi per uscire dalla città</li></ul><div class="tip-box">💡 Unità di Crisi MAECI: +39 06 36225 (attivo 24h) — salvalo in rubrica prima di partire.</div>`,
+  fonte:'Fonti: <a href="https://www.viaggiaresicuri.it" target="_blank">Farnesina — Viaggiare Sicuri</a> · <a href="https://www.gov.uk/foreign-travel-advice" target="_blank">UK Foreign Travel Advice (FCDO)</a> · <a href="https://travel.state.gov" target="_blank">U.S. Department of State Travel</a>'},
+
+  {id:4,cat:'logistica',em:'📄',urg:'media',title:'Furto o perdita documenti',tags:['documenti','passaporto','logistica'],prev:'Procedura per passaporto perso, rubato o smarrito all\'estero.',
+  body:`<h4>🔴 Azioni immediate</h4><ul><li>Denuncia il furto/smarrimento alla polizia locale — chiedi copia della denuncia</li><li>Contatta l'ambasciata o consolato italiano più vicino</li><li>Avvisa il referente aziendale</li></ul><h4>📋 Documenti sostitutivi</h4><ul><li>L'ambasciata rilascia un <strong>documento di viaggio d'emergenza</strong> in 24-48 ore</li><li>Porta: denuncia, documento d'identità secondario, foto tessera</li><li>Se hai copia digitale del passaporto (consigliato), mostrala all'ambasciata</li></ul><h4>💳 Carte bancarie bloccate</h4><ul><li>Blocca le carte dall'app della banca o chiama il numero verde</li><li>Chiedi al referente aziendale anticipo contanti o trasferimento</li></ul><div class="tip-box">💡 Prima di ogni viaggio: scansiona tutti i documenti, salvali su cloud e in locale. Lascia copia a un contatto fidato in Italia.</div>`,
+  fonte:'Fonti: <a href="https://www.esteri.it/it/servizi-consolari-e-visti/italiani-all-estero/" target="_blank">MAECI — Italiani all\'estero</a> · <a href="https://www.viaggiaresicuri.it/cosa-fare/assistenza-all-estero" target="_blank">Farnesina — Assistenza all\'estero</a>'},
+
+  {id:5,cat:'salute',em:'🏥',urg:'alta',title:'Emergenza medica in trasferta',tags:['salute','pronto soccorso','ospedale'],prev:'Come accedere alle cure mediche e gestire un\'emergenza sanitaria.',
+  body:`<h4>🔴 Numeri di emergenza</h4><ul><li>EU e molti paesi: <strong>112</strong></li><li>USA/Canada: <strong>911</strong></li><li>UK: <strong>999</strong></li><li>Australia: <strong>000</strong></li><li>Giappone: <strong>119</strong> (ambulanza) / <strong>110</strong> (polizia)</li></ul><h4>✅ Se svenuto e non respira</h4><ul><li>Inizia RCP: 30 compressioni toraciche, 2 insufflazioni</li><li>Chiama il 112 immediatamente</li><li>Usa il defibrillatore se disponibile (AED)</li></ul><h4>🏥 All'ospedale</h4><ul><li>Mostra tessera sanitaria europea (TEAM) se in EU</li><li>Fuori EU: mostra certificato assicurativo aziendale</li><li>Chiedi sempre documentazione delle cure ricevute in inglese</li><li>Avvisa il referente aziendale di ogni ricovero</li></ul><div class="alert-box">⚠️ Non rifiutare le cure per problemi economici — l'azienda copre le spese. Conserva tutte le ricevute.</div>`,
+  fonte:'Fonti: <a href="https://www.who.int/emergencies/en/" target="_blank">WHO — Emergencies</a> · <a href="https://ec.europa.eu/social/main.jsp?catId=559" target="_blank">Commissione Europea — Tessera Sanitaria</a> · <a href="https://www.redcross.org/take-a-class/cpr" target="_blank">American Red Cross — CPR</a>'},
+
+  {id:6,cat:'naturale',em:'🌊',urg:'alta',title:'Alluvione e inondazione',tags:['naturale','acqua','evacuazione'],prev:'Procedure di sicurezza in caso di alluvione o esondazione.',
+  body:`<h4>🔴 Segnali di allerta</h4><ul><li>Allerta meteo delle autorità locali</li><li>Innalzamento rapido del livello di fiumi o canali</li><li>Fango o detriti nell'acqua corrente</li></ul><h4>✅ Durante l'inondazione</h4><ul><li>Sali ai piani superiori — non scendere in cantina o garage</li><li>Non camminare in acqua in movimento: 15cm bastano a far cadere un adulto</li><li>Scollega gli apparecchi elettrici</li><li>Tieni documenti e borsa d'emergenza in alto</li></ul><div class="alert-box">⚠️ Non attraversare mai una strada allagata in auto o a piedi. L'acqua corrente è molto più pericolosa di quanto appare.</div><h4>🚗 In auto durante l'alluvione</h4><ul><li>Se l'acqua sale: abbandona subito il veicolo e sali in alto</li><li>Tieni il finestrino aperto per poter uscire in emergenza</li></ul>`,
+  fonte:'Fonti: <a href="https://www.protezionecivile.gov.it/it/approfondimento/alluvioni" target="_blank">Protezione Civile Italiana — Alluvioni</a> · <a href="https://www.ready.gov/floods" target="_blank">FEMA Ready.gov — Floods</a>'},
+
+  {id:7,cat:'sicurezza',em:'🚨',urg:'alta',title:'Attacco terroristico — RUN HIDE TELL',tags:['sicurezza','terrorismo','emergenza'],prev:'Protocollo internazionale RUN — HIDE — TELL in caso di attacco.',
+  body:`<div class="alert-box">⚠️ In caso di attacco armato: la priorità assoluta è uscire dall'area. Non raccogliere oggetti personali.</div><h4>1. RUN — Corri</h4><ul><li>Scappa dalla zona di pericolo il più lontano possibile</li><li>Non aspettare gli altri — incoraggia ma non fermarti</li><li>Lascia i bagagli</li><li>Non rientrare per nessun motivo</li></ul><h4>2. HIDE — Nasconditi</h4><ul><li>Se non puoi fuggire: nasconditi in un luogo sicuro e chiudi a chiave</li><li>Spegni luci e suono del telefono — non parlare</li><li>Blocca la porta con mobili pesanti</li><li>Distenditi sul pavimento lontano dalle finestre</li></ul><h4>3. TELL — Avvisa</h4><ul><li>Chiama il 112 appena sei al sicuro</li><li>Fornisci: posizione, numero aggressori, descrizione, tipo di armi</li><li>Avvisa il referente aziendale</li></ul><h4>⚠️ All'arrivo delle forze dell'ordine</h4><ul><li>Mani alzate e visibili — segui le istruzioni</li><li>Non correre verso gli agenti</li></ul>`,
+  fonte:'Fonti: <a href="https://www.mi5.gov.uk/threat-levels" target="_blank">MI5 UK Security Service</a> · <a href="https://www.counterterrorism.police.uk/staysafe/" target="_blank">UK Counter Terrorism Policing — Stay Safe</a> · <a href="https://www.dhs.gov/active-shooter-preparedness" target="_blank">U.S. DHS — Active Shooter</a>'},
+
+  {id:8,cat:'numeri',em:'📞',urg:'bassa',title:'Numeri di emergenza internazionali',tags:['numeri','contatti','emergenza'],prev:'Numeri di emergenza nei principali paesi del mondo.',
+  body:`<h4>🌍 Numeri universali</h4><ul><li><strong>112</strong> — Emergenze EU + oltre 90 paesi</li><li><strong>911</strong> — USA, Canada, Messico</li><li><strong>999</strong> — UK, Hong Kong, paesi Commonwealth</li><li><strong>000</strong> — Australia</li><li><strong>111</strong> — Nuova Zelanda</li><li><strong>119</strong> — Giappone (ambulanza) · <strong>110</strong> Polizia</li><li><strong>999</strong> — Emirati Arabi, Arabia Saudita, Qatar</li><li><strong>122</strong> — Egitto (ambulanza) · <strong>123</strong> Polizia</li></ul><h4>🇮🇹 Contatti italiani</h4><ul><li><strong>Unità di Crisi Farnesina</strong>: +39 06 36225 (attivo 24h)</li><li><strong>Numero verde Farnesina</strong>: 800 896 700 (da Italia)</li><li><strong>App Farnesina</strong>: scarica prima della partenza</li><li><strong>International SOS</strong>: verifica abbonamento aziendale</li></ul><div class="tip-box">💡 Salva tutti questi numeri offline nella rubrica del telefono prima di partire.</div>`,
+  fonte:'Fonti: <a href="https://www.viaggiaresicuri.it" target="_blank">Farnesina — Viaggiare Sicuri</a> · <a href="https://www.eena.org/112-the-european-emergency-number/" target="_blank">EENA — European Emergency Number Association</a>'},
+
+  {id:9,cat:'salute',em:'🌡️',urg:'media',title:'Malattie tropicali e intossicazioni',tags:['salute','tropicale','malaria'],prev:'Riconoscere e gestire sintomi in paesi tropicali o a rischio.',
+  body:`<h4>⚠️ Sintomi da monitorare</h4><ul><li>Febbre alta improvvisa (>38.5°) dopo soggiorno tropicale → possibile malaria</li><li>Diarrea persistente >24h con sangue → possibile infezione batterica</li><li>Eruzioni cutanee improvvise → possibile dengue</li><li>Difficoltà respiratorie → emergenza, chiama 112</li></ul><h4>✅ Azioni immediate</h4><ul><li>Idratazione abbondante con acqua in bottiglia sigillata</li><li>Non assumere antibiotici senza prescrizione</li><li>Recati al pronto soccorso o clinica appena possibile</li><li>Informa il medico dei paesi visitati</li></ul><h4>🦟 Prevenzione malaria</h4><ul><li>Profilassi antimalarica prescritta dal medico prima della partenza</li><li>Repellenti con DEET al 50% su pelle esposta</li><li>Zanzariera impregnata per dormire</li><li>Abiti lunghi dopo il tramonto nelle zone endemiche</li></ul>`,
+  fonte:'Fonti: <a href="https://www.who.int/news-room/fact-sheets/detail/malaria" target="_blank">WHO — Malaria Fact Sheet</a> · <a href="https://wwwnc.cdc.gov/travel" target="_blank">CDC — Travelers Health</a> · <a href="https://www.epicentro.iss.it/malaria/" target="_blank">ISS Epicentro — Malaria</a>'},
+
+  {id:10,cat:'logistica',em:'✈️',urg:'bassa',title:'Volo cancellato o bagaglio perso',tags:['logistica','volo','aeroporto'],prev:'Diritti del passeggero e procedura per bagaglio smarrito.',
+  body:`<h4>✈️ Volo cancellato (EU — Reg. 261/2004)</h4><ul><li>Ritardo >3h o cancellazione: rimborso fino a €600</li><li>Chiedi il modulo di reclamo scritto alla compagnia</li><li>Conserva carta d'imbarco e ricevute di tutte le spese</li><li>Pasti e bevande: richiedibili dopo 2h di attesa</li></ul><h4>🧳 Bagaglio perso</h4><ul><li>Denuncia immediatamente al Lost & Found in aeroporto</li><li>Compila il modulo PIR — conserva la copia</li><li>Rimborso fino a ~1.300€ (Convenzione di Montreal)</li><li>Avvisa referente aziendale e assicurazione di viaggio</li></ul><div class="tip-box">💡 Fotografa sempre il contenuto della valigia prima di partire. Metti etichetta con i tuoi dati dentro e fuori. Porta il necessario per una notte nel bagaglio a mano.</div>`,
+  fonte:'Fonti: <a href="https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_it.htm" target="_blank">EU — Diritti passeggeri aerei</a> · <a href="https://www.enac.gov.it/la-nostra-attivita/tutela-dei-passeggeri" target="_blank">ENAC — Tutela passeggeri</a>'},
+
+  {id:11,cat:'naturale',em:'🌪️',urg:'alta',title:'Uragano e tifone',tags:['naturale','uragano','tifone','vento'],prev:'Procedure di sicurezza durante cicloni tropicali.',
+  body:`<h4>🔴 Prima dell'uragano</h4><ul><li>Segui le indicazioni di evacuazione delle autorità locali senza esitazione</li><li>Se non evacuato: scegli una stanza interna senza finestre al piano più basso sopra quello allagabile</li><li>Metti al sicuro oggetti fuori dal balcone o giardino</li><li>Fai scorta d'acqua: 4 litri/persona/giorno per almeno 3 giorni</li></ul><h4>✅ Durante l'uragano</h4><ul><li>Rimani al chiuso lontano dalle finestre</li><li>Se senti calma improvvisa: potrebbe essere l'occhio — l'uragano non è finito</li><li>Non uscire finché le autorità non dichiarano fine pericolo</li></ul><h4>⚠️ Dopo l'uragano</h4><ul><li>Attenzione ad allagamenti stradali, linee elettriche cadute, strutture danneggiate</li><li>Usa acqua in bottiglia — quella del rubinetto potrebbe essere contaminata</li></ul>`,
+  fonte:'Fonti: <a href="https://www.ready.gov/hurricanes" target="_blank">FEMA Ready.gov — Hurricanes</a> · <a href="https://www.nhc.noaa.gov/prepare/ready.php" target="_blank">NOAA National Hurricane Center</a>'},
+
+  {id:12,cat:'sicurezza',em:'🔒',urg:'media',title:'Sicurezza personale e furto',tags:['sicurezza','furto','borseggio'],prev:'Prevenire aggressioni, borseggi e furti in viaggio.',
+  body:`<h4>✅ Prevenzione</h4><ul><li>Non esibire oggetti di valore in pubblico (gioielli, laptop, fotocamere costose)</li><li>Usa marsupio o borsa antitaccheggio portata frontalmente</li><li>In taxi: verifica che il tassista abbia licenza esposta</li><li>Condividi sempre il tuo itinerario con il referente aziendale</li><li>Evita di camminare da solo di notte in zone sconosciute</li></ul><h4>🔴 In caso di aggressione o furto</h4><ul><li>Non resistere se richiesto di consegnare oggetti di valore — la vita vale più di qualsiasi oggetto</li><li>Denuncia immediatamente alla polizia locale — richiedi copia della denuncia</li><li>Avvisa banca e blocca le carte</li><li>Avvisa il referente aziendale</li></ul><div class="alert-box">⚠️ In caso di sequestro o rapimento: mantieni la calma, non provocare, memorizza dettagli su persone e luoghi.</div>`,
+  fonte:'Fonti: <a href="https://www.osac.gov" target="_blank">U.S. OSAC — Overseas Security Advisory Council</a> · <a href="https://www.asis.org" target="_blank">ASIS International — Security Standards</a>'},
+];
+
+// ── DATABASE PAESI ──
+const PAESI=[
+  // EUROPA
+  {id:'fr',flag:'🇫🇷',name:'Francia',region:'europa',rischio:1,
+   amb:{addr:'Via Guglielmo Marconi 1, Parigi',tel:'+33 1 44 30 47 00',email:'amb.parigi@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'17',amb_locale:'15',pom:'18'},
+   osp:{nome:'Hôpital de la Pitié-Salpêtrière',addr:'47 Bd de l\'Hôpital, Parigi',tel:'+33 1 42 16 00 00'},
+   pol:{nome:'Police Nationale',tel:'17',addr:'Commissariati diffusi in tutta la città'},
+   map_center:'Paris, France'},
+
+  {id:'de',flag:'🇩🇪',name:'Germania',region:'europa',rischio:1,
+   amb:{addr:'Hiroshimastrasse 1, Berlino',tel:'+49 30 254400',email:'amb.berlino@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'110',amb_locale:'112',pom:'116 117'},
+   osp:{nome:'Charité Universitätsmedizin Berlin',addr:'Charitépl. 1, Berlino',tel:'+49 30 450 50'},
+   pol:{nome:'Berliner Polizei',tel:'110',addr:'Platz der Luftbrücke 6, Berlino'},
+   map_center:'Berlin, Germany'},
+
+  {id:'es',flag:'🇪🇸',name:'Spagna',region:'europa',rischio:1,
+   amb:{addr:'Calle Lagasca 98, Madrid',tel:'+34 91 423 33 00',email:'amb.madrid@esteri.it',orario:'Lun-Ven 9:00-13:00'},
+   emg:{gen:'112',pol:'091',amb_locale:'061',pom:'061'},
+   osp:{nome:'Hospital General Universitario Gregorio Marañón',addr:'Calle del Doctor Esquerdo 46, Madrid',tel:'+34 91 586 80 00'},
+   pol:{nome:'Policia Nacional',tel:'091',addr:'Varie sedi in città'},
+   map_center:'Madrid, Spain'},
+
+  {id:'uk',flag:'🇬🇧',name:'Regno Unito',region:'europa',rischio:1,
+   amb:{addr:'14 Three Kings Yard, London W1K 4EH',tel:'+44 20 7312 2200',email:'amb.londra@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'999',pol:'999',amb_locale:'999',pom:'111'},
+   osp:{nome:'St Thomas\' Hospital',addr:'Westminster Bridge Rd, London',tel:'+44 20 7188 7188'},
+   pol:{nome:'Metropolitan Police',tel:'999 (emg) / 101 (non emg)',addr:'New Scotland Yard, Victoria Embankment'},
+   map_center:'London, United Kingdom'},
+
+  {id:'ch',flag:'🇨🇭',name:'Svizzera',region:'europa',rischio:1,
+   amb:{addr:'Elfenstrasse 14, Berna',tel:'+41 31 350 07 77',email:'amb.berna@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'117',amb_locale:'144',pom:'144'},
+   osp:{nome:'Inselspital Bern',addr:'Freiburgstrasse 18, Berna',tel:'+41 31 632 21 11'},
+   pol:{nome:'Kantonspolizei Bern',tel:'117',addr:'Nordring 32, Berna'},
+   map_center:'Bern, Switzerland'},
+
+  {id:'pl',flag:'🇵🇱',name:'Polonia',region:'europa',rischio:1,
+   amb:{addr:'ul. Szucha 17, Varsavia',tel:'+48 22 523 40 00',email:'amb.varsavia@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'997',amb_locale:'999',pom:'998'},
+   osp:{nome:'Szpital Kliniczny Dzieciątka Jezus',addr:'ul. Lindleya 4, Varsavia',tel:'+48 22 502 20 00'},
+   pol:{nome:'Policja',tel:'997',addr:'ul. Puławska 148/150, Varsavia'},
+   map_center:'Warsaw, Poland'},
+
+  {id:'ua',flag:'🇺🇦',name:'Ucraina',region:'europa',rischio:4,
+   amb:{addr:'via F. Capodistria 2, Kiev (operativa in modalità ridotta)',tel:'+380 44 230 31 00',email:'amb.kiev@esteri.it',orario:'Verificare disponibilità'},
+   emg:{gen:'112',pol:'102',amb_locale:'103',pom:'101'},
+   osp:{nome:'Oleksandrivska Clinical Hospital',addr:'Shevchenko Blvd 37, Kiev',tel:'+380 44 234 05 00'},
+   pol:{nome:'Polizia Nazionale Ucraina',tel:'102',addr:'Akademika Bohomoltsia 10, Kiev'},
+   map_center:'Kyiv, Ukraine'},
+
+  // MEDIO ORIENTE
+  {id:'ae',flag:'🇦🇪',name:'Emirati Arabi',region:'medioriente',rischio:2,
+   amb:{addr:'Abu Dhabi: Villa 17, Al Manhal Area',tel:'+971 2 443 5622',email:'amb.abudhabi@esteri.it',orario:'Dom-Gio 8:30-14:00'},
+   emg:{gen:'999',pol:'999',amb_locale:'998',pom:'998'},
+   osp:{nome:'Cleveland Clinic Abu Dhabi',addr:'Al Maryah Island, Abu Dhabi',tel:'+971 2 501 0000'},
+   pol:{nome:'Abu Dhabi Police',tel:'999',addr:'General HQ, Abu Dhabi'},
+   map_center:'Abu Dhabi, UAE'},
+
+  {id:'sa',flag:'🇸🇦',name:'Arabia Saudita',region:'medioriente',rischio:3,
+   amb:{addr:'Riyadh Diplomatic Quarter, Via Italia',tel:'+966 11 488 1212',email:'amb.riad@esteri.it',orario:'Dom-Gio 8:00-13:00'},
+   emg:{gen:'999',pol:'999',amb_locale:'997',pom:'911'},
+   osp:{nome:'King Fahad Medical City',addr:'Riyadh',tel:'+966 11 288 9999'},
+   pol:{nome:'Saudi Police — Shurta',tel:'999',addr:'Ministero degli Interni, Riyadh'},
+   map_center:'Riyadh, Saudi Arabia'},
+
+  {id:'il',flag:'🇮🇱',name:'Israele',region:'medioriente',rischio:3,
+   amb:{addr:'via Michele Migliori 14, Tel Aviv',tel:'+972 3 510 38 40',email:'amb.telaviv@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'100',pol:'100',amb_locale:'101',pom:'102'},
+   osp:{nome:'Tel Aviv Sourasky Medical Center (Ichilov)',addr:'6 Weizmann St, Tel Aviv',tel:'+972 3 697 4444'},
+   pol:{nome:'Israel Police — Mishtara',tel:'100',addr:'HQ: Kikar Safra, Jerusalem'},
+   map_center:'Tel Aviv, Israel'},
+
+  {id:'tr',flag:'🇹🇷',name:'Turchia',region:'medioriente',rischio:2,
+   amb:{addr:'Atatürk Bulvarı 118, Ankara',tel:'+90 312 426 54 60',email:'amb.ankara@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'155',amb_locale:'112',pom:'110'},
+   osp:{nome:'Hacettepe University Hospital',addr:'Sıhhıye, Ankara',tel:'+90 312 305 50 00'},
+   pol:{nome:'Emniyet Genel Müdürlüğü',tel:'155',addr:'Dikmen Cad, Ankara'},
+   map_center:'Ankara, Turkey'},
+
+  {id:'jo',flag:'🇯🇴',name:'Giordania',region:'medioriente',rischio:2,
+   amb:{addr:'Via 21, Garden Estate, Amman',tel:'+962 6 551 21 30',email:'amb.amman@esteri.it',orario:'Dom-Gio 8:00-13:00'},
+   emg:{gen:'911',pol:'191',amb_locale:'911',pom:'110'},
+   osp:{nome:'Jordan University Hospital',addr:'Queen Rania St, Amman',tel:'+962 6 535 0000'},
+   pol:{nome:'Public Security Directorate',tel:'191',addr:'Amman'},
+   map_center:'Amman, Jordan'},
+
+  {id:'eg',flag:'🇪🇬',name:'Egitto',region:'medioriente',rischio:3,
+   amb:{addr:'15 Sharia Abdel Rahman Fahmi, Garden City, Cairo',tel:'+20 2 279 48 94',email:'amb.cairo@esteri.it',orario:'Dom-Gio 9:00-12:00'},
+   emg:{gen:'123',pol:'122',amb_locale:'123',pom:'122'},
+   osp:{nome:'Cairo University Hospital (Kasr Al Ainy)',addr:'Kasr Al Ainy St, Cairo',tel:'+20 2 2368 8888'},
+   pol:{nome:'Egyptian Police',tel:'122',addr:'Lazoughly Square, Cairo'},
+   map_center:'Cairo, Egypt'},
+
+  // AMERICHE
+  {id:'us',flag:'🇺🇸',name:'Stati Uniti',region:'americhe',rischio:1,
+   amb:{addr:'3000 Whitehaven St NW, Washington DC',tel:'+1 202 612 4400',email:'amb.washington@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'911',pol:'911',amb_locale:'911',pom:'911'},
+   osp:{nome:'George Washington University Hospital',addr:'900 23rd St NW, Washington DC',tel:'+1 202 715 4000'},
+   pol:{nome:'Metropolitan Police Department',tel:'911',addr:'300 Indiana Ave NW, Washington DC'},
+   map_center:'Washington DC, USA'},
+
+  {id:'br',flag:'🇧🇷',name:'Brasile',region:'americhe',rischio:3,
+   amb:{addr:'SES Av. delle Nazioni Q.807, Brasilia',tel:'+55 61 3442 9900',email:'amb.brasilia@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'192',pol:'190',amb_locale:'192',pom:'193'},
+   osp:{nome:'Hospital das Forças Armadas',addr:'Setor Militar Urbano, Brasilia',tel:'+55 61 3966 3000'},
+   pol:{nome:'Polícia Federal',tel:'194',addr:'SBS Q.1 Bl.J, Brasilia'},
+   map_center:'Brasilia, Brazil'},
+
+  {id:'mx',flag:'🇲🇽',name:'Messico',region:'americhe',rischio:3,
+   amb:{addr:'Paseo de las Palmas 1994, Lomas de Chapultepec, CDMX',tel:'+52 55 5596 3655',email:'amb.messico@esteri.it',orario:'Lun-Ven 9:00-13:00'},
+   emg:{gen:'911',pol:'911',amb_locale:'911',pom:'911'},
+   osp:{nome:'Hospital General de México',addr:'Dr. Balmis 148, CDMX',tel:'+52 55 2789 2000'},
+   pol:{nome:'Secretaría de Seguridad Ciudadana',tel:'911',addr:'CDMX'},
+   map_center:'Mexico City, Mexico'},
+
+  {id:'ar',flag:'🇦🇷',name:'Argentina',region:'americhe',rischio:2,
+   amb:{addr:'Cerrito 1224, Buenos Aires',tel:'+54 11 4816 6400',email:'amb.buenosaires@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'911',pol:'101',amb_locale:'107',pom:'100'},
+   osp:{nome:'Hospital Italiano de Buenos Aires',addr:'Gascon 450, Buenos Aires',tel:'+54 11 4959 0200'},
+   pol:{nome:'Policía Federal Argentina',tel:'101',addr:'Moreno 1550, Buenos Aires'},
+   map_center:'Buenos Aires, Argentina'},
+
+  {id:'co',flag:'🇨🇴',name:'Colombia',region:'americhe',rischio:3,
+   amb:{addr:'Calle 93B No. 9-92, Bogotà',tel:'+57 1 218 6680',email:'amb.bogota@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'123',pol:'112',amb_locale:'125',pom:'119'},
+   osp:{nome:'Clínica del Country',addr:'Av. 15 No. 118-03, Bogotà',tel:'+57 1 530 0470'},
+   pol:{nome:'Policía Nacional de Colombia',tel:'123',addr:'Av. El Dorado No. 75-25, Bogotà'},
+   map_center:'Bogota, Colombia'},
+
+  // ASIA
+  {id:'cn',flag:'🇨🇳',name:'Cina',region:'asia',rischio:2,
+   amb:{addr:'Via Tiliu 2, Sanlitun, Pechino',tel:'+86 10 6532 7600',email:'amb.pechino@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'110',pol:'110',amb_locale:'120',pom:'119'},
+   osp:{nome:'Peking Union Medical College Hospital',addr:'1 Shuaifuyuan Wangfujing, Pechino',tel:'+86 10 6915 6114'},
+   pol:{nome:'Beijing Public Security Bureau',tel:'110',addr:'9 Qianmen Dongdajie, Pechino'},
+   map_center:'Beijing, China'},
+
+  {id:'jp',flag:'🇯🇵',name:'Giappone',region:'asia',rischio:1,
+   amb:{addr:'2-5-4 Mita, Minato-ku, Tokyo',tel:'+81 3 3453 5291',email:'amb.tokyo@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'110',pol:'110',amb_locale:'119',pom:'119'},
+   osp:{nome:'St. Luke\'s International Hospital',addr:'9-1 Akashi-cho, Chuo-ku, Tokyo',tel:'+81 3 3541 5151'},
+   pol:{nome:'Tokyo Metropolitan Police',tel:'110',addr:'2-1-1 Kasumigaseki, Chiyoda-ku'},
+   map_center:'Tokyo, Japan'},
+
+  {id:'in',flag:'🇮🇳',name:'India',region:'asia',rischio:2,
+   amb:{addr:'50E Chandragupta Marg, Chanakyapuri, Nuova Delhi',tel:'+91 11 2611 4355',email:'amb.newdelhi@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'100',amb_locale:'108',pom:'101'},
+   osp:{nome:'All India Institute of Medical Sciences (AIIMS)',addr:'Ansari Nagar, Nuova Delhi',tel:'+91 11 2658 8500'},
+   pol:{nome:'Delhi Police',tel:'100',addr:'Jai Singh Marg, Nuova Delhi'},
+   map_center:'New Delhi, India'},
+
+  {id:'sg',flag:'🇸🇬',name:'Singapore',region:'asia',rischio:1,
+   amb:{addr:'27 Cairnhill Road, Singapore',tel:'+65 6250 6022',email:'amb.singapore@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'999',pol:'999',amb_locale:'995',pom:'994'},
+   osp:{nome:'Singapore General Hospital',addr:'Outram Rd, Singapore',tel:'+65 6222 3322'},
+   pol:{nome:'Singapore Police Force',tel:'999',addr:'New Phoenix Park, 28 Irrawaddy Rd'},
+   map_center:'Singapore'},
+
+  {id:'th',flag:'🇹🇭',name:'Thailandia',region:'asia',rischio:2,
+   amb:{addr:'399 Nang Linchi Rd, Bangkok',tel:'+66 2 285 4090',email:'amb.bangkok@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'191',pol:'191',amb_locale:'1669',pom:'199'},
+   osp:{nome:'Bumrungrad International Hospital',addr:'33 Sukhumvit Soi 3, Bangkok',tel:'+66 2 667 1000'},
+   pol:{nome:'Royal Thai Police',tel:'191',addr:'Rama I Rd, Pathumwan, Bangkok'},
+   map_center:'Bangkok, Thailand'},
+
+  {id:'id',flag:'🇮🇩',name:'Indonesia',region:'asia',rischio:2,
+   amb:{addr:'Jl. Diponegoro No.45, Menteng, Jakarta',tel:'+62 21 337 445',email:'amb.jakarta@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'112',pol:'110',amb_locale:'118',pom:'113'},
+   osp:{nome:'RS Cipto Mangunkusumo',addr:'Jl. Diponegoro No.71, Jakarta',tel:'+62 21 500 135'},
+   pol:{nome:'Kepolisian RI (POLRI)',tel:'110',addr:'Jl. Trunojoyo No.3, Jakarta'},
+   map_center:'Jakarta, Indonesia'},
+
+  // AFRICA
+  {id:'za',flag:'🇿🇦',name:'Sudafrica',region:'africa',rischio:3,
+   amb:{addr:'796 George Ave, Arcadia, Pretoria',tel:'+27 12 423 0000',email:'amb.pretoria@esteri.it',orario:'Lun-Ven 8:00-12:00'},
+   emg:{gen:'10111',pol:'10111',amb_locale:'10177',pom:'10111'},
+   osp:{nome:'Steve Biko Academic Hospital',addr:'Malherbe St, Pretoria',tel:'+27 12 354 1000'},
+   pol:{nome:'South African Police Service',tel:'10111',addr:'Private Bag X94, Pretoria'},
+   map_center:'Pretoria, South Africa'},
+
+  {id:'ng',flag:'🇳🇬',name:'Nigeria',region:'africa',rischio:4,
+   amb:{addr:'Via Udi Hills St, Maitama, Abuja',tel:'+234 9 413 4672',email:'amb.abuja@esteri.it',orario:'Lun-Ven 9:00-12:00'},
+   emg:{gen:'112',pol:'199',amb_locale:'112',pom:'199'},
+   osp:{nome:'University of Abuja Teaching Hospital',addr:'Airport Rd, Abuja',tel:'+234 9 671 0003'},
+   pol:{nome:'Nigeria Police Force',tel:'199',addr:'Force HQ, Louis Edet House, Abuja'},
+   map_center:'Abuja, Nigeria'},
+
+  {id:'ke',flag:'🇰🇪',name:'Kenya',region:'africa',rischio:3,
+   amb:{addr:'International House, Mama Ngina St, Nairobi',tel:'+254 20 2247 750',email:'amb.nairobi@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'999',pol:'999',amb_locale:'999',pom:'999'},
+   osp:{nome:'Aga Khan University Hospital',addr:'3rd Parklands Ave, Nairobi',tel:'+254 20 366 2000'},
+   pol:{nome:'National Police Service Kenya',tel:'999 / 112',addr:'Vigilance House, Harambee Ave, Nairobi'},
+   map_center:'Nairobi, Kenya'},
+
+  {id:'ma',flag:'🇲🇦',name:'Marocco',region:'africa',rischio:2,
+   amb:{addr:'Via Idriss El Azhar 2, Agdal, Rabat',tel:'+212 537 706 597',email:'amb.rabat@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'19',pol:'19',amb_locale:'15',pom:'15'},
+   osp:{nome:'CHU Ibn Sina',addr:'Avenue des Nations Unies, Rabat',tel:'+212 537 67 27 71'},
+   pol:{nome:'Sûreté Nationale (DGSN)',tel:'19',addr:'Boulevard Mohammed V, Rabat'},
+   map_center:'Rabat, Morocco'},
+
+  {id:'et',flag:'🇪🇹',name:'Etiopia',region:'africa',rischio:3,
+   amb:{addr:'via Jimma Rd, Bole, Addis Abeba',tel:'+251 11 123 5717',email:'amb.addisabeba@esteri.it',orario:'Lun-Ven 8:30-12:00'},
+   emg:{gen:'911',pol:'991',amb_locale:'907',pom:'939'},
+   osp:{nome:'Black Lion Hospital (Tikur Anbessa)',addr:'Zambia St, Addis Abeba',tel:'+251 11 551 1211'},
+   pol:{nome:'Federal Police Commission',tel:'991',addr:'Addis Abeba'},
+   map_center:'Addis Ababa, Ethiopia'},
+];
+
+// ── INIT ──
+let curCat2='all',curReg='tutti';
+function init(){
+  updateConn();
+  updateCounts();
+  setMode(online?'ai':'db');
+  if(online) setTimeout(()=>addMsg('assistant','Ciao! Sono SafePass AI. Descrivi la situazione o fai una domanda — rispondo con procedure pratiche e fonti verificate. In caso di pericolo immediato: chiama sempre il 112 come prima azione.'),400);
+}
+
+function updateCounts(){
+  document.getElementById('c-all').textContent=DB.length;
+  ['naturale','emergenza','sicurezza','salute','logistica','numeri'].forEach(c=>{
+    const el=document.getElementById('c-'+c);
+    if(el)el.textContent=DB.filter(e=>e.cat===c||e.tags.includes(c)).length;
+  });
+}
+
+// FILTRO CATEGORIA
+function filterCat(cat,el){
+  curCat2=cat;
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  setMode('db');
+  renderCards(DB,cat);
+}
+
+// RENDER PROCEDURE
+function renderCards(data,cat,q){
+  const filtered=cat&&cat!=='all'?data.filter(e=>e.cat===cat||e.tags.includes(cat)):data;
+  const grid=document.getElementById('cards');
+  const nr=document.getElementById('no-res');
+  if(filtered.length===0){grid.innerHTML='';nr.style.display='block';return;}
+  nr.style.display='none';
+  const uc={alta:'tr',media:'to',bassa:'tg'};
+  grid.innerHTML=filtered.map(e=>`<div class="card" onclick="openProc(${e.id})"><div class="card-hdr"><div class="card-em">${e.em}</div><div><div class="card-title">${e.title}</div><div class="card-prev">${e.prev}</div></div></div><div class="card-tags"><span class="tag ${uc[e.urg]||'tl'}">⚡ ${e.urg}</span>${e.tags.slice(0,2).map(t=>`<span class="tag tb">${t}</span>`).join('')}</div></div>`).join('');
+}
+
+function openProc(id){
+  const e=DB.find(x=>x.id===id);if(!e)return;
+  document.getElementById('d-em').textContent=e.em;
+  document.getElementById('d-title').textContent=e.title;
+  document.getElementById('d-meta').textContent=e.cat.toUpperCase()+' · URGENZA '+e.urg.toUpperCase();
+  document.getElementById('d-body').innerHTML=e.body;
+  document.getElementById('d-fonte').innerHTML=e.fonte;
+  openOv('ov-proc');
+}
+
+// RENDER PAESI
+function filterRegion(reg,el){
+  curReg=reg;
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderPaesi(reg);
+}
+
+function renderPaesi(reg,q){
+  const data=reg==='tutti'?PAESI:PAESI.filter(p=>p.region===reg);
+  const filtered=q?data.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())):data;
+  document.getElementById('paesi-grid').innerHTML=filtered.map(p=>`<div class="paese-card" onclick="openPaese('${p.id}')"><div class="paese-flag">${p.flag}</div><div><div class="paese-name">${p.name}</div><div class="paese-region">${p.region}</div></div></div>`).join('');
+}
+
+function openPaese(id){
+  const p=PAESI.find(x=>x.id===id);if(!p)return;
+  document.getElementById('p-flag').textContent=p.flag;
+  document.getElementById('p-name').textContent=p.name;
+  document.getElementById('p-region').textContent=p.region.toUpperCase()+' · MAECI';
+  const rl=['','rischio-1','rischio-2','rischio-3','rischio-4'];
+  const rl2=['','🟢 Rischio basso','🟡 Attenzione','🟠 Rischio elevato','🔴 Rischio molto elevato'];
+  document.getElementById('p-rischio').innerHTML=`<div class="rischio-badge ${rl[p.rischio]}">${rl2[p.rischio]}</div>`;
+  document.getElementById('p-amb').innerHTML=infoRows([['Indirizzo',p.amb.addr],['Telefono','<a href="tel:'+p.amb.tel+'">'+p.amb.tel+'</a>'],['Email','<a href="mailto:'+p.amb.email+'">'+p.amb.email+'</a>'],['Orario',p.amb.orario]]);
+  document.getElementById('p-emg').innerHTML=infoRows([['Emergenze generali','<strong>'+p.emg.gen+'</strong>'],['Polizia','<strong>'+p.emg.pol+'</strong>'],['Ambulanza','<strong>'+p.emg.amb_locale+'</strong>'],['Vigili del fuoco','<strong>'+p.emg.pom+'</strong>']]);
+  document.getElementById('p-osp').innerHTML=infoRows([['Nome',p.osp.nome],['Indirizzo',p.osp.addr],['Telefono','<a href="tel:'+p.osp.tel+'">'+p.osp.tel+'</a>']]);
+  document.getElementById('p-pol').innerHTML=infoRows([['Nome',p.pol.nome],['Numero','<strong>'+p.pol.tel+'</strong>'],['Sede',p.pol.addr]]);
+  const q=encodeURIComponent(p.map_center);
+  document.getElementById('p-maplinks').innerHTML=`<a class="map-link" href="https://maps.google.com/?q=${q}" target="_blank">📍 Ambasciata Italiana</a><a class="map-link" href="https://maps.google.com/?q=hospital+near+${q}" target="_blank">🏥 Ospedali vicini</a><a class="map-link" href="https://maps.google.com/?q=police+station+near+${q}" target="_blank">👮 Polizia vicina</a><a class="map-link" href="https://www.viaggiaresicuri.it" target="_blank">⚠️ Livello rischio Farnesina</a>`;
+  document.getElementById('p-map').innerHTML=`<iframe src="https://maps.google.com/maps?q=${q}&output=embed&z=12" allowfullscreen></iframe>`;
+  openOv('ov-paese');
+}
+
+function infoRows(rows){return rows.map(r=>`<div class="info-row"><span class="info-label">${r[0]}</span><span class="info-val">${r[1]}</span></div>`).join('');}
+
+// OVERLAY
+function openOv(id){document.getElementById(id).classList.add('open')}
+function closeOv(id){document.getElementById(id).classList.remove('open')}
+document.getElementById('ov-proc').addEventListener('click',function(e){if(e.target===this)closeOv('ov-proc')});
+document.getElementById('ov-paese').addEventListener('click',function(e){if(e.target===this)closeOv('ov-paese')});
+
+// AI
+const AI_SYS=`Sei SafePass, assistente esperto in sicurezza per viaggiatori aziendali in trasferta.
+Rispondi SEMPRE in italiano, in modo chiaro, pratico e diretto con procedure step-by-step.
+In situazioni di pericolo immediato: indica SEMPRE di chiamare il 112 come prima azione.
+Cita SEMPRE le fonti delle informazioni che fornisci (es: Protezione Civile, WHO, FEMA, Farnesina, ecc.)
+Sei specializzato in: emergenze naturali, sicurezza personale, zone di conflitto, emergenze mediche, logistica di crisi.
+Usa tono professionale e rassicurante.`;
+
+let aiHist=[];
+function addMsg(role,text){
+  const d=document.getElementById('ai-msgs');
+  const el=document.createElement('div');
+  el.className=role==='user'?'msg-u':'msg-b';
+  el.textContent=text;
+  d.appendChild(el);
+  d.scrollTop=d.scrollHeight;
+  return el;
+}
+function qa(t){document.getElementById('ai-in').value=t;sendAI();}
+async function sendAI(){
+  const inp=document.getElementById('ai-in');
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';
+  addMsg('user',txt);
+  aiHist.push({role:'user',content:txt});
+  const typing=addMsg('assistant','...');
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:700,system:AI_SYS,messages:aiHist})
+    });
+    const data=await r.json();
+    const reply=data.content?.[0]?.text||'Errore. Usa il Database per le procedure offline.';
+    typing.textContent=reply;
+    aiHist.push({role:'assistant',content:reply});
+  }catch(e){
+    typing.textContent='Connessione non disponibile. Passa alla sezione Procedure per le schede offline.';
+  }
+}
+</script>
+</body>
+</html>

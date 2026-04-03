@@ -4,13 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SafePass</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#1a2540;--gold:#b8943f;--gl:#d4af6a;--cream:#f5f2ee;--white:#fff;--green:#3a8c5c;--red:#c0392b;--muted:rgba(255,255,255,0.4)}
+:root{--navy:#1a2540;--gold:#b8943f;--gl:#d4af6a;--white:#fff}
 body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:100vh}
-/* LOGIN */
+.back-btn{position:fixed;top:32px;left:32px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;z-index:10}
+.back-btn:hover{color:var(--gl)}
 #ls{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;background:radial-gradient(ellipse at 30% 50%,rgba(184,148,63,.08),transparent 60%),var(--navy)}
 .lic{width:72px;height:72px;background:linear-gradient(135deg,rgba(184,148,63,.3),rgba(184,148,63,.06));border:1.5px solid rgba(184,148,63,.4);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--gl);margin-bottom:28px}
 .lt{font-family:"Cormorant Garamond",serif;font-size:48px;font-weight:300;letter-spacing:-1px;margin-bottom:6px}
@@ -23,11 +23,8 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .lbtn:hover{background:var(--gl)}
 .lerr{font-size:13px;color:#e74c3c;text-align:center;margin-top:12px;display:none}
 .cbadge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 12px;border-radius:20px;margin-top:24px;border:1px solid}
-.back-btn{position:fixed;top:32px;left:32px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;z-index:10}
-.back-btn:hover{color:var(--gl)}
 .bon{background:rgba(58,140,92,.2);color:#2ecc71;border-color:rgba(58,140,92,.3)}
 .boff{background:rgba(192,57,43,.2);color:#e74c3c;border-color:rgba(192,57,43,.3)}
-/* APP */
 #app{display:none;min-height:100vh;flex-direction:column}
 .topbar{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
 .bname{font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:300}
@@ -35,7 +32,6 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .tab{padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;color:rgba(255,255,255,.5);border:none;background:none}
 .tab.active{background:var(--gold);color:var(--navy)}
 .lay{display:grid;grid-template-columns:250px 1fr;height:calc(100vh - 65px)}
-/* SIDEBAR */
 .sb{background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.06);overflow-y:auto;padding:12px 0}
 .sbs{padding:14px 16px 4px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2)}
 .sbi{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;transition:all .2s;border-right:2px solid transparent}
@@ -45,14 +41,12 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .sbn{font-size:13px;color:rgba(255,255,255,.65)}
 .sbc{font-size:11px;color:rgba(255,255,255,.25);margin-left:auto}
 .sbi.active .sbn{color:var(--gl)}
-/* MAIN */
 .main{overflow-y:auto;padding:24px 28px}
 .srchwrap{position:relative;margin-bottom:24px}
 .srchico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.3)}
 .srchin{width:100%;padding:13px 16px 13px 44px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:Outfit,sans-serif;font-size:15px;outline:none}
 .srchin:focus{border-color:rgba(184,148,63,.4)}
 .srchin::placeholder{color:rgba(255,255,255,.25)}
-/* AI */
 #pai{display:block}
 .aihdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:16px;background:rgba(184,148,63,.08);border:1px solid rgba(184,148,63,.2);border-radius:10px}
 .aihic{width:40px;height:40px;background:rgba(184,148,63,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--gl);flex-shrink:0}
@@ -67,13 +61,12 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .sugs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .sug{font-size:11px;padding:4px 10px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:20px;cursor:pointer}
 .sug:hover{background:rgba(184,148,63,.1);color:var(--gl)}
-/* PROCEDURE */
 #pdb{display:none}
 .ptitle{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:300;margin-bottom:20px}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 18px;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
 .card:hover{background:rgba(255,255,255,.07);border-left-color:var(--gold)}
-.cem{font-size:20px;flex-shrink:0;margin-top:2px}
+.cem{font-size:20px;flex-shrink:0}
 .ctitle{font-size:14px;font-weight:500;margin-bottom:3px}
 .cprev{font-size:12px;color:rgba(255,255,255,.35)}
 .ctags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
@@ -83,7 +76,6 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .tb{background:rgba(36,113,163,.2);color:#5dade2}
 .tg{background:rgba(58,140,92,.2);color:#2ecc71}
 .nores{text-align:center;padding:48px;color:rgba(255,255,255,.3)}
-/* PAESI */
 #ppaesi{display:none}
 .rtabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
 .rtab{padding:5px 14px;border:1px solid rgba(255,255,255,.12);border-radius:20px;font-size:12px;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer}
@@ -94,12 +86,10 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .pflag{font-size:22px}
 .pname{font-size:13px;font-weight:500;color:rgba(255,255,255,.8)}
 .pregion{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase}
-/* OVERLAYS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;overflow-y:auto;padding:32px 16px}
 .ov.open{display:flex;align-items:flex-start;justify-content:center}
 .det{background:#1e2d4a;border:1px solid rgba(255,255,255,.1);border-radius:14px;width:100%;max-width:700px;padding:32px;position:relative;margin:auto}
 .detx{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.5);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
-.detx:hover{color:#fff}
 .dem{font-size:36px;margin-bottom:12px}
 .dtitle{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:300;margin-bottom:4px}
 .dmeta{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
@@ -110,8 +100,6 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .alert-box{background:rgba(192,57,43,.15);border-left:3px solid #e74c3c;padding:10px 14px;border-radius:4px;margin:12px 0;font-size:13px;color:#f1948a}
 .tip-box{background:rgba(58,140,92,.12);border-left:3px solid #2ecc71;padding:10px 14px;border-radius:4px;margin:12px 0;font-size:13px;color:#82e0aa}
 .fonte{font-size:11px;color:rgba(255,255,255,.25);margin-top:18px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
-.fonte a{color:rgba(184,148,63,.7);text-decoration:none}
-/* PAESE DET */
 .pdet2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
 .iblock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:14px}
 .iblock h4{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);margin-bottom:8px}
@@ -130,18 +118,25 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
 .r2{background:rgba(184,148,63,.2);color:var(--gl);border:1px solid rgba(184,148,63,.3)}
 .r3{background:rgba(211,84,0,.2);color:#e67e22;border:1px solid rgba(211,84,0,.3)}
 .r4{background:rgba(192,57,43,.2);color:#e74c3c;border:1px solid rgba(192,57,43,.3)}
+#man-overlay{display:none;position:fixed;inset:0;background:var(--navy);z-index:300;flex-direction:column}
+#man-overlay.open{display:flex}
+.man-topbar{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 32px;display:flex;align-items:center;gap:20px;flex-shrink:0}
+.man-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer}
+.man-back:hover{color:var(--gl)}
+.man-body{flex:1;overflow-y:auto;padding:32px 40px;max-width:900px;margin:0 auto;width:100%}
 @media(max-width:800px){.lay{grid-template-columns:1fr}.sb{display:none}.pdet2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
 <div id="ls">
   <a href="index.html" class="back-btn">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Home
   </a>
-  
-  
-  <div class="lic"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M28 6L6 16l9 4 4 9 4-5 5-18z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 20l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+  <div class="lic">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M28 6L6 16l9 4 4 9 4-5 5-18z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 20l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </div>
   <div class="lt">SafePass</div>
   <div class="ls">Crisis &amp; Travel Security Guide</div>
   <div class="lb">
@@ -150,21 +145,23 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
     <button class="lbtn" onclick="doLogin()">Accedi</button>
     <div class="lerr" id="lerr">Codice non valido. Riprova.</div>
   </div>
-  <div class="cbadge" id="cbadge"><span style="width:8px;height:8px;border-radius:50%;background:#888;display:inline-block"></span><span id="ctext">Verifica connessione...</span></div>
+  <div class="cbadge" id="cbadge"><span style="width:8px;height:8px;border-radius:50%;background:#888;display:inline-block" id="cdot"></span><span id="ctext">Verifica connessione...</span></div>
 </div>
 
 <div id="app" style="display:none;flex-direction:column;min-height:100vh">
   <div class="topbar">
-    <div style="display:flex;align-items:center;gap:24px">
-      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#d4af6a'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+    <div style="display:flex;align-items:center;gap:20px">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none" onmouseover="this.style.color='#d4af6a'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Home
       </a>
-      
       <div class="bname">SafePass</div>
     </div>
     <div style="display:flex;align-items:center;gap:12px">
-      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4)"><div class="sdot" id="sdot" style="width:8px;height:8px;border-radius:50%;background:#2ecc71"></div><span id="stxt">Online</span></div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4)">
+        <div id="sdot" style="width:8px;height:8px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px #2ecc71"></div>
+        <span id="stxt">Online</span>
+      </div>
       <div class="tabs">
         <button class="tab active" id="tai" onclick="setMode('ai')">AI Assistant</button>
         <button class="tab" id="tdb" onclick="setMode('db')">Procedure</button>
@@ -178,7 +175,7 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
     <aside class="sb">
       <div class="sbs">Procedure</div>
       <div class="sbi active" onclick="filterCat('all',this)"><div class="sbic" style="background:rgba(184,148,63,.15)">🌍</div><span class="sbn">Tutte</span><span class="sbc" id="c-all">0</span></div>
-      <div class="sbi" onclick="filterCat('naturale',this)"><div class="sbic" style="background:rgba(211,84,0,.2)">🌋</div><span class="sbn">Calamità naturali</span><span class="sbc" id="c-naturale">0</span></div>
+      <div class="sbi" onclick="filterCat('naturale',this)"><div class="sbic" style="background:rgba(211,84,0,.2)">🌋</div><span class="sbn">Calamita naturali</span><span class="sbc" id="c-naturale">0</span></div>
       <div class="sbi" onclick="filterCat('emergenza',this)"><div class="sbic" style="background:rgba(192,57,43,.2)">🆘</div><span class="sbn">Emergenze</span><span class="sbc" id="c-emergenza">0</span></div>
       <div class="sbi" onclick="filterCat('sicurezza',this)"><div class="sbic" style="background:rgba(36,113,163,.2)">🛡️</div><span class="sbn">Sicurezza personale</span><span class="sbc" id="c-sicurezza">0</span></div>
       <div class="sbi" onclick="filterCat('salute',this)"><div class="sbic" style="background:rgba(58,140,92,.2)">🏥</div><span class="sbn">Salute</span><span class="sbc" id="c-salute">0</span></div>
@@ -207,18 +204,18 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
           <button class="aisend" onclick="sendAI()">Invia</button>
         </div>
         <div class="sugs">
-          <span class="sug" onclick="qa('Terremoto in corso, procedura immediata')">🌍 Terremoto</span>
-          <span class="sug" onclick="qa('Blackout elettrico totale prolungato')">⚡ Blackout</span>
-          <span class="sug" onclick="qa('Mi trovo in zona di conflitto armato')">⚠️ Conflitto</span>
-          <span class="sug" onclick="qa('Ho perso il passaporto all estero')">📄 Passaporto perso</span>
-          <span class="sug" onclick="qa('Emergenza medica grave in trasferta')">🏥 Emergenza medica</span>
-          <span class="sug" onclick="qa('Attacco terroristico nelle vicinanze')">🚨 Attacco</span>
+          <span class="sug" onclick="qa('Terremoto in corso')">🌍 Terremoto</span>
+          <span class="sug" onclick="qa('Blackout elettrico')">⚡ Blackout</span>
+          <span class="sug" onclick="qa('Zona di conflitto armato')">⚠️ Conflitto</span>
+          <span class="sug" onclick="qa('Passaporto perso')">📄 Passaporto</span>
+          <span class="sug" onclick="qa('Emergenza medica')">🏥 Medica</span>
+          <span class="sug" onclick="qa('Attacco terroristico')">🚨 Attacco</span>
         </div>
       </div>
       <div id="pdb" style="display:none">
         <div class="ptitle" id="dbtitle">Tutte le procedure</div>
         <div class="cards" id="cards"></div>
-        <div class="nores" id="nores" style="display:none">Nessun risultato — prova con parole chiave diverse</div>
+        <div class="nores" id="nores" style="display:none">Nessun risultato</div>
       </div>
       <div id="ppaesi" style="display:none">
         <div class="ptitle">Informazioni per paese</div>
@@ -237,46 +234,46 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
   </div>
 </div>
 
-      <div id="pman" style="display:none;position:fixed;inset:0;background:var(--navy);z-index:300;overflow-y:auto;padding:0">
-        <div style="background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 32px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)">
-          <button onclick="closeManuale()" style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);background:none;border:none;cursor:pointer;transition:color 0.3s" onmouseover="this.style.color='#d4af6a'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Dashboard
-          </button>
-          <div style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:300;color:#fff">Manuale Pre-Partenza</div>
-        </div>
-        <div style="padding:32px 40px;max-width:900px;margin:0 auto">
-        <div class="ptitle">Manuale Pre-Partenza</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:24px">Tutto ciò che devi preparare prima di una trasferta di lavoro — con fonti ufficiali e soluzioni alternative se hai dimenticato qualcosa</div>
+<!-- MANUALE OVERLAY -->
+<div id="man-overlay">
+  <div class="man-topbar">
+    <button class="man-back" onclick="closeManuale()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Dashboard
+    </button>
+    <div style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:300">Manuale Pre-Partenza</div>
+  </div>
+  <div class="man-body">
+    <div style="background:rgba(184,148,63,.08);border:1px solid rgba(184,148,63,.2);border-radius:10px;padding:20px 24px;margin-bottom:28px">
+      <div style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:300;margin-bottom:10px">Perche prepararsi prima di partire?</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.8">In una situazione di crisi all estero — un incidente medico, un disastro naturale, un instabilita politica — avere i documenti giusti, i numeri salvati e le coperture assicurative attive puo fare la differenza. Secondo la Farnesina, il 70% dei casi di assistenza agli italiani riguarda persone che non avevano registrato il viaggio o non avevano copia dei documenti.</div>
+    </div>
+    <div class="rtabs" id="man-nav">
+      <div class="rtab active" onclick="showCap(0,this)">1 Documenti</div>
+      <div class="rtab" onclick="showCap(1,this)">2 Salute</div>
+      <div class="rtab" onclick="showCap(2,this)">3 Assicurazioni</div>
+      <div class="rtab" onclick="showCap(3,this)">4 Comunicazioni</div>
+      <div class="rtab" onclick="showCap(4,this)">5 Sicurezza digitale</div>
+      <div class="rtab" onclick="showCap(5,this)">6 Borsa emergenza</div>
+      <div class="rtab" onclick="showCap(6,this)">7 Registrazione</div>
+      <div class="rtab" onclick="showCap(7,this)">8 Finanze</div>
+    </div>
+    <div id="man-content"></div>
+  </div>
+</div>
 
-        <!-- INTRO -->
-        <div style="background:rgba(184,148,63,.08);border:1px solid rgba(184,148,63,.2);border-radius:10px;padding:20px 24px;margin-bottom:28px">
-          <div style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:300;margin-bottom:10px;color:#fff">Perché prepararsi prima di partire?</div>
-          <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.8">In una situazione di crisi all'estero — un incidente medico, un disastro naturale, un'instabilità politica — avere i documenti giusti, i numeri salvati e le coperture assicurative attive può fare la differenza tra una risoluzione rapida e una situazione bloccata per giorni. Secondo la Farnesina, il 70% dei casi di assistenza agli italiani all'estero riguarda persone che non avevano registrato il viaggio o non avevano copia dei documenti. Questo manuale ti guida passo dopo passo.</div>
-        </div>
-
-        <!-- CAPITOLI NAVIGATION -->
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px" id="man-nav">
-          <div class="rtab active" onclick="showCap(0,this)">1 · Documenti</div>
-          <div class="rtab" onclick="showCap(1,this)">2 · Salute</div>
-          <div class="rtab" onclick="showCap(2,this)">3 · Assicurazioni</div>
-          <div class="rtab" onclick="showCap(3,this)">4 · Comunicazioni</div>
-          <div class="rtab" onclick="showCap(4,this)">5 · Sicurezza digitale</div>
-          <div class="rtab" onclick="showCap(5,this)">6 · Borsa di emergenza</div>
-          <div class="rtab" onclick="showCap(6,this)">7 · Registrazione e contatti</div>
-          <div class="rtab" onclick="showCap(7,this)">8 · Finanze</div>
-        </div>
-
-        <div id="man-content"></div>
-        </div>
-      </div>
-
+<!-- OVERLAY PROCEDURE -->
 <div class="ov" id="ovp"><div class="det"><button class="detx" onclick="closeOv('ovp')">✕</button><div class="dem" id="dem"></div><div class="dtitle" id="dtitle"></div><div class="dmeta" id="dmeta"></div><div class="dbody" id="dbody"></div><div class="fonte" id="dfonte"></div></div></div>
-<div class="ov" id="ovpa"><div class="det" style="max-width:760px"><button class="detx" onclick="closeOv('ovpa')">✕</button><div style="display:flex;align-items:center;gap:14px;margin-bottom:8px"><div style="font-size:44px" id="pflag"></div><div><div class="dtitle" id="pname" style="margin-bottom:4px"></div><div class="dmeta" id="pregion"></div><div id="prischio"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ambasciata Italiana</h4><div id="pamb"></div></div><div class="iblock"><h4>Emergenze locali</h4><div id="pemg"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ospedale di riferimento</h4><div id="posp"></div></div><div class="iblock"><h4>Polizia</h4><div id="ppol"></div></div></div><div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px">Mappa — clicca per aprire in Google Maps</div><div class="maplinks" id="pmaplinks"></div><div class="mapframe" id="pmap"></div><div class="fonte">Fonti: <a href="https://www.viaggiaresicuri.it" target="_blank">Farnesina Viaggiare Sicuri</a> · <a href="https://www.esteri.it" target="_blank">MAECI</a> · dati 2024-2025</div></div></div>
+
+<!-- OVERLAY PAESE -->
+<div class="ov" id="ovpa"><div class="det" style="max-width:760px"><button class="detx" onclick="closeOv('ovpa')">✕</button><div style="display:flex;align-items:center;gap:14px;margin-bottom:8px"><div style="font-size:44px" id="pflag"></div><div><div class="dtitle" id="pname" style="margin-bottom:4px"></div><div class="dmeta" id="pregion"></div><div id="prischio"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ambasciata Italiana</h4><div id="pamb"></div></div><div class="iblock"><h4>Emergenze locali</h4><div id="pemg"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ospedale di riferimento</h4><div id="posp"></div></div><div class="iblock"><h4>Polizia</h4><div id="ppol"></div></div></div><div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px">Mappa</div><div class="maplinks" id="pmaplinks"></div><div class="mapframe" id="pmap"></div><div class="fonte">Fonti: Farnesina Viaggiare Sicuri · MAECI · dati 2024-2025</div></div></div>
 
 <script>
-const PWD = "TRM2026";
-let online = navigator.onLine, mode = "ai";
+var PWD = "TRM2026";
+var online = navigator.onLine;
+var mode = "ai";
+var curCat = "all";
+var curReg = "tutti";
 
 function doLogin() {
   if (document.getElementById("pwd").value === PWD) {
@@ -296,22 +293,26 @@ function doLogout() {
 
 function updateConn() {
   online = navigator.onLine;
-  const cb = document.getElementById("cbadge");
-  const ct = document.getElementById("ctext");
-  const sd = document.getElementById("sdot");
-  const st = document.getElementById("stxt");
+  var cb = document.getElementById("cbadge");
+  var ct = document.getElementById("ctext");
+  var cd = document.getElementById("cdot");
+  var sd = document.getElementById("sdot");
+  var st = document.getElementById("stxt");
   if (online) {
     cb.className = "cbadge bon";
     ct.textContent = "Connesso — AI disponibile";
-    sd.style.background = "#2ecc71";
-    st.textContent = "Online";
+    if (cd) { cd.style.background = "#2ecc71"; }
+    if (sd) { sd.style.background = "#2ecc71"; sd.style.boxShadow = "0 0 6px #2ecc71"; }
+    if (st) st.textContent = "Online";
   } else {
     cb.className = "cbadge boff";
     ct.textContent = "Offline — Database disponibile";
-    sd.style.background = "#e74c3c";
-    st.textContent = "Offline";
+    if (cd) { cd.style.background = "#e74c3c"; }
+    if (sd) { sd.style.background = "#e74c3c"; sd.style.boxShadow = "none"; }
+    if (st) st.textContent = "Offline";
   }
-  document.getElementById("tai").style.opacity = online ? "1" : "0.4";
+  var tai = document.getElementById("tai");
+  if (tai) tai.style.opacity = online ? "1" : "0.4";
   if (!online && mode === "ai") setMode("db");
 }
 window.addEventListener("online", updateConn);
@@ -320,26 +321,42 @@ updateConn();
 
 function setMode(m) {
   mode = m;
-  ["ai","db","paesi"].forEach(function(p) {
+  var panels = ["ai", "db", "paesi"];
+  for (var i = 0; i < panels.length; i++) {
+    var p = panels[i];
     document.getElementById("p" + p).style.display = p === m ? "block" : "none";
     document.getElementById("t" + p).classList.toggle("active", p === m);
-  });
+  }
   document.getElementById("tman").classList.remove("active");
   if (m === "db") renderCards(DB, curCat);
   if (m === "paesi") renderPaesi(curReg);
+}
 
+function openManuale() {
+  document.getElementById("man-overlay").classList.add("open");
+  document.getElementById("tman").classList.add("active");
+  showCap(0, document.querySelector("#man-nav .rtab"));
+}
+
+function closeManuale() {
+  document.getElementById("man-overlay").classList.remove("open");
+  document.getElementById("tman").classList.remove("active");
 }
 
 function onSearch() {
   var q = document.getElementById("srch").value.toLowerCase().trim();
-  if (!q) { if (mode === "db") renderCards(DB, curCat); if (mode === "paesi") renderPaesi(curReg); return; }
-  var rp = DB.filter(function(e) { return e.title.toLowerCase().includes(q) || e.prev.toLowerCase().includes(q) || e.tags.some(function(t) { return t.includes(q); }); });
-  var rpa = PAESI.filter(function(p) { return p.name.toLowerCase().includes(q); });
-  if (mode === "paesi" && rpa.length > 0) { renderPaesiFiltered(rpa); return; }
-  setMode("db"); renderCards(rp, "all", q);
+  if (!q) {
+    if (mode === "db") renderCards(DB, curCat);
+    if (mode === "paesi") renderPaesi(curReg);
+    return;
+  }
+  var rp = DB.filter(function(e) {
+    return e.title.toLowerCase().indexOf(q) >= 0 || e.prev.toLowerCase().indexOf(q) >= 0;
+  });
+  var rpa = PAESI.filter(function(p) { return p.name.toLowerCase().indexOf(q) >= 0; });
+  if (mode === "paesi" && rpa.length > 0) { renderPaesiList(rpa); return; }
+  setMode("db"); renderCards(rp, "all");
 }
-
-var curCat = "all", curReg = "tutti";
 
 function filterCat(cat, el) {
   curCat = cat;
@@ -351,90 +368,66 @@ function filterCat(cat, el) {
 
 function filterRegion(reg, el) {
   curReg = reg;
-  document.querySelectorAll(".rtab").forEach(function(t) { t.classList.remove("active"); });
+  document.querySelectorAll("#rtabs .rtab").forEach(function(t) { t.classList.remove("active"); });
   if (el) el.classList.add("active");
   renderPaesi(reg);
 }
 
 var DB = [
-  {id:1, cat:"naturale", em:"🌍", urg:"alta", title:"Terremoto", tags:["naturale","sisma","evacuazione"], prev:"Procedure prima, durante e dopo una scossa sismica.",
-   body:"<h4>Durante la scossa</h4><ul><li>Riparati sotto un tavolo robusto o contro un muro portante interno</li><li>Allontanati da finestre, specchi e oggetti che possono cadere</li><li>Non usare l'ascensore — non uscire durante la scossa</li><li>In strada: allontanati da edifici e lampioni</li></ul><div class='alert-box'>La maggior parte delle vittime si verifica fuori dagli edifici durante il sisma. Non correre verso le uscite finché la terra trema.</div><h4>Dopo la scossa</h4><ul><li>Esci con calma usando le scale dopo che la scossa &egrave; cessata</li><li>Raggiungi uno spazio aperto lontano da strutture</li><li>Non rientrare fino all'autorizzazione delle autorit&agrave;</li><li>Attenzione alle scosse di assestamento</li></ul><h4>Numeri immediati</h4><ul><li>EU: <strong>112</strong></li><li>Farnesina: <strong>+39 06 36225</strong></li></ul><div class='tip-box'>Tieni sempre scarpe robuste vicino al letto in zone sismiche.</div>",
-   fonte:"<a href='https://www.protezionecivile.gov.it' target='_blank'>Protezione Civile Italiana</a> &middot; <a href='https://www.usgs.gov' target='_blank'>USGS Earthquake Hazards</a>"},
-
-  {id:2, cat:"emergenza", em:"⚡", urg:"media", title:"Blackout elettrico", tags:["emergenza","infrastrutture"], prev:"Gestione di una interruzione prolungata della corrente.",
-   body:"<h4>Azioni immediate</h4><ul><li>Attiva la torcia del telefono — risparmia la batteria</li><li>Non aprire inutilmente il frigorifero (freddo conservato 4 ore)</li><li>Scollega apparecchi elettronici sensibili dalla presa</li><li>Identifica l'uscita di emergenza dell'edificio</li></ul><h4>Valutazione</h4><ul><li>Verifica se il blackout &egrave; locale o esteso</li><li>Ascolta la radio a batterie per aggiornamenti</li><li>Oltre 2 ore: contatta il referente aziendale</li></ul><div class='tip-box'>Prima di ogni trasferta: scarica le mappe offline, tieni la batteria sopra 50%, porta un powerbank.</div>",
-   fonte:"<a href='https://www.ready.gov/power-outages' target='_blank'>FEMA Ready.gov</a> &middot; <a href='https://www.redcross.org' target='_blank'>American Red Cross</a>"},
-
-  {id:3, cat:"sicurezza", em:"⚠️", urg:"alta", title:"Zona di conflitto armato", tags:["sicurezza","conflitto","evacuazione"], prev:"Procedure in aree ad alto rischio politico o militare.",
-   body:"<h4>Segnali di allerta</h4><ul><li>Presenza insolita di forze militari o di polizia</li><li>Manifestazioni o assembramenti improvvisi</li><li>Chiusura improvvisa di negozi e attivit&agrave;</li></ul><div class='alert-box'>Alla prima percezione di pericolo: non aspettare conferma. Allontanati subito.</div><h4>Comportamento</h4><ul><li>Registrati sull'app Farnesina prima della partenza</li><li>Tieni sempre documenti, contanti e borsa di emergenza</li><li>Conosci l'ubicazione dell'ambasciata italiana</li><li>Evita manifestazioni anche se sembrano pacifiche</li></ul><h4>Evacuazione</h4><ul><li>Segui indicazioni dell'ambasciata e del referente aziendale</li><li>Tieni il serbatoio sempre sopra met&agrave;</li></ul><div class='tip-box'>Farnesina Crisi: +39 06 36225 (24h) — salvalo in rubrica prima di partire.</div>",
-   fonte:"<a href='https://www.viaggiaresicuri.it' target='_blank'>Farnesina Viaggiare Sicuri</a> &middot; <a href='https://travel.state.gov' target='_blank'>U.S. State Dept Travel</a>"},
-
-  {id:4, cat:"logistica", em:"📄", urg:"media", title:"Perdita o furto documenti", tags:["documenti","passaporto","logistica"], prev:"Procedura per passaporto perso o rubato all'estero.",
-   body:"<h4>Azioni immediate</h4><ul><li>Denuncia alla polizia locale — chiedi copia della denuncia</li><li>Contatta l'ambasciata o consolato italiano pi&ugrave; vicino</li><li>Avvisa il referente aziendale</li></ul><h4>Documenti sostitutivi</h4><ul><li>L'ambasciata rilascia un documento di viaggio di emergenza in 24-48 ore</li><li>Porta: denuncia, documento secondario, foto tessera</li></ul><div class='tip-box'>Prima di ogni viaggio: scansiona tutti i documenti e salvali su cloud.</div>",
-   fonte:"<a href='https://www.esteri.it' target='_blank'>MAECI Italiani all'estero</a> &middot; <a href='https://www.viaggiaresicuri.it' target='_blank'>Farnesina</a>"},
-
-  {id:5, cat:"salute", em:"🏥", urg:"alta", title:"Emergenza medica in trasferta", tags:["salute","ospedale","pronto soccorso"], prev:"Come accedere alle cure e gestire una emergenza sanitaria.",
-   body:"<h4>Numeri di emergenza</h4><ul><li>EU: <strong>112</strong></li><li>USA/Canada: <strong>911</strong></li><li>UK: <strong>999</strong></li><li>Australia: <strong>000</strong></li><li>Giappone: <strong>119</strong></li></ul><h4>Se svenuto e non respira</h4><ul><li>Inizia RCP: 30 compressioni toraciche, 2 insufflazioni</li><li>Chiama il 112 immediatamente</li></ul><h4>All'ospedale</h4><ul><li>Mostra tessera sanitaria (TEAM) se in EU</li><li>Fuori EU: mostra certificato assicurativo aziendale</li><li>Conserva tutte le ricevute delle spese mediche</li></ul>",
-   fonte:"<a href='https://www.who.int' target='_blank'>WHO</a> &middot; <a href='https://ec.europa.eu' target='_blank'>Commissione Europea TEAM</a>"},
-
-  {id:6, cat:"naturale", em:"🌊", urg:"alta", title:"Alluvione e inondazione", tags:["naturale","acqua","evacuazione"], prev:"Procedure di sicurezza durante esondazioni e alluvioni.",
-   body:"<h4>Durante l'inondazione</h4><ul><li>Sali ai piani superiori — non scendere in cantina</li><li>Non camminare in acqua in movimento: 15cm bastano a far cadere un adulto</li><li>Scollega gli apparecchi elettrici</li></ul><div class='alert-box'>Non attraversare mai una strada allagata. L'acqua corrente &egrave; molto pi&ugrave; pericolosa di quanto appare.</div><h4>In auto</h4><ul><li>Se l'acqua sale: abbandona subito il veicolo</li><li>Tieni il finestrino aperto per uscire in emergenza</li></ul>",
-   fonte:"<a href='https://www.protezionecivile.gov.it' target='_blank'>Protezione Civile</a> &middot; <a href='https://www.ready.gov/floods' target='_blank'>FEMA Floods</a>"},
-
-  {id:7, cat:"sicurezza", em:"🚨", urg:"alta", title:"Attacco terroristico — RUN HIDE TELL", tags:["sicurezza","terrorismo"], prev:"Protocollo internazionale in caso di attacco armato.",
-   body:"<div class='alert-box'>In caso di attacco armato: priorit&agrave; assoluta &egrave; uscire dall'area. Non raccogliere oggetti personali.</div><h4>1. RUN — Corri</h4><ul><li>Scappa il pi&ugrave; lontano possibile</li><li>Lascia i bagagli</li><li>Non rientrare per nessun motivo</li></ul><h4>2. HIDE — Nasconditi</h4><ul><li>Nasconditi in un luogo sicuro, chiudi a chiave</li><li>Spegni luci e suono del telefono</li><li>Distenditi sul pavimento lontano dalle finestre</li></ul><h4>3. TELL — Avvisa</h4><ul><li>Chiama il 112 appena sei al sicuro</li><li>Fornisci: posizione, numero aggressori, tipo di armi</li></ul>",
-   fonte:"<a href='https://www.counterterrorism.police.uk' target='_blank'>UK Counter Terrorism Policing</a> &middot; <a href='https://www.dhs.gov' target='_blank'>U.S. DHS</a>"},
-
-  {id:8, cat:"numeri", em:"📞", urg:"bassa", title:"Numeri di emergenza internazionali", tags:["numeri","contatti"], prev:"Numeri di emergenza nei principali paesi del mondo.",
-   body:"<h4>Numeri universali</h4><ul><li><strong>112</strong> — EU e oltre 90 paesi</li><li><strong>911</strong> — USA, Canada, Messico</li><li><strong>999</strong> — UK, Hong Kong</li><li><strong>000</strong> — Australia</li><li><strong>119</strong> — Giappone ambulanza</li></ul><h4>Contatti italiani</h4><ul><li>Farnesina Crisi: <strong>+39 06 36225</strong> (24h)</li><li>Verde Farnesina: <strong>800 896 700</strong> (da Italia)</li><li>App Farnesina: scarica prima di partire</li></ul><div class='tip-box'>Salva questi numeri in rubrica prima di ogni trasferta.</div>",
-   fonte:"<a href='https://www.viaggiaresicuri.it' target='_blank'>Farnesina</a> &middot; <a href='https://www.eena.org' target='_blank'>EENA European Emergency Number</a>"},
-
-  {id:9, cat:"salute", em:"🌡️", urg:"media", title:"Malattie tropicali", tags:["salute","tropicale","malaria"], prev:"Riconoscere e gestire sintomi in paesi tropicali.",
-   body:"<h4>Sintomi da monitorare</h4><ul><li>Febbre alta improvvisa dopo soggiorno tropicale — possibile malaria</li><li>Diarrea persistente oltre 24h con sangue — possibile infezione batterica</li><li>Difficolt&agrave; respiratorie — emergenza, chiama il 112</li></ul><h4>Prevenzione malaria</h4><ul><li>Profilassi prescritta dal medico prima della partenza</li><li>Repellenti con DEET al 50% su pelle esposta</li><li>Zanzariera impregnata per dormire</li></ul>",
-   fonte:"<a href='https://www.who.int/news-room/fact-sheets/detail/malaria' target='_blank'>WHO Malaria</a> &middot; <a href='https://wwwnc.cdc.gov/travel' target='_blank'>CDC Travelers Health</a>"},
-
-  {id:10, cat:"logistica", em:"✈️", urg:"bassa", title:"Volo cancellato o bagaglio perso", tags:["logistica","volo"], prev:"Diritti del passeggero e procedura per bagaglio smarrito.",
-   body:"<h4>Volo cancellato (EU — Reg. 261/2004)</h4><ul><li>Ritardo oltre 3h o cancellazione: rimborso fino a 600 euro</li><li>Chiedi il modulo di reclamo scritto alla compagnia</li><li>Conserva carta d'imbarco e ricevute di tutte le spese</li></ul><h4>Bagaglio perso</h4><ul><li>Denuncia al Lost and Found in aeroporto</li><li>Compila il modulo PIR — conserva la copia</li><li>Rimborso fino a 1.300 euro (Convenzione di Montreal)</li></ul><div class='tip-box'>Fotografa sempre il contenuto della valigia. Porta il necessario per una notte nel bagaglio a mano.</div>",
-   fonte:"<a href='https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_it.htm' target='_blank'>EU Diritti passeggeri</a> &middot; <a href='https://www.enac.gov.it' target='_blank'>ENAC</a>"},
-
-  {id:11, cat:"naturale", em:"🌪️", urg:"alta", title:"Uragano e tifone", tags:["naturale","uragano"], prev:"Procedure di sicurezza durante cicloni tropicali.",
-   body:"<h4>Prima dell'uragano</h4><ul><li>Segui le indicazioni di evacuazione delle autorit&agrave;</li><li>Scegli una stanza interna senza finestre</li><li>Fai scorta d'acqua: 4 litri per persona al giorno per 3 giorni</li></ul><h4>Durante</h4><ul><li>Rimani al chiuso lontano dalle finestre</li><li>La calma improvvisa potrebbe essere l'occhio — l'uragano non &egrave; finito</li><li>Non uscire fino all'autorizzazione ufficiale</li></ul>",
-   fonte:"<a href='https://www.ready.gov/hurricanes' target='_blank'>FEMA Hurricanes</a> &middot; <a href='https://www.nhc.noaa.gov' target='_blank'>NOAA National Hurricane Center</a>"},
-
-  {id:12, cat:"sicurezza", em:"🔒", urg:"media", title:"Sicurezza personale e furto", tags:["sicurezza","furto"], prev:"Prevenire aggressioni e furti in trasferta.",
-   body:"<h4>Prevenzione</h4><ul><li>Non esibire oggetti di valore in pubblico</li><li>Usa marsupio o borsa portata frontalmente</li><li>Condividi sempre il tuo itinerario con il referente aziendale</li><li>Evita di camminare da solo di notte in zone sconosciute</li></ul><h4>In caso di aggressione</h4><ul><li>Non resistere se ti chiedono oggetti di valore — la vita vale pi&ugrave; di qualsiasi oggetto</li><li>Denuncia alla polizia e richiedi copia</li><li>Blocca immediatamente le carte bancarie</li></ul>",
-   fonte:"<a href='https://www.osac.gov' target='_blank'>U.S. OSAC</a> &middot; <a href='https://www.asis.org' target='_blank'>ASIS International</a>"}
+  {id:1,cat:"naturale",em:"🌍",urg:"alta",title:"Terremoto",tags:["naturale","sisma"],prev:"Procedure prima, durante e dopo una scossa sismica.",body:"<h4>Durante la scossa</h4><ul><li>Riparati sotto un tavolo robusto o contro un muro portante interno</li><li>Allontanati da finestre e oggetti che possono cadere</li><li>Non usare l'ascensore</li><li>In strada: allontanati da edifici e lampioni</li></ul><div class='alert-box'>La maggior parte delle vittime si verifica fuori dagli edifici durante il sisma.</div><h4>Dopo la scossa</h4><ul><li>Esci con calma usando le scale dopo che la scossa e cessata</li><li>Raggiungi uno spazio aperto lontano da strutture</li><li>Non rientrare fino all'autorizzazione delle autorita</li></ul><h4>Numeri</h4><ul><li>EU: 112</li><li>Farnesina: +39 06 36225</li></ul><div class='tip-box'>Tieni sempre scarpe robuste vicino al letto in zone sismiche.</div>",fonte:"Protezione Civile Italiana · USGS Earthquake Hazards"},
+  {id:2,cat:"emergenza",em:"⚡",urg:"media",title:"Blackout elettrico",tags:["emergenza","infrastrutture"],prev:"Gestione di una interruzione prolungata della corrente.",body:"<h4>Azioni immediate</h4><ul><li>Attiva la torcia del telefono — risparmia la batteria</li><li>Non aprire inutilmente il frigorifero</li><li>Scollega apparecchi elettronici sensibili</li><li>Identifica l'uscita di emergenza</li></ul><h4>Se dura oltre 2 ore</h4><ul><li>Contatta il referente aziendale</li><li>Ascolta la radio a batterie per aggiornamenti</li></ul><div class='tip-box'>Prima di ogni trasferta: scarica le mappe offline e porta un powerbank.</div>",fonte:"FEMA Ready.gov · American Red Cross"},
+  {id:3,cat:"sicurezza",em:"⚠️",urg:"alta",title:"Zona di conflitto",tags:["sicurezza","conflitto"],prev:"Procedure in aree ad alto rischio politico o militare.",body:"<h4>Segnali di allerta</h4><ul><li>Presenza insolita di forze militari</li><li>Manifestazioni o assembramenti improvvisi</li><li>Chiusura improvvisa di negozi</li></ul><div class='alert-box'>Alla prima percezione di pericolo: allontanati subito.</div><h4>Comportamento</h4><ul><li>Registrati sull'app Farnesina prima della partenza</li><li>Tieni sempre documenti e borsa di emergenza</li><li>Conosci l'ubicazione dell'ambasciata italiana</li><li>Evita manifestazioni anche se sembrano pacifiche</li></ul><div class='tip-box'>Farnesina Crisi: +39 06 36225 — salvalo in rubrica prima di partire.</div>",fonte:"Farnesina Viaggiare Sicuri · U.S. State Dept Travel"},
+  {id:4,cat:"logistica",em:"📄",urg:"media",title:"Perdita documenti",tags:["documenti","passaporto"],prev:"Procedura per passaporto perso o rubato all'estero.",body:"<h4>Azioni immediate</h4><ul><li>Denuncia alla polizia locale — chiedi copia</li><li>Contatta l'ambasciata italiana piu vicina</li><li>Avvisa il referente aziendale</li></ul><h4>Documenti sostitutivi</h4><ul><li>L'ambasciata rilascia documento di viaggio di emergenza in 24-48 ore</li><li>Porta: denuncia, documento secondario, foto tessera</li></ul><div class='tip-box'>Prima di ogni viaggio: scansiona tutti i documenti e salvali su cloud.</div>",fonte:"MAECI Italiani all'estero · Farnesina"},
+  {id:5,cat:"salute",em:"🏥",urg:"alta",title:"Emergenza medica",tags:["salute","ospedale"],prev:"Come accedere alle cure e gestire una emergenza sanitaria.",body:"<h4>Numeri di emergenza</h4><ul><li>EU: 112</li><li>USA/Canada: 911</li><li>UK: 999</li><li>Australia: 000</li><li>Giappone: 119</li></ul><h4>Se non respira</h4><ul><li>Inizia RCP: 30 compressioni toraciche, 2 insufflazioni</li><li>Chiama il 112 immediatamente</li></ul><h4>All'ospedale</h4><ul><li>Mostra tessera sanitaria europea se in EU</li><li>Conserva tutte le ricevute delle spese mediche</li></ul>",fonte:"WHO · Commissione Europea"},
+  {id:6,cat:"naturale",em:"🌊",urg:"alta",title:"Alluvione",tags:["naturale","acqua"],prev:"Procedure di sicurezza durante esondazioni e alluvioni.",body:"<h4>Durante l'inondazione</h4><ul><li>Sali ai piani superiori — non scendere in cantina</li><li>Non camminare in acqua in movimento</li><li>Scollega gli apparecchi elettrici</li></ul><div class='alert-box'>Non attraversare mai una strada allagata. L'acqua corrente e molto piu pericolosa di quanto appare.</div><h4>In auto</h4><ul><li>Se l'acqua sale: abbandona subito il veicolo</li></ul>",fonte:"Protezione Civile · FEMA Floods"},
+  {id:7,cat:"sicurezza",em:"🚨",urg:"alta",title:"Attacco terroristico",tags:["sicurezza","terrorismo"],prev:"Protocollo RUN HIDE TELL in caso di attacco armato.",body:"<div class='alert-box'>In caso di attacco armato: priorita assoluta e uscire dall'area. Non raccogliere oggetti personali.</div><h4>1 RUN Corri</h4><ul><li>Scappa il piu lontano possibile</li><li>Lascia i bagagli</li></ul><h4>2 HIDE Nasconditi</h4><ul><li>Nasconditi in un luogo sicuro, chiudi a chiave</li><li>Spegni luci e suono del telefono</li></ul><h4>3 TELL Avvisa</h4><ul><li>Chiama il 112 appena sei al sicuro</li><li>Fornisci posizione e descrizione</li></ul>",fonte:"UK Counter Terrorism Policing · U.S. DHS"},
+  {id:8,cat:"numeri",em:"📞",urg:"bassa",title:"Numeri di emergenza",tags:["numeri","contatti"],prev:"Numeri di emergenza nei principali paesi del mondo.",body:"<h4>Numeri universali</h4><ul><li>112 — EU e oltre 90 paesi</li><li>911 — USA, Canada, Messico</li><li>999 — UK, Hong Kong</li><li>000 — Australia</li><li>119 — Giappone ambulanza</li></ul><h4>Contatti italiani</h4><ul><li>Farnesina Crisi: +39 06 36225 (24h)</li><li>Verde Farnesina: 800 896 700</li><li>App Farnesina: scarica prima di partire</li></ul><div class='tip-box'>Salva questi numeri in rubrica prima di ogni trasferta.</div>",fonte:"Farnesina · EENA European Emergency Number"},
+  {id:9,cat:"salute",em:"🌡️",urg:"media",title:"Malattie tropicali",tags:["salute","tropicale"],prev:"Riconoscere e gestire sintomi in paesi tropicali.",body:"<h4>Sintomi da monitorare</h4><ul><li>Febbre alta improvvisa dopo soggiorno tropicale: possibile malaria</li><li>Diarrea persistente oltre 24h con sangue: possibile infezione</li><li>Difficolta respiratorie: chiama il 112</li></ul><h4>Prevenzione malaria</h4><ul><li>Profilassi prescritta dal medico prima della partenza</li><li>Repellenti con DEET al 50%</li><li>Zanzariera impregnata per dormire</li></ul>",fonte:"WHO Malaria · CDC Travelers Health"},
+  {id:10,cat:"logistica",em:"✈️",urg:"bassa",title:"Volo cancellato o bagaglio perso",tags:["logistica","volo"],prev:"Diritti del passeggero e procedura per bagaglio smarrito.",body:"<h4>Volo cancellato EU</h4><ul><li>Ritardo oltre 3h o cancellazione: rimborso fino a 600 euro</li><li>Chiedi il modulo di reclamo scritto</li><li>Conserva carta d'imbarco e ricevute</li></ul><h4>Bagaglio perso</h4><ul><li>Denuncia al Lost and Found in aeroporto</li><li>Compila il modulo PIR</li><li>Rimborso fino a 1300 euro</li></ul><div class='tip-box'>Porta il necessario per una notte nel bagaglio a mano.</div>",fonte:"EU Diritti passeggeri · ENAC"},
+  {id:11,cat:"naturale",em:"🌪️",urg:"alta",title:"Uragano e tifone",tags:["naturale","uragano"],prev:"Procedure di sicurezza durante cicloni tropicali.",body:"<h4>Prima dell'uragano</h4><ul><li>Segui le indicazioni di evacuazione delle autorita</li><li>Scegli una stanza interna senza finestre</li><li>Fai scorta d'acqua: 4 litri per persona al giorno</li></ul><h4>Durante</h4><ul><li>Rimani al chiuso lontano dalle finestre</li><li>La calma improvvisa potrebbe essere l'occhio: l'uragano non e finito</li></ul>",fonte:"FEMA Hurricanes · NOAA National Hurricane Center"},
+  {id:12,cat:"sicurezza",em:"🔒",urg:"media",title:"Sicurezza personale e furto",tags:["sicurezza","furto"],prev:"Prevenire aggressioni e furti in trasferta.",body:"<h4>Prevenzione</h4><ul><li>Non esibire oggetti di valore in pubblico</li><li>Usa marsupio portato frontalmente</li><li>Condividi il tuo itinerario con il referente aziendale</li></ul><h4>In caso di aggressione</h4><ul><li>Non resistere: la vita vale piu di qualsiasi oggetto</li><li>Denuncia alla polizia e richiedi copia</li><li>Blocca immediatamente le carte bancarie</li></ul>",fonte:"U.S. OSAC · ASIS International"}
 ];
 
 var PAESI = [
-  {id:"fr",flag:"🇫🇷",name:"Francia",region:"europa",rischio:1,amb:{addr:"Via G. Marconi 1, Parigi",tel:"+33 1 44 30 47 00",email:"amb.parigi@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"17",amb:"15",pom:"18"},osp:{nome:"Hopital Pitie-Salpetriere",addr:"47 Bd de l'Hopital, Parigi",tel:"+33 1 42 16 00 00"},pol:{nome:"Police Nationale",tel:"17",addr:"Commissariati in tutta la citta"},mc:"Paris, France"},
-  {id:"de",flag:"🇩🇪",name:"Germania",region:"europa",rischio:1,amb:{addr:"Hiroshimastrasse 1, Berlino",tel:"+49 30 254400",email:"amb.berlino@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"110",amb:"112",pom:"112"},osp:{nome:"Charite Universitatsmedizin Berlin",addr:"Charitepl. 1, Berlino",tel:"+49 30 450 50"},pol:{nome:"Berliner Polizei",tel:"110",addr:"Platz der Luftbrucke 6, Berlino"},mc:"Berlin, Germany"},
-  {id:"es",flag:"🇪🇸",name:"Spagna",region:"europa",rischio:1,amb:{addr:"Calle Lagasca 98, Madrid",tel:"+34 91 423 33 00",email:"amb.madrid@esteri.it",orario:"Lun-Ven 9-13"},emg:{gen:"112",pol:"091",amb:"061",pom:"080"},osp:{nome:"Hospital General Gregorio Maranon",addr:"Calle del Doctor Esquerdo 46, Madrid",tel:"+34 91 586 80 00"},pol:{nome:"Policia Nacional",tel:"091",addr:"Varie sedi in citta"},mc:"Madrid, Spain"},
-  {id:"uk",flag:"🇬🇧",name:"Regno Unito",region:"europa",rischio:1,amb:{addr:"14 Three Kings Yard, London",tel:"+44 20 7312 2200",email:"amb.londra@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"999",pol:"999",amb:"999",pom:"999"},osp:{nome:"St Thomas Hospital",addr:"Westminster Bridge Rd, London",tel:"+44 20 7188 7188"},pol:{nome:"Metropolitan Police",tel:"999 emg / 101 non-emg",addr:"New Scotland Yard, London"},mc:"London, United Kingdom"},
-  {id:"ch",flag:"🇨🇭",name:"Svizzera",region:"europa",rischio:1,amb:{addr:"Elfenstrasse 14, Berna",tel:"+41 31 350 07 77",email:"amb.berna@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"117",amb:"144",pom:"118"},osp:{nome:"Inselspital Bern",addr:"Freiburgstrasse 18, Berna",tel:"+41 31 632 21 11"},pol:{nome:"Kantonspolizei Bern",tel:"117",addr:"Nordring 32, Berna"},mc:"Bern, Switzerland"},
-  {id:"pl",flag:"🇵🇱",name:"Polonia",region:"europa",rischio:1,amb:{addr:"ul. Szucha 17, Varsavia",tel:"+48 22 523 40 00",email:"amb.varsavia@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"997",amb:"999",pom:"998"},osp:{nome:"Szpital Kliniczny Dzieciatka Jezus",addr:"ul. Lindleya 4, Varsavia",tel:"+48 22 502 20 00"},pol:{nome:"Policja",tel:"997",addr:"ul. Pulawska 148, Varsavia"},mc:"Warsaw, Poland"},
-  {id:"ae",flag:"🇦🇪",name:"Emirati Arabi",region:"medioriente",rischio:2,amb:{addr:"Al Manhal Area, Abu Dhabi",tel:"+971 2 443 5622",email:"amb.abudhabi@esteri.it",orario:"Dom-Gio 8:30-14"},emg:{gen:"999",pol:"999",amb:"998",pom:"997"},osp:{nome:"Cleveland Clinic Abu Dhabi",addr:"Al Maryah Island, Abu Dhabi",tel:"+971 2 501 0000"},pol:{nome:"Abu Dhabi Police",tel:"999",addr:"General HQ, Abu Dhabi"},mc:"Abu Dhabi, UAE"},
-  {id:"sa",flag:"🇸🇦",name:"Arabia Saudita",region:"medioriente",rischio:3,amb:{addr:"Riyadh Diplomatic Quarter",tel:"+966 11 488 1212",email:"amb.riad@esteri.it",orario:"Dom-Gio 8-13"},emg:{gen:"999",pol:"999",amb:"997",pom:"911"},osp:{nome:"King Fahad Medical City",addr:"Riyadh",tel:"+966 11 288 9999"},pol:{nome:"Saudi Police Shurta",tel:"999",addr:"Ministero degli Interni, Riyadh"},mc:"Riyadh, Saudi Arabia"},
-  {id:"il",flag:"🇮🇱",name:"Israele",region:"medioriente",rischio:3,amb:{addr:"Via M. Migliori 14, Tel Aviv",tel:"+972 3 510 38 40",email:"amb.telaviv@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"100",pol:"100",amb:"101",pom:"102"},osp:{nome:"Tel Aviv Sourasky Medical Center",addr:"6 Weizmann St, Tel Aviv",tel:"+972 3 697 4444"},pol:{nome:"Israel Police",tel:"100",addr:"Kikar Safra, Jerusalem"},mc:"Tel Aviv, Israel"},
-  {id:"tr",flag:"🇹🇷",name:"Turchia",region:"medioriente",rischio:2,amb:{addr:"Ataturk Bulvari 118, Ankara",tel:"+90 312 426 54 60",email:"amb.ankara@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"155",amb:"112",pom:"110"},osp:{nome:"Hacettepe University Hospital",addr:"Sihhiye, Ankara",tel:"+90 312 305 50 00"},pol:{nome:"Emniyet Genel Mudurlugu",tel:"155",addr:"Dikmen Cad, Ankara"},mc:"Ankara, Turkey"},
+  {id:"fr",flag:"🇫🇷",name:"Francia",region:"europa",rischio:1,amb:{addr:"Via G. Marconi 1, Parigi",tel:"+33 1 44 30 47 00",email:"amb.parigi@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"17",amb:"15",pom:"18"},osp:{nome:"Hopital Pitie-Salpetriere",addr:"47 Bd de l Hopital, Parigi",tel:"+33 1 42 16 00 00"},pol:{nome:"Police Nationale",tel:"17",addr:"Commissariati in tutta la citta"},mc:"Paris, France"},
+  {id:"de",flag:"🇩🇪",name:"Germania",region:"europa",rischio:1,amb:{addr:"Hiroshimastrasse 1, Berlino",tel:"+49 30 254400",email:"amb.berlino@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"110",amb:"112",pom:"112"},osp:{nome:"Charite Universitatsmedizin Berlin",addr:"Charitepl. 1, Berlino",tel:"+49 30 450 50"},pol:{nome:"Berliner Polizei",tel:"110",addr:"Berlino"},mc:"Berlin, Germany"},
+  {id:"es",flag:"🇪🇸",name:"Spagna",region:"europa",rischio:1,amb:{addr:"Calle Lagasca 98, Madrid",tel:"+34 91 423 33 00",email:"amb.madrid@esteri.it",orario:"Lun-Ven 9-13"},emg:{gen:"112",pol:"091",amb:"061",pom:"080"},osp:{nome:"Hospital General Gregorio Maranon",addr:"Calle del Doctor Esquerdo 46, Madrid",tel:"+34 91 586 80 00"},pol:{nome:"Policia Nacional",tel:"091",addr:"Madrid"},mc:"Madrid, Spain"},
+  {id:"uk",flag:"🇬🇧",name:"Regno Unito",region:"europa",rischio:1,amb:{addr:"14 Three Kings Yard, London",tel:"+44 20 7312 2200",email:"amb.londra@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"999",pol:"999",amb:"999",pom:"999"},osp:{nome:"St Thomas Hospital",addr:"Westminster Bridge Rd, London",tel:"+44 20 7188 7188"},pol:{nome:"Metropolitan Police",tel:"999 emg / 101 non-emg",addr:"London"},mc:"London, United Kingdom"},
+  {id:"ch",flag:"🇨🇭",name:"Svizzera",region:"europa",rischio:1,amb:{addr:"Elfenstrasse 14, Berna",tel:"+41 31 350 07 77",email:"amb.berna@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"117",amb:"144",pom:"118"},osp:{nome:"Inselspital Bern",addr:"Freiburgstrasse 18, Berna",tel:"+41 31 632 21 11"},pol:{nome:"Kantonspolizei Bern",tel:"117",addr:"Berna"},mc:"Bern, Switzerland"},
+  {id:"pl",flag:"🇵🇱",name:"Polonia",region:"europa",rischio:1,amb:{addr:"ul. Szucha 17, Varsavia",tel:"+48 22 523 40 00",email:"amb.varsavia@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"997",amb:"999",pom:"998"},osp:{nome:"Szpital Kliniczny Dzieciatka Jezus",addr:"ul. Lindleya 4, Varsavia",tel:"+48 22 502 20 00"},pol:{nome:"Policja",tel:"997",addr:"Varsavia"},mc:"Warsaw, Poland"},
+  {id:"ae",flag:"🇦🇪",name:"Emirati Arabi",region:"medioriente",rischio:2,amb:{addr:"Al Manhal Area, Abu Dhabi",tel:"+971 2 443 5622",email:"amb.abudhabi@esteri.it",orario:"Dom-Gio 8:30-14"},emg:{gen:"999",pol:"999",amb:"998",pom:"997"},osp:{nome:"Cleveland Clinic Abu Dhabi",addr:"Al Maryah Island",tel:"+971 2 501 0000"},pol:{nome:"Abu Dhabi Police",tel:"999",addr:"Abu Dhabi"},mc:"Abu Dhabi, UAE"},
+  {id:"sa",flag:"🇸🇦",name:"Arabia Saudita",region:"medioriente",rischio:3,amb:{addr:"Riyadh Diplomatic Quarter",tel:"+966 11 488 1212",email:"amb.riad@esteri.it",orario:"Dom-Gio 8-13"},emg:{gen:"999",pol:"999",amb:"997",pom:"911"},osp:{nome:"King Fahad Medical City",addr:"Riyadh",tel:"+966 11 288 9999"},pol:{nome:"Saudi Police",tel:"999",addr:"Riyadh"},mc:"Riyadh, Saudi Arabia"},
+  {id:"il",flag:"🇮🇱",name:"Israele",region:"medioriente",rischio:3,amb:{addr:"Via M. Migliori 14, Tel Aviv",tel:"+972 3 510 38 40",email:"amb.telaviv@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"100",pol:"100",amb:"101",pom:"102"},osp:{nome:"Tel Aviv Sourasky Medical Center",addr:"6 Weizmann St, Tel Aviv",tel:"+972 3 697 4444"},pol:{nome:"Israel Police",tel:"100",addr:"Jerusalem"},mc:"Tel Aviv, Israel"},
+  {id:"tr",flag:"🇹🇷",name:"Turchia",region:"medioriente",rischio:2,amb:{addr:"Ataturk Bulvari 118, Ankara",tel:"+90 312 426 54 60",email:"amb.ankara@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"155",amb:"112",pom:"110"},osp:{nome:"Hacettepe University Hospital",addr:"Sihhiye, Ankara",tel:"+90 312 305 50 00"},pol:{nome:"Emniyet Genel Mudurlugu",tel:"155",addr:"Ankara"},mc:"Ankara, Turkey"},
   {id:"jo",flag:"🇯🇴",name:"Giordania",region:"medioriente",rischio:2,amb:{addr:"Via 21, Garden Estate, Amman",tel:"+962 6 551 21 30",email:"amb.amman@esteri.it",orario:"Dom-Gio 8-13"},emg:{gen:"911",pol:"191",amb:"911",pom:"110"},osp:{nome:"Jordan University Hospital",addr:"Queen Rania St, Amman",tel:"+962 6 535 0000"},pol:{nome:"Public Security Directorate",tel:"191",addr:"Amman"},mc:"Amman, Jordan"},
-  {id:"eg",flag:"🇪🇬",name:"Egitto",region:"medioriente",rischio:3,amb:{addr:"15 Sharia Abdel Rahman Fahmi, Cairo",tel:"+20 2 279 48 94",email:"amb.cairo@esteri.it",orario:"Dom-Gio 9-12"},emg:{gen:"123",pol:"122",amb:"123",pom:"180"},osp:{nome:"Cairo University Hospital",addr:"Kasr Al Ainy St, Cairo",tel:"+20 2 2368 8888"},pol:{nome:"Egyptian Police",tel:"122",addr:"Lazoughly Square, Cairo"},mc:"Cairo, Egypt"},
-  {id:"us",flag:"🇺🇸",name:"Stati Uniti",region:"americhe",rischio:1,amb:{addr:"3000 Whitehaven St NW, Washington DC",tel:"+1 202 612 4400",email:"amb.washington@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"911",pol:"911",amb:"911",pom:"911"},osp:{nome:"George Washington Univ Hospital",addr:"900 23rd St NW, Washington DC",tel:"+1 202 715 4000"},pol:{nome:"Metropolitan Police",tel:"911",addr:"300 Indiana Ave NW, Washington DC"},mc:"Washington DC, USA"},
-  {id:"br",flag:"🇧🇷",name:"Brasile",region:"americhe",rischio:3,amb:{addr:"SES Av. delle Nazioni Q.807, Brasilia",tel:"+55 61 3442 9900",email:"amb.brasilia@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"192",pol:"190",amb:"192",pom:"193"},osp:{nome:"Hospital das Forcas Armadas",addr:"Setor Militar Urbano, Brasilia",tel:"+55 61 3966 3000"},pol:{nome:"Policia Federal",tel:"194",addr:"SBS Q.1 Bl.J, Brasilia"},mc:"Brasilia, Brazil"},
+  {id:"eg",flag:"🇪🇬",name:"Egitto",region:"medioriente",rischio:3,amb:{addr:"15 Sharia Abdel Rahman Fahmi, Cairo",tel:"+20 2 279 48 94",email:"amb.cairo@esteri.it",orario:"Dom-Gio 9-12"},emg:{gen:"123",pol:"122",amb:"123",pom:"180"},osp:{nome:"Cairo University Hospital",addr:"Kasr Al Ainy St, Cairo",tel:"+20 2 2368 8888"},pol:{nome:"Egyptian Police",tel:"122",addr:"Cairo"},mc:"Cairo, Egypt"},
+  {id:"us",flag:"🇺🇸",name:"Stati Uniti",region:"americhe",rischio:1,amb:{addr:"3000 Whitehaven St NW, Washington DC",tel:"+1 202 612 4400",email:"amb.washington@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"911",pol:"911",amb:"911",pom:"911"},osp:{nome:"George Washington Univ Hospital",addr:"900 23rd St NW, Washington DC",tel:"+1 202 715 4000"},pol:{nome:"Metropolitan Police",tel:"911",addr:"Washington DC"},mc:"Washington DC, USA"},
+  {id:"br",flag:"🇧🇷",name:"Brasile",region:"americhe",rischio:3,amb:{addr:"SES Av. delle Nazioni Q.807, Brasilia",tel:"+55 61 3442 9900",email:"amb.brasilia@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"192",pol:"190",amb:"192",pom:"193"},osp:{nome:"Hospital das Forcas Armadas",addr:"Brasilia",tel:"+55 61 3966 3000"},pol:{nome:"Policia Federal",tel:"194",addr:"Brasilia"},mc:"Brasilia, Brazil"},
   {id:"mx",flag:"🇲🇽",name:"Messico",region:"americhe",rischio:3,amb:{addr:"Paseo de las Palmas 1994, CDMX",tel:"+52 55 5596 3655",email:"amb.messico@esteri.it",orario:"Lun-Ven 9-13"},emg:{gen:"911",pol:"911",amb:"911",pom:"911"},osp:{nome:"Hospital General de Mexico",addr:"Dr. Balmis 148, CDMX",tel:"+52 55 2789 2000"},pol:{nome:"SSC Ciudad de Mexico",tel:"911",addr:"CDMX"},mc:"Mexico City, Mexico"},
-  {id:"ar",flag:"🇦🇷",name:"Argentina",region:"americhe",rischio:2,amb:{addr:"Cerrito 1224, Buenos Aires",tel:"+54 11 4816 6400",email:"amb.buenosaires@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"911",pol:"101",amb:"107",pom:"100"},osp:{nome:"Hospital Italiano de Buenos Aires",addr:"Gascon 450, Buenos Aires",tel:"+54 11 4959 0200"},pol:{nome:"Policia Federal Argentina",tel:"101",addr:"Moreno 1550, Buenos Aires"},mc:"Buenos Aires, Argentina"},
-  {id:"co",flag:"🇨🇴",name:"Colombia",region:"americhe",rischio:3,amb:{addr:"Calle 93B No. 9-92, Bogota",tel:"+57 1 218 6680",email:"amb.bogota@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"123",pol:"112",amb:"125",pom:"119"},osp:{nome:"Clinica del Country",addr:"Av. 15 No. 118-03, Bogota",tel:"+57 1 530 0470"},pol:{nome:"Policia Nacional",tel:"123",addr:"Av. El Dorado No. 75-25, Bogota"},mc:"Bogota, Colombia"},
-  {id:"cn",flag:"🇨🇳",name:"Cina",region:"asia",rischio:2,amb:{addr:"Via Tiliu 2, Sanlitun, Pechino",tel:"+86 10 6532 7600",email:"amb.pechino@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"110",pol:"110",amb:"120",pom:"119"},osp:{nome:"Peking Union Medical College Hospital",addr:"1 Shuaifuyuan, Pechino",tel:"+86 10 6915 6114"},pol:{nome:"Beijing Public Security Bureau",tel:"110",addr:"9 Qianmen Dongdajie, Pechino"},mc:"Beijing, China"},
-  {id:"jp",flag:"🇯🇵",name:"Giappone",region:"asia",rischio:1,amb:{addr:"2-5-4 Mita, Minato-ku, Tokyo",tel:"+81 3 3453 5291",email:"amb.tokyo@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"110",pol:"110",amb:"119",pom:"119"},osp:{nome:"St. Luke's International Hospital",addr:"9-1 Akashi-cho, Chuo-ku, Tokyo",tel:"+81 3 3541 5151"},pol:{nome:"Tokyo Metropolitan Police",tel:"110",addr:"2-1-1 Kasumigaseki, Tokyo"},mc:"Tokyo, Japan"},
-  {id:"in",flag:"🇮🇳",name:"India",region:"asia",rischio:2,amb:{addr:"50E Chandragupta Marg, Nuova Delhi",tel:"+91 11 2611 4355",email:"amb.newdelhi@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"100",amb:"108",pom:"101"},osp:{nome:"AIIMS All India Institute of Medical Sciences",addr:"Ansari Nagar, Nuova Delhi",tel:"+91 11 2658 8500"},pol:{nome:"Delhi Police",tel:"100",addr:"Jai Singh Marg, Nuova Delhi"},mc:"New Delhi, India"},
-  {id:"sg",flag:"🇸🇬",name:"Singapore",region:"asia",rischio:1,amb:{addr:"27 Cairnhill Road, Singapore",tel:"+65 6250 6022",email:"amb.singapore@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"999",pol:"999",amb:"995",pom:"994"},osp:{nome:"Singapore General Hospital",addr:"Outram Rd, Singapore",tel:"+65 6222 3322"},pol:{nome:"Singapore Police Force",tel:"999",addr:"New Phoenix Park, 28 Irrawaddy Rd"},mc:"Singapore"},
-  {id:"th",flag:"🇹🇭",name:"Thailandia",region:"asia",rischio:2,amb:{addr:"399 Nang Linchi Rd, Bangkok",tel:"+66 2 285 4090",email:"amb.bangkok@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"191",pol:"191",amb:"1669",pom:"199"},osp:{nome:"Bumrungrad International Hospital",addr:"33 Sukhumvit Soi 3, Bangkok",tel:"+66 2 667 1000"},pol:{nome:"Royal Thai Police",tel:"191",addr:"Rama I Rd, Pathumwan, Bangkok"},mc:"Bangkok, Thailand"},
-  {id:"id",flag:"🇮🇩",name:"Indonesia",region:"asia",rischio:2,amb:{addr:"Jl. Diponegoro No.45, Jakarta",tel:"+62 21 337 445",email:"amb.jakarta@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"112",pol:"110",amb:"118",pom:"113"},osp:{nome:"RS Cipto Mangunkusumo",addr:"Jl. Diponegoro No.71, Jakarta",tel:"+62 21 500 135"},pol:{nome:"Kepolisian RI POLRI",tel:"110",addr:"Jl. Trunojoyo No.3, Jakarta"},mc:"Jakarta, Indonesia"},
-  {id:"za",flag:"🇿🇦",name:"Sudafrica",region:"africa",rischio:3,amb:{addr:"796 George Ave, Arcadia, Pretoria",tel:"+27 12 423 0000",email:"amb.pretoria@esteri.it",orario:"Lun-Ven 8-12"},emg:{gen:"10111",pol:"10111",amb:"10177",pom:"10111"},osp:{nome:"Steve Biko Academic Hospital",addr:"Malherbe St, Pretoria",tel:"+27 12 354 1000"},pol:{nome:"South African Police Service",tel:"10111",addr:"Private Bag X94, Pretoria"},mc:"Pretoria, South Africa"},
-  {id:"ng",flag:"🇳🇬",name:"Nigeria",region:"africa",rischio:4,amb:{addr:"Via Udi Hills St, Maitama, Abuja",tel:"+234 9 413 4672",email:"amb.abuja@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"199",amb:"112",pom:"199"},osp:{nome:"University of Abuja Teaching Hospital",addr:"Airport Rd, Abuja",tel:"+234 9 671 0003"},pol:{nome:"Nigeria Police Force",tel:"199",addr:"Force HQ, Louis Edet House, Abuja"},mc:"Abuja, Nigeria"},
-  {id:"ke",flag:"🇰🇪",name:"Kenya",region:"africa",rischio:3,amb:{addr:"International House, Mama Ngina St, Nairobi",tel:"+254 20 2247 750",email:"amb.nairobi@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"999",pol:"999",amb:"999",pom:"999"},osp:{nome:"Aga Khan University Hospital",addr:"3rd Parklands Ave, Nairobi",tel:"+254 20 366 2000"},pol:{nome:"National Police Service Kenya",tel:"999",addr:"Vigilance House, Harambee Ave, Nairobi"},mc:"Nairobi, Kenya"},
-  {id:"ma",flag:"🇲🇦",name:"Marocco",region:"africa",rischio:2,amb:{addr:"Via Idriss El Azhar 2, Agdal, Rabat",tel:"+212 537 706 597",email:"amb.rabat@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"19",pol:"19",amb:"15",pom:"15"},osp:{nome:"CHU Ibn Sina",addr:"Av. des Nations Unies, Rabat",tel:"+212 537 67 27 71"},pol:{nome:"Surete Nationale DGSN",tel:"19",addr:"Blvd Mohammed V, Rabat"},mc:"Rabat, Morocco"},
+  {id:"ar",flag:"🇦🇷",name:"Argentina",region:"americhe",rischio:2,amb:{addr:"Cerrito 1224, Buenos Aires",tel:"+54 11 4816 6400",email:"amb.buenosaires@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"911",pol:"101",amb:"107",pom:"100"},osp:{nome:"Hospital Italiano de Buenos Aires",addr:"Gascon 450, Buenos Aires",tel:"+54 11 4959 0200"},pol:{nome:"Policia Federal Argentina",tel:"101",addr:"Buenos Aires"},mc:"Buenos Aires, Argentina"},
+  {id:"co",flag:"🇨🇴",name:"Colombia",region:"americhe",rischio:3,amb:{addr:"Calle 93B No. 9-92, Bogota",tel:"+57 1 218 6680",email:"amb.bogota@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"123",pol:"112",amb:"125",pom:"119"},osp:{nome:"Clinica del Country",addr:"Av. 15 No. 118-03, Bogota",tel:"+57 1 530 0470"},pol:{nome:"Policia Nacional",tel:"123",addr:"Bogota"},mc:"Bogota, Colombia"},
+  {id:"cn",flag:"🇨🇳",name:"Cina",region:"asia",rischio:2,amb:{addr:"Via Tiliu 2, Sanlitun, Pechino",tel:"+86 10 6532 7600",email:"amb.pechino@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"110",pol:"110",amb:"120",pom:"119"},osp:{nome:"Peking Union Medical College Hospital",addr:"1 Shuaifuyuan, Pechino",tel:"+86 10 6915 6114"},pol:{nome:"Beijing Public Security Bureau",tel:"110",addr:"Pechino"},mc:"Beijing, China"},
+  {id:"jp",flag:"🇯🇵",name:"Giappone",region:"asia",rischio:1,amb:{addr:"2-5-4 Mita, Minato-ku, Tokyo",tel:"+81 3 3453 5291",email:"amb.tokyo@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"110",pol:"110",amb:"119",pom:"119"},osp:{nome:"St Lukes International Hospital",addr:"9-1 Akashi-cho, Tokyo",tel:"+81 3 3541 5151"},pol:{nome:"Tokyo Metropolitan Police",tel:"110",addr:"Tokyo"},mc:"Tokyo, Japan"},
+  {id:"in",flag:"🇮🇳",name:"India",region:"asia",rischio:2,amb:{addr:"50E Chandragupta Marg, Nuova Delhi",tel:"+91 11 2611 4355",email:"amb.newdelhi@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"100",amb:"108",pom:"101"},osp:{nome:"AIIMS All India Institute of Medical Sciences",addr:"Ansari Nagar, Nuova Delhi",tel:"+91 11 2658 8500"},pol:{nome:"Delhi Police",tel:"100",addr:"Nuova Delhi"},mc:"New Delhi, India"},
+  {id:"sg",flag:"🇸🇬",name:"Singapore",region:"asia",rischio:1,amb:{addr:"27 Cairnhill Road, Singapore",tel:"+65 6250 6022",email:"amb.singapore@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"999",pol:"999",amb:"995",pom:"994"},osp:{nome:"Singapore General Hospital",addr:"Outram Rd, Singapore",tel:"+65 6222 3322"},pol:{nome:"Singapore Police Force",tel:"999",addr:"Singapore"},mc:"Singapore"},
+  {id:"th",flag:"🇹🇭",name:"Thailandia",region:"asia",rischio:2,amb:{addr:"399 Nang Linchi Rd, Bangkok",tel:"+66 2 285 4090",email:"amb.bangkok@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"191",pol:"191",amb:"1669",pom:"199"},osp:{nome:"Bumrungrad International Hospital",addr:"33 Sukhumvit Soi 3, Bangkok",tel:"+66 2 667 1000"},pol:{nome:"Royal Thai Police",tel:"191",addr:"Bangkok"},mc:"Bangkok, Thailand"},
+  {id:"id",flag:"🇮🇩",name:"Indonesia",region:"asia",rischio:2,amb:{addr:"Jl. Diponegoro No.45, Jakarta",tel:"+62 21 337 445",email:"amb.jakarta@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"112",pol:"110",amb:"118",pom:"113"},osp:{nome:"RS Cipto Mangunkusumo",addr:"Jl. Diponegoro No.71, Jakarta",tel:"+62 21 500 135"},pol:{nome:"Kepolisian RI POLRI",tel:"110",addr:"Jakarta"},mc:"Jakarta, Indonesia"},
+  {id:"za",flag:"🇿🇦",name:"Sudafrica",region:"africa",rischio:3,amb:{addr:"796 George Ave, Arcadia, Pretoria",tel:"+27 12 423 0000",email:"amb.pretoria@esteri.it",orario:"Lun-Ven 8-12"},emg:{gen:"10111",pol:"10111",amb:"10177",pom:"10111"},osp:{nome:"Steve Biko Academic Hospital",addr:"Malherbe St, Pretoria",tel:"+27 12 354 1000"},pol:{nome:"South African Police Service",tel:"10111",addr:"Pretoria"},mc:"Pretoria, South Africa"},
+  {id:"ng",flag:"🇳🇬",name:"Nigeria",region:"africa",rischio:4,amb:{addr:"Via Udi Hills St, Maitama, Abuja",tel:"+234 9 413 4672",email:"amb.abuja@esteri.it",orario:"Lun-Ven 9-12"},emg:{gen:"112",pol:"199",amb:"112",pom:"199"},osp:{nome:"University of Abuja Teaching Hospital",addr:"Airport Rd, Abuja",tel:"+234 9 671 0003"},pol:{nome:"Nigeria Police Force",tel:"199",addr:"Abuja"},mc:"Abuja, Nigeria"},
+  {id:"ke",flag:"🇰🇪",name:"Kenya",region:"africa",rischio:3,amb:{addr:"International House, Nairobi",tel:"+254 20 2247 750",email:"amb.nairobi@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"999",pol:"999",amb:"999",pom:"999"},osp:{nome:"Aga Khan University Hospital",addr:"3rd Parklands Ave, Nairobi",tel:"+254 20 366 2000"},pol:{nome:"National Police Service Kenya",tel:"999",addr:"Nairobi"},mc:"Nairobi, Kenya"},
+  {id:"ma",flag:"🇲🇦",name:"Marocco",region:"africa",rischio:2,amb:{addr:"Via Idriss El Azhar 2, Agdal, Rabat",tel:"+212 537 706 597",email:"amb.rabat@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"19",pol:"19",amb:"15",pom:"15"},osp:{nome:"CHU Ibn Sina",addr:"Av. des Nations Unies, Rabat",tel:"+212 537 67 27 71"},pol:{nome:"Surete Nationale DGSN",tel:"19",addr:"Rabat"},mc:"Rabat, Morocco"},
   {id:"et",flag:"🇪🇹",name:"Etiopia",region:"africa",rischio:3,amb:{addr:"via Jimma Rd, Bole, Addis Abeba",tel:"+251 11 123 5717",email:"amb.addisabeba@esteri.it",orario:"Lun-Ven 8:30-12"},emg:{gen:"911",pol:"991",amb:"907",pom:"939"},osp:{nome:"Black Lion Hospital",addr:"Zambia St, Addis Abeba",tel:"+251 11 551 1211"},pol:{nome:"Federal Police Commission",tel:"991",addr:"Addis Abeba"},mc:"Addis Ababa, Ethiopia"}
+];
+
+var CAPITOLI = [
+  {icon:"📄",title:"1. Documenti",intro:"I documenti sono la tua identita all estero. Perderli senza copie puo bloccarti per giorni.",fonte:"Fonte: MAECI esteri.it",voci:[{t:"Passaporto valido",d:"Verifica che il passaporto sia valido per tutta la durata del viaggio piu almeno 6 mesi oltre la data di rientro. Molti paesi rifiutano l ingresso se la scadenza e inferiore a 6 mesi.",c:"Come verificarlo: apri il passaporto alla pagina dei dati e controlla la data di scadenza.",a:"Se scade entro 6 mesi puoi richiedere il rinnovo urgente in Questura (3-5 giorni lavorativi). In emergenza alcune ambasciate italiane rilasciano un documento di viaggio provvisorio.",u:"alta"},{t:"Copia digitale dei documenti",d:"Scansiona passaporto, carta d identita, patente, tessera sanitaria. Salva le copie su cloud personale e invia una copia via email a un contatto fidato in Italia.",c:"Fotografa tutti i documenti con il telefono e caricali sul cloud.",a:"Sei gia partito senza farlo? Fotografa i documenti ora e inviati per email a te stesso e a un familiare. E una soluzione valida accettata dalla maggior parte delle ambasciate.",u:"alta"},{t:"Visto e permessi di ingresso",d:"Verifica se il paese di destinazione richiede un visto per i cittadini italiani. Consulta il sito Viaggiare Sicuri della Farnesina.",c:"Controlla su: viaggiaresicuri.it — sezione paese di destinazione.",a:"Alcuni paesi offrono visto all arrivo o visto elettronico richiedibile online in 24-48 ore.",u:"media"},{t:"Documenti aziendali",d:"Porta con te: lettera di incarico aziendale in inglese, biglietti da visita, eventuali contratti da firmare.",c:"Chiedi all ufficio HR la lettera di missione prima di partire.",a:"Un email ufficiale del tuo responsabile con carta intestata in PDF puo essere sufficiente in molti contesti.",u:"media"}]},
+  {icon:"💉",title:"2. Salute e vaccinazioni",intro:"La preparazione sanitaria e spesso sottovalutata. Alcune malattie richiedono profilassi da iniziare settimane prima.",fonte:"Fonte: ISS iss.it · CDC cdc.gov/travel",voci:[{t:"Vaccinazioni obbligatorie",d:"Alcuni paesi richiedono vaccinazioni obbligatorie per l ingresso come la febbre gialla. Consulta il medico almeno 4-6 settimane prima della partenza.",c:"Verifica le vaccinazioni richieste su iss.it o cdc.gov/travel inserendo il paese di destinazione.",a:"Parti tra pochi giorni? Alcune vaccinazioni possono essere fatte anche a breve termine. Consulta subito il medico di base o un centro vaccinazioni internazionale.",u:"alta"},{t:"Farmaci e kit di pronto soccorso",d:"Porta una scorta di farmaci sufficiente per tutta la durata piu giorni extra. Kit minimo: antidolorifico, antifebbrifugo, antidiarroico, cerotti, disinfettante, sali reidratanti.",c:"Prepara una lista dei farmaci con nome generico e dosaggio.",a:"Nelle grandi citta estere le farmacie internazionali sono accessibili. Contatta il medico in Italia per prescrizioni urgenti via email.",u:"alta"},{t:"Cartella clinica e allergie",d:"Prepara un documento in inglese con: gruppo sanguigno, allergie, patologie croniche, farmaci assunti, medico di riferimento in Italia.",c:"Un semplice documento PDF salvato sul telefono e sufficiente.",a:"Crea subito un documento base. Apple Health e Google Health permettono di salvare queste info accessibili anche dalla schermata di blocco.",u:"media"},{t:"Tessera Sanitaria Europea TEAM",d:"Se viaggi in EU la TEAM garantisce accesso alle cure mediche pubbliche. E gratuita e richiesta al medico di base o CAF.",c:"Verifica la data di scadenza della tua tessera sanitaria.",a:"Puoi richiedere un Certificato Sostitutivo Provvisorio via telefono al tuo Distretto ASL — viene inviato via email in pochi minuti.",u:"media"}]},
+  {icon:"🛡️",title:"3. Assicurazioni",intro:"L assicurazione di viaggio e la rete di sicurezza finanziaria. Spesso e gia inclusa nelle polizze aziendali — verificala prima.",fonte:"Fonte: IVASS ivass.it · Farnesina",voci:[{t:"Assicurazione sanitaria di viaggio",d:"Verifica se la tua azienda ha una polizza per i dipendenti in trasferta. Deve coprire spese mediche, rimpatrio sanitario, evacuazione. Massimale consigliato: almeno 500.000 euro extra-EU.",c:"Chiedi all ufficio HR il certificato assicurativo prima di partire — salvalo sul telefono in PDF.",a:"Non hai copertura? Acquista una polizza individuale online: AXA, Allianz Travel, ERGO offrono polizze attivabili anche all ultimo minuto. Costo medio 20-80 euro per una settimana.",u:"alta"},{t:"Assicurazione annullamento viaggio",d:"Copre le spese in caso di cancellazione per cause documentate. Spesso inclusa nelle polizze multitrip o nelle carte di credito premium.",c:"Verifica se la tua carta di credito aziendale include gia questa copertura.",a:"Per trasferte brevi l annullamento e raramente necessario. Se il viaggio e critico, aggiungila alla polizza sanitaria.",u:"bassa"},{t:"Responsabilita civile",d:"Copre i danni involontari causati a terzi. Particolarmente importante se si guida un veicolo a noleggio.",c:"Per i veicoli a noleggio: verifica sempre se l assicurazione inclusa copre i danni.",a:"Hai gia noleggiato senza copertura? Contatta la compagnia di noleggio per aggiungere la copertura — si puo fare anche dopo il ritiro.",u:"media"}]},
+  {icon:"📱",title:"4. Comunicazioni",intro:"Rimanere raggiungibile e fondamentale sia per la tua sicurezza che per l azienda.",fonte:"Fonte: AGCOM agcom.it · Farnesina App",voci:[{t:"Piano tariffario roaming o SIM locale",d:"In EU il roaming e gratuito. Extra-EU: attiva un piano internazionale o acquista una SIM locale. Considera eSIM internazionali come Airalo o Holafly.",c:"Chiama il tuo operatore o verifica sull app il costo per il paese di destinazione.",a:"Sei gia all estero? Connettiti al WiFi e usa WhatsApp per chiamate gratuite. Acquista una SIM locale all aeroporto.",u:"media"},{t:"App Farnesina",d:"L app ufficiale del Ministero degli Esteri permette di registrare il viaggio, ricevere allerte di sicurezza e contattare l Unita di Crisi. Gratuita su iOS e Android.",c:"Scarica l app Farnesina e registra il tuo viaggio con nome, destinazione, date e contatto in Italia.",a:"Non riesci a scaricarla? Registra il viaggio su viaggiaresicuri.it/registrazione. Salva il numero Unita di Crisi: +39 06 36225.",u:"alta"},{t:"Mappe e contenuti offline",d:"Scarica le mappe della citta di destinazione offline su Google Maps o Maps.me. Scarica anche il traduttore offline e guide della citta.",c:"Apri Google Maps, cerca la citta e seleziona Scarica nella scheda del posto.",a:"Non le hai scaricate? Connettiti al WiFi dell hotel appena arrivi e scaricale immediatamente.",u:"media"},{t:"Powerbank e adattatori",d:"Porta un powerbank da almeno 10.000 mAh. Verifica il tipo di presa elettrica del paese di destinazione.",c:"Consulta il sito iec.ch/world-plugs per il tipo di presa.",a:"Non hai l adattatore? Acquistalo all aeroporto o chiedi alla reception dell hotel.",u:"media"}]},
+  {icon:"🔐",title:"5. Sicurezza digitale",intro:"I tuoi dati aziendali e personali sono a rischio. WiFi pubblici, dispositivi condivisi e furti sono i rischi principali.",fonte:"Fonte: ENISA enisa.europa.eu · CISA cisa.gov",voci:[{t:"VPN aziendale",d:"Usa sempre una VPN su reti WiFi pubbliche. Cifra il traffico proteggendo dati aziendali e credenziali. Servizi affidabili: NordVPN, ExpressVPN, ProtonVPN.",c:"Installa e testa la VPN prima di partire — alcune sono bloccate in certi paesi come la Cina.",a:"Non hai una VPN? Evita sistemi aziendali o banche su WiFi pubblico. Usa i dati mobili come hotspot personale.",u:"alta"},{t:"Autenticazione a due fattori",d:"Attiva il 2FA su tutti gli account importanti: email, banca, account aziendali. In caso di furto del dispositivo senza 2FA l accesso e impossibile.",c:"Usa Google Authenticator o Authy che funziona offline invece degli SMS.",a:"Non hai il 2FA? Fallo subito prima di partire — richiede 5 minuti per account.",u:"alta"},{t:"Backup dei dispositivi",d:"Esegui un backup completo di smartphone e laptop prima di partire. In caso di furto perdi il dispositivo ma non i dati.",c:"iOS: Impostazioni > iCloud > Backup. Android: Impostazioni > Sistema > Backup.",a:"Non hai fatto backup? Collegati a WiFi stabile e avvia il backup. Per dati critici salvali sul cloud aziendale subito.",u:"media"},{t:"Blocco remoto dispositivi",d:"Attiva Trova il mio dispositivo su tutti i device. In caso di furto puoi localizzare, bloccare o cancellare da remoto.",c:"iOS: Impostazioni > nome > Trova il mio iPhone. Android: myaccount.google.com/find-your-phone.",a:"Non ce l hai attivato? Fallo subito — richiede 30 secondi.",u:"alta"}]},
+  {icon:"🎒",title:"6. Borsa di emergenza",intro:"Una piccola borsa con gli essenziali puo fare la differenza. Deve essere sempre con te, non nel bagaglio da stiva.",fonte:"Fonte: FEMA ready.gov · Protezione Civile protezionecivile.gov.it",voci:[{t:"Documenti essenziali sempre con te",d:"Nel bagaglio a mano: passaporto originale, carta di credito di emergenza separata, contanti in valuta locale equivalente 200-500 euro, nota scritta con numeri di emergenza.",c:"Regola d oro: i documenti non vanno mai nel bagaglio da stiva.",a:"Hai gia consegnato il bagaglio con i documenti? Avvisa subito il personale dell aeroporto prima che parta.",u:"alta"},{t:"Kit di pronto soccorso tascabile",d:"Mini kit: cerotti, garza sterile, disinfettante in formato travel max 100ml, antidolorifico, antidiarroico, sali reidratanti, termometro tascabile.",c:"Molte farmacie vendono kit da viaggio preconfezionati a circa 10-15 euro.",a:"Non hai preparato il kit? In ogni aeroporto internazionale ci sono farmacie.",u:"media"},{t:"Abbigliamento nel bagaglio a mano",d:"Porta sempre nel bagaglio a mano: cambio di biancheria, camicia di ricambio, farmaci essenziali, caricabatterie. Se il bagaglio viene perso sei autonomo per 24 ore.",c:"Tratta il bagaglio a mano come se fosse l unico che hai.",a:"Hai gia imbarcato tutto? Per il prossimo volo ricordatelo. Molti hotel offrono kit di cortesia.",u:"media"}]},
+  {icon:"📋",title:"7. Registrazione e contatti",intro:"Comunicare il tuo viaggio alle persone giuste e la misura piu semplice e piu trascurata.",fonte:"Fonte: Farnesina esteri.it · ASIS International",voci:[{t:"Registrazione su Viaggiare Sicuri",d:"Registra il tuo viaggio sul portale Farnesina prima di partire. Inserisci: paese, date, alloggio, contatto in Italia. In caso di crisi la Farnesina sapra che sei li.",c:"La registrazione richiede 5 minuti ed e gratuita. Usa l app Farnesina o viaggiaresicuri.it.",a:"Puoi registrarti anche dopo la partenza dall estero appena hai WiFi.",u:"alta"},{t:"Piano di comunicazione con l azienda",d:"Prima di partire definisci: orario e modalita degli aggiornamenti quotidiani, numero di emergenza, procedura in caso di mancato contatto.",c:"Un messaggio WhatsApp quotidiano e sufficiente — l importante e che qualcuno sappia che stai bene.",a:"Manda ora un messaggio al responsabile con: dove sei, dove alloggi, quando torni, come contattarti.",u:"alta"},{t:"Numeri salvati in rubrica offline",d:"Salva nella rubrica: ambasciata italiana nel paese, Unita di Crisi Farnesina +39 06 36225, referente aziendale, assicurazione di viaggio, contatto familiare in Italia.",c:"Testa i numeri prima di partire.",a:"Fai uno screenshot con tutti i numeri e salvalo nella galleria del telefono — accessibile anche offline.",u:"alta"}]},
+  {icon:"💳",title:"8. Finanze e pagamenti",intro:"Rimanere senza accesso al denaro all estero e uno degli scenari piu comuni. Pianifica prima.",fonte:"Fonte: Banca d Italia bancaditalia.it",voci:[{t:"Carte di credito e bancomat",d:"Porta almeno 2 carte di circuiti diversi. Avvisa la tua banca della trasferta per evitare blocchi. Carte come N26, Revolut, Wise offrono cambi senza commissioni.",c:"Chiama il numero sul retro della carta o usa l app per impostare il viaggio internazionale.",a:"La carta e stata bloccata? Chiama il numero di emergenza sul retro. Nel frattempo usa una carta di backup.",u:"alta"},{t:"Contanti in valuta locale",d:"Porta sempre contanti equivalenti a 200-500 euro. Cambia valuta prima di partire in banca. Conserva i contanti in posti diversi.",c:"Verifica qual e la valuta del paese e il tasso di cambio attuale.",a:"Sei gia arrivato senza contanti? Usa il bancomat dell aeroporto o cerca una banca locale.",u:"media"},{t:"Fondo di emergenza separato",d:"Tieni disponibile un fondo di emergenza separato: una carta prepagata con 500-1000 euro dedicata solo alle emergenze.",c:"Una carta Revolut o Wise con saldo dedicato e perfetta — si ricarica facilmente dall app.",a:"Non hai un fondo di emergenza? Tieni almeno 200 euro in contanti nascosti in una tasca interna della valigia.",u:"alta"}]}
 ];
 
 function init() {
@@ -443,28 +436,33 @@ function init() {
   setMode(online ? "ai" : "db");
   if (online) {
     setTimeout(function() {
-      addAIMsg("assistant", "Ciao! Sono SafePass AI. Descrivi la situazione o fai una domanda — rispondo con procedure pratiche e fonti verificate. In caso di pericolo: chiama sempre il 112 come prima azione.");
+      addAIMsg("assistant", "Ciao! Sono SafePass AI. Descrivi la situazione o fai una domanda — rispondo con procedure pratiche. In caso di pericolo: chiama sempre il 112 come prima azione.");
     }, 400);
   }
 }
 
 function updateCounts() {
   document.getElementById("c-all").textContent = DB.length;
-  ["naturale","emergenza","sicurezza","salute","logistica","numeri"].forEach(function(c) {
+  var cats = ["naturale","emergenza","sicurezza","salute","logistica","numeri"];
+  for (var i = 0; i < cats.length; i++) {
+    var c = cats[i];
     var el = document.getElementById("c-" + c);
-    if (el) el.textContent = DB.filter(function(e) { return e.cat === c || e.tags.includes(c); }).length;
-  });
+    if (el) {
+      var count = DB.filter(function(e) { return e.cat === c || e.tags.indexOf(c) >= 0; }).length;
+      el.textContent = count;
+    }
+  }
 }
 
-function renderCards(data, cat, q) {
-  var filtered = cat && cat !== "all" ? data.filter(function(e) { return e.cat === cat || e.tags.includes(cat); }) : data;
+function renderCards(data, cat) {
+  var filtered = cat && cat !== "all" ? data.filter(function(e) { return e.cat === cat || e.tags.indexOf(cat) >= 0; }) : data;
   var grid = document.getElementById("cards");
   var nr = document.getElementById("nores");
   if (filtered.length === 0) { grid.innerHTML = ""; nr.style.display = "block"; return; }
   nr.style.display = "none";
   var uc = {alta:"tr", media:"to", bassa:"tg"};
   grid.innerHTML = filtered.map(function(e) {
-    return "<div class='card' onclick='openProc(" + e.id + ")'><div style='display:flex;align-items:flex-start;gap:10px'><div class='cem'>" + e.em + "</div><div><div class='ctitle'>" + e.title + "</div><div class='cprev'>" + e.prev + "</div></div></div><div class='ctags'><span class='tag " + (uc[e.urg]||"tb") + "'>Urgenza " + e.urg + "</span>" + e.tags.slice(0,2).map(function(t) { return "<span class='tag tb'>" + t + "</span>"; }).join("") + "</div></div>";
+    return "<div class='card' onclick='openProc(" + e.id + ")'><div style='display:flex;align-items:flex-start;gap:10px'><div class='cem'>" + e.em + "</div><div><div class='ctitle'>" + e.title + "</div><div class='cprev'>" + e.prev + "</div></div></div><div class='ctags'><span class='tag " + (uc[e.urg]||"tb") + "'>Urgenza " + e.urg + "</span></div></div>";
   }).join("");
 }
 
@@ -481,10 +479,10 @@ function openProc(id) {
 
 function renderPaesi(reg) {
   var data = reg === "tutti" ? PAESI : PAESI.filter(function(p) { return p.region === reg; });
-  renderPaesiFiltered(data);
+  renderPaesiList(data);
 }
 
-function renderPaesiFiltered(data) {
+function renderPaesiList(data) {
   document.getElementById("pgrid").innerHTML = data.map(function(p) {
     return "<div class='pcard' onclick='openPaese(\"" + p.id + "\")'><div class='pflag'>" + p.flag + "</div><div><div class='pname'>" + p.name + "</div><div class='pregion'>" + p.region + "</div></div></div>";
   }).join("");
@@ -499,12 +497,12 @@ function openPaese(id) {
   var rl = ["","r1","r2","r3","r4"];
   var rl2 = ["","Rischio basso","Attenzione","Rischio elevato","Rischio molto elevato"];
   document.getElementById("prischio").innerHTML = "<div class='rbadge " + rl[p.rischio] + "'>" + rl2[p.rischio] + "</div>";
-  document.getElementById("pamb").innerHTML = ir([["Indirizzo",p.amb.addr],["Telefono","<a href='tel:" + p.amb.tel + "'>" + p.amb.tel + "</a>"],["Email","<a href='mailto:" + p.amb.email + "'>" + p.amb.email + "</a>"],["Orario",p.amb.orario]]);
+  document.getElementById("pamb").innerHTML = ir([["Indirizzo",p.amb.addr],["Telefono","<a href='tel:" + p.amb.tel + "'>" + p.amb.tel + "</a>"],["Email",p.amb.email],["Orario",p.amb.orario]]);
   document.getElementById("pemg").innerHTML = ir([["Emergenze","<strong>" + p.emg.gen + "</strong>"],["Polizia","<strong>" + p.emg.pol + "</strong>"],["Ambulanza","<strong>" + p.emg.amb + "</strong>"],["Vigili fuoco","<strong>" + p.emg.pom + "</strong>"]]);
   document.getElementById("posp").innerHTML = ir([[" Nome",p.osp.nome],["Indirizzo",p.osp.addr],["Telefono","<a href='tel:" + p.osp.tel + "'>" + p.osp.tel + "</a>"]]);
   document.getElementById("ppol").innerHTML = ir([[" Nome",p.pol.nome],["Numero","<strong>" + p.pol.tel + "</strong>"],["Sede",p.pol.addr]]);
   var q = encodeURIComponent(p.mc);
-  document.getElementById("pmaplinks").innerHTML = "<a class='ml' href='https://maps.google.com/?q=" + q + "' target='_blank'>Ambasciata Italiana</a><a class='ml' href='https://maps.google.com/?q=hospital+near+" + q + "' target='_blank'>Ospedali vicini</a><a class='ml' href='https://maps.google.com/?q=police+near+" + q + "' target='_blank'>Polizia vicina</a><a class='ml' href='https://www.viaggiaresicuri.it' target='_blank'>Livello rischio Farnesina</a>";
+  document.getElementById("pmaplinks").innerHTML = "<a class='ml' href='https://maps.google.com/?q=" + q + "' target='_blank'>Ambasciata</a><a class='ml' href='https://maps.google.com/?q=hospital+near+" + q + "' target='_blank'>Ospedali vicini</a><a class='ml' href='https://maps.google.com/?q=police+near+" + q + "' target='_blank'>Polizia vicina</a><a class='ml' href='https://www.viaggiaresicuri.it' target='_blank'>Livello rischio Farnesina</a>";
   document.getElementById("pmap").innerHTML = "<iframe src='https://maps.google.com/maps?q=" + q + "&output=embed&z=12' allowfullscreen></iframe>";
   openOv("ovpa");
 }
@@ -518,325 +516,25 @@ function closeOv(id) { document.getElementById(id).classList.remove("open"); }
 document.getElementById("ovp").addEventListener("click", function(e) { if (e.target === this) closeOv("ovp"); });
 document.getElementById("ovpa").addEventListener("click", function(e) { if (e.target === this) closeOv("ovpa"); });
 
-var CAPITOLI = [
-  {
-    title: "1. Documenti",
-    icon: "📄",
-    intro: "I documenti sono la tua identita all'estero. Perderli senza copie puo bloccarti per giorni. Preparare questo step richiede 15 minuti.",
-    fonte: "Fonte: MAECI — Ministero degli Affari Esteri e della Cooperazione Internazionale (esteri.it)",
-    voci: [
-      {
-        titolo: "Passaporto valido",
-        desc: "Verifica che il passaporto sia valido per tutta la durata del viaggio piu almeno 6 mesi oltre la data di rientro. Molti paesi rifiutano l'ingresso se la scadenza e inferiore a 6 mesi.",
-        check: "Come verificarlo: apri il passaporto alla pagina dei dati e controlla la data di scadenza.",
-        alt: "Hai dimenticato di controllare? Verifica immediatamente la validita: se scade entro 6 mesi puoi richiedere il rinnovo urgente in Questura (3-5 giorni lavorativi, tariffa maggiorata). In caso di emergenza, alcune ambasciate italiane rilasciano un documento di viaggio provvisorio.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Copia digitale e cartacea dei documenti",
-        desc: "Scansiona passaporto, carta d'identita, patente, tessera sanitaria, carta di credito (solo fronte). Salva le copie su cloud personale (Google Drive, iCloud) e invia una copia via email a un contatto fidato in Italia.",
-        check: "Fallo subito: fotografa tutti i documenti con il telefono e carica le immagini sul cloud.",
-        alt: "Sei gia partito senza farlo? Fotografa i documenti ora e inviati per email a te stesso e a un familiare. E una soluzione valida e accettata dalla maggior parte delle ambasciate come prova d'identita.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Visto e permessi di ingresso",
-        desc: "Verifica se il paese di destinazione richiede un visto per i cittadini italiani. Consulta il sito Viaggiare Sicuri della Farnesina per informazioni aggiornate su ogni singolo paese.",
-        check: "Controlla su: viaggiaresicuri.it — sezione paese di destinazione.",
-        alt: "Hai dimenticato di richiedere il visto? Alcuni paesi offrono visto all'arrivo (visa on arrival) o visto elettronico (e-visa) richiedibile online in 24-48 ore. Verifica immediatamente la situazione specifica del tuo paese di destinazione.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Documenti aziendali",
-        desc: "Porta con te: lettera di incarico aziendale in inglese (e nella lingua locale se possibile), biglietti da visita, eventuali contratti o accordi da firmare.",
-        check: "Chiedi all'ufficio HR o al tuo responsabile la lettera di missione prima di partire.",
-        alt: "Non hai la lettera di incarico? Un'email ufficiale del tuo responsabile con carta intestata aziendale in PDF puo essere sufficiente in molti contesti. Salvala offline sul telefono.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "2. Salute e vaccinazioni",
-    icon: "💉",
-    intro: "La preparazione sanitaria e spesso sottovalutata. Alcune malattie tropicali richiedono profilassi da iniziare settimane prima della partenza.",
-    fonte: "Fonte: Istituto Superiore di Sanita — Centro Nazionale per la Prevenzione delle Malattie e la Promozione della Salute (iss.it) · CDC Travelers Health (cdc.gov/travel)",
-    voci: [
-      {
-        titolo: "Vaccinazioni obbligatorie e raccomandate",
-        desc: "Alcuni paesi richiedono vaccinazioni obbligatorie per l'ingresso (es. febbre gialla per certi paesi africani e sudamericani). Consulta il medico almeno 4-6 settimane prima della partenza per vaccinazioni raccomandate: epatite A e B, febbre tifoidea, meningite, rabbia (per aree rurali).",
-        check: "Verifica le vaccinazioni richieste su: iss.it o cdc.gov/travel — inserisci il paese di destinazione.",
-        alt: "Parti tra pochi giorni? Alcune vaccinazioni possono essere fatte anche a breve termine (es. epatite A). Consulta immediatamente il tuo medico di base o un centro vaccinazioni internazionale. Per la febbre gialla serve il certificato internazionale — senza non puoi entrare in molti paesi.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Farmaci personali e kit di pronto soccorso",
-        desc: "Porta una scorta di farmaci sufficienti per tutta la durata del viaggio piu alcuni giorni extra. I farmaci con ricetta devono essere accompagnati dalla prescrizione medica in inglese. Kit minimo consigliato: antidolorifico, antifebbrifugo, antidiarroico, antibiotico ad ampio spettro (su prescrizione), cerotti, disinfettante, sali reidratanti.",
-        check: "Prepara una lista dei farmaci con nome generico e dosaggio — il nome commerciale varia da paese a paese.",
-        alt: "Hai dimenticato farmaci essenziali? Nelle grandi citta estere le farmacie internazionali sono accessibili. In caso di farmaci con ricetta: contatta il medico in Italia per una prescrizione urgente via email. Per i farmaci controllati (es. benzodiazepine) e obbligatoria la ricetta internazionale — senza non puoi portarli.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Cartella clinica e allergie",
-        desc: "Prepara un documento in inglese con: gruppo sanguigno, allergie a farmaci o alimenti, patologie croniche, farmaci assunti regolarmente, medico di riferimento in Italia con contatto.",
-        check: "Un semplice documento Word o PDF e sufficiente. Salvalo sul telefono e stampane una copia.",
-        alt: "Non ce l'hai? Crea subito un documento base con le informazioni essenziali (gruppo sanguigno, allergie) sul tuo telefono. Apps come Apple Health o Google Health permettono di salvare queste informazioni accessibili anche dalla schermata di blocco del telefono.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Tessera Sanitaria Europea (TEAM)",
-        desc: "Se viaggi in un paese EU/SEE, la Tessera Sanitaria Europea garantisce accesso alle cure mediche pubbliche nelle stesse condizioni dei cittadini locali. E gratuita e richiesta al tuo medico di base o CAF.",
-        check: "Verifica la data di scadenza della tua tessera sanitaria — di solito dura 6 anni.",
-        alt: "Hai dimenticato la TEAM o e scaduta? Puoi richiedere un Certificato Sostitutivo Provvisorio (CSP) via telefono al tuo Distretto ASL — viene inviato via email in pochi minuti e ha la stessa validita della tessera.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "3. Assicurazioni",
-    icon: "🛡️",
-    intro: "L'assicurazione di viaggio e la rete di sicurezza finanziaria che ti permette di ricevere cure senza preoccuparti dei costi. E spesso gia inclusa nelle polizze aziendali — verificala prima.",
-    fonte: "Fonte: IVASS — Istituto per la Vigilanza sulle Assicurazioni (ivass.it) · Farnesina — Viaggiare Sicuri",
-    voci: [
-      {
-        titolo: "Assicurazione sanitaria di viaggio",
-        desc: "Verifica se la tua azienda ha una polizza di assistenza per i dipendenti in trasferta. Deve coprire: spese mediche e ospedaliere, rimpatrio sanitario, evacuazione medica di emergenza. Il massimale consigliato e di almeno 500.000 euro per trasferte extra-EU.",
-        check: "Chiedi all'ufficio HR il certificato assicurativo prima di partire — salvalo sul telefono in PDF.",
-        alt: "Non hai copertura aziendale o non sai se ce l'hai? Acquista una polizza individuale di viaggio online: siti come AXA, Allianz Travel, ERGO offrono polizze attivabili anche all'ultimo minuto (alcune in pochi minuti). Costo medio: 20-80 euro per una settimana.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Assicurazione annullamento viaggio",
-        desc: "Copre le spese in caso di cancellazione del viaggio per cause documentate (malattia, lutto, eventi forza maggiore). Spesso inclusa nelle polizze multitrip aziendali o nelle carte di credito premium.",
-        check: "Verifica se la tua carta di credito aziendale include gia questa copertura — molte carte Visa Platinum e Mastercard Gold la includono.",
-        alt: "Non ce l'hai? Per trasferte brevi l'annullamento e raramente necessario. Se il viaggio e critico, aggiungila alla polizza sanitaria — costa pochi euro in piu.",
-        urgenza: "bassa"
-      },
-      {
-        titolo: "Responsabilita civile",
-        desc: "Copre i danni involontari causati a terzi durante la trasferta. Spesso inclusa nelle polizze aziendali. Particolarmente importante se si guida un veicolo a noleggio.",
-        check: "Per i veicoli a noleggio: verifica sempre se l'assicurazione inclusa copre i danni — spesso il massimale e basso. Considera l'acquisto di una copertura aggiuntiva in loco.",
-        alt: "Hai gia noleggiato senza copertura adeguata? Contatta la compagnia di noleggio per aggiungere la copertura danni — si puo fare anche dopo il ritiro del veicolo.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "4. Comunicazioni",
-    icon: "📱",
-    intro: "Rimanere raggiungibile e fondamentale sia per la tua sicurezza che per quella dell'azienda. Pianifica le comunicazioni prima di partire per evitare costi esorbitanti o isolamento.",
-    fonte: "Fonte: AGCOM — Autorita per le Garanzie nelle Comunicazioni (agcom.it) · Farnesina App",
-    voci: [
-      {
-        titolo: "Piano tariffario roaming o SIM locale",
-        desc: "Verifica il costo del roaming del tuo operatore nel paese di destinazione. In EU il roaming e gratuito (Regolamento EU 531/2012). Extra-EU: attiva un piano internazionale prima di partire o acquista una SIM locale all'arrivo. Considera eSIM internazionali (es. Airalo, Holafly) attivabili prima della partenza.",
-        check: "Chiama il tuo operatore o verifica sull'app il costo per chiamate, SMS e dati nel paese di destinazione.",
-        alt: "Sei gia all'estero senza piano internazionale? Connettiti al WiFi dell'hotel, usa WhatsApp o Signal per chiamate gratuite. Acquista una SIM locale all'aeroporto o in un negozio di telefonia locale — di solito costi molto bassi.",
-        urgenza: "media"
-      },
-      {
-        titolo: "App Farnesina — Unita di Crisi",
-        desc: "L'app ufficiale del Ministero degli Esteri italiano permette di registrare il viaggio, ricevere allerte di sicurezza per il paese di destinazione e contattare l'Unita di Crisi in caso di emergenza. E gratuita e disponibile per iOS e Android.",
-        check: "Scarica l'app 'Farnesina' dall'App Store o Google Play e registra il tuo viaggio (nome, destinazione, date, contatto in Italia).",
-        alt: "Non riesci a scaricarla? Registra il viaggio via web su: viaggiaresicuri.it/registrazione. Salva il numero dell'Unita di Crisi in rubrica: +39 06 36225 (attivo 24h).",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Mappe e contenuti offline",
-        desc: "Scarica le mappe della citta di destinazione in modalita offline su Google Maps o Maps.me prima di partire. Scarica anche: traduttore offline (Google Translate permette download delle lingue), guide della citta, orari dei trasporti.",
-        check: "Apri Google Maps, cerca la citta e seleziona 'Scarica' nella scheda del posto — la mappa sara disponibile senza connessione.",
-        alt: "Non le hai scaricate? Connettiti al WiFi dell'hotel appena arrivi e scaricale immediatamente. E una delle prime cose da fare all'arrivo.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Powerbank e adattatori",
-        desc: "Porta un powerbank con capacita sufficiente (minimo 10.000 mAh per smartphone). Verifica il tipo di presa elettrica del paese di destinazione: esistono almeno 15 tipi di prese diverse nel mondo. In molti paesi la tensione e 110V invece di 220V — verifica che i tuoi dispositivi siano compatibili.",
-        check: "Consulta il sito iec.ch/world-plugs per il tipo di presa del tuo paese di destinazione.",
-        alt: "Non hai l'adattatore? Acquistalo all'aeroporto (caro ma disponibile) oppure chiedi alla reception dell'hotel — spesso ne hanno di prestito. Un adattatore universale costa 10-15 euro.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "5. Sicurezza digitale",
-    icon: "🔐",
-    intro: "I tuoi dati aziendali e personali sono a rischio durante una trasferta. Reti WiFi pubbliche, dispositivi condivisi e furti fisici sono i rischi principali.",
-    fonte: "Fonte: ENISA — European Union Agency for Cybersecurity (enisa.europa.eu) · CISA (cisa.gov)",
-    voci: [
-      {
-        titolo: "VPN aziendale",
-        desc: "Usa sempre una VPN quando ti connetti a reti WiFi pubbliche (aeroporti, hotel, ristoranti). La VPN cifra il tuo traffico internet proteggendo dati aziendali e credenziali. Verifica se la tua azienda fornisce una VPN — se no, usa servizi affidabili come NordVPN, ExpressVPN o ProtonVPN.",
-        check: "Installa e testa la VPN prima di partire — alcune VPN sono bloccate in certi paesi (es. Cina).",
-        alt: "Non hai una VPN? Evita di accedere a sistemi aziendali o banche su WiFi pubblico. Usa i dati mobili del tuo telefono come hotspot personale — e molto piu sicuro del WiFi dell'hotel.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Autenticazione a due fattori",
-        desc: "Attiva l'autenticazione a due fattori (2FA) su tutti gli account importanti: email, banca, account aziendali. In caso di furto del dispositivo, senza il secondo fattore l'accesso e impossibile.",
-        check: "Verifica che il codice 2FA non arrivi solo via SMS al numero italiano — all'estero senza SIM potresti non riceverlo. Usa un'app come Google Authenticator o Authy che funziona offline.",
-        alt: "Non hai ancora attivato il 2FA? Fallo subito prima di partire — richiede 5 minuti per account. E una delle misure di sicurezza piu efficaci.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Backup dei dispositivi",
-        desc: "Esegui un backup completo di smartphone e laptop prima di partire. In caso di furto o danno perdi i dati sul dispositivo ma non quelli personali. Usa iCloud, Google Backup o backup locale su hard disk esterno.",
-        check: "Ultimo backup: vai in Impostazioni > [tuo nome] > iCloud > Backup (iOS) o Impostazioni > Sistema > Backup (Android).",
-        alt: "Non hai fatto backup? Collegati a un WiFi stabile appena possibile e avvia il backup. Per i dati critici aziendali: salvali sul cloud aziendale (SharePoint, Drive) immediatamente.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Blocco remoto dispositivi",
-        desc: "Attiva la funzione 'Trova il mio dispositivo' su tutti i tuoi device. In caso di furto potrai localizzare, bloccare o cancellare il dispositivo da remoto.",
-        check: "iOS: Impostazioni > [tuo nome] > Trova il mio iPhone. Android: myaccount.google.com/find-your-phone.",
-        alt: "Non ce l'hai attivato? Fallo subito — richiede 30 secondi. Se il dispositivo viene rubato senza questa funzione attiva, i tuoi dati sono potenzialmente accessibili.",
-        urgenza: "alta"
-      }
-    ]
-  },
-  {
-    title: "6. Borsa di emergenza",
-    icon: "🎒",
-    intro: "Una piccola borsa o tasca dedicata con gli essenziali puo fare la differenza in ogni situazione di crisi. Deve essere sempre con te, non nel bagaglio da stiva.",
-    fonte: "Fonte: FEMA Ready.gov (ready.gov) · Protezione Civile Italiana (protezionecivile.gov.it)",
-    voci: [
-      {
-        titolo: "Documenti essenziali sempre con te",
-        desc: "Nel bagaglio a mano tieni sempre: passaporto originale (o copia certificata), carta di credito di emergenza separata dalle altre, contanti in valuta locale (equivalente 200-500 euro), nota scritta con numeri di emergenza (ambasciata, referente aziendale, assicurazione).",
-        check: "Regola d'oro: i documenti non vanno mai nel bagaglio da stiva. Sempre con te.",
-        alt: "Hai gia consegnato il bagaglio con i documenti? Avvisa subito il personale dell'aeroporto prima che il bagaglio parta. Per i voli futuri: usa una piccola borsa a tracolla o marsupio sempre indossato.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Kit di pronto soccorso tascabile",
-        desc: "Mini kit da tenere in borsa: cerotti di varie misure, garza sterile, cerotto elastico, disinfettante in formato travel (max 100ml), antidolorifico, antidiarroico, sali reidratanti, termometro digitale tascabile.",
-        check: "Molte farmacie vendono kit da viaggio preconfezionati a circa 10-15 euro.",
-        alt: "Non hai preparato il kit? In ogni aeroporto internazionale ci sono farmacie. All'estero, le farmacie nelle grandi citta hanno di solito personale che parla inglese.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Accessori di sopravvivenza essenziali",
-        desc: "Aggiungi alla borsa: torcia tascabile o torcia da testa (utile in blackout), fischietto (segnalazione in caso di emergenza), cordino o zip tie multiuso, coltellino multiuso (attenzione: solo nel bagaglio da stiva, non nel bagaglio a mano), pennarello permanente e carta impermeabile per appunti.",
-        check: "Questi oggetti pesano pochissimo e occupano minimo spazio — non c'e motivo per non averli.",
-        alt: "Non hai la torcia? La torcia del telefono e un'alternativa valida ma consuma batteria. Priorita al powerbank in questo caso.",
-        urgenza: "bassa"
-      },
-      {
-        titolo: "Abbigliamento di emergenza nel bagaglio a mano",
-        desc: "Porta sempre nel bagaglio a mano: cambio di biancheria intima e calzini, camicia o maglietta di ricambio, farmaci essenziali, caricabatterie e cavi. Se il bagaglio viene perso o in ritardo, sei autonomo per almeno 24 ore.",
-        check: "Questa e la regola d'oro dei viaggiatori frequenti: tratta il bagaglio a mano come se fosse l'unico bagaglio che hai.",
-        alt: "Hai gia imbarcato tutto? Per il prossimo volo ricordatelo. Nel frattempo, molti hotel offrono kit di cortesia con prodotti essenziali.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "7. Registrazione e contatti",
-    icon: "📋",
-    intro: "Comunicare il tuo viaggio alle persone giuste e la misura di sicurezza piu semplice e spesso piu trascurata. Costa zero e in una situazione di crisi puo salvarti.",
-    fonte: "Fonte: Farnesina — Unita di Crisi MAECI (esteri.it) · ASIS International — Travel Security Guidelines",
-    voci: [
-      {
-        titolo: "Registrazione su Viaggiare Sicuri",
-        desc: "Registra il tuo viaggio sul portale Farnesina — viaggiaresicuri.it — prima di partire. Inserisci: paese di destinazione, date di viaggio, alloggio, contatto di riferimento in Italia. In caso di crisi nel paese, la Farnesina sapra che sei li e potra contattarti.",
-        check: "La registrazione richiede 5 minuti ed e gratuita. Usa l'app Farnesina o il sito web.",
-        alt: "Non lo hai ancora fatto? Puoi registrarti anche dopo la partenza, dall'estero. Fallo appena hai connessione WiFi.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Piano di comunicazione con l'azienda",
-        desc: "Prima di partire, definisci con il tuo referente aziendale: orario e modalita degli aggiornamenti quotidiani (es. messaggio ogni sera), numero di emergenza da chiamare in caso di problemi, procedura da seguire in caso di mancato contatto.",
-        check: "Un semplice messaggio WhatsApp quotidiano e sufficiente — l'importante e che qualcuno sappia che stai bene.",
-        alt: "Non hai definito un piano? Manda ora un messaggio al tuo responsabile con: dove sei, dove alloggi, quando torni, come contattarti. E il minimo indispensabile.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Numeri salvati in rubrica offline",
-        desc: "Salva nella rubrica del telefono (non solo nei preferiti del browser): Ambasciata italiana nel paese di destinazione, Unita di Crisi Farnesina (+39 06 36225), Referente aziendale con numero cellulare personale, Assicurazione di viaggio — numero di assistenza internazionale, Contatto familiare di riferimento in Italia.",
-        check: "Testa i numeri prima di partire — verifica che siano corretti chiamandoli o inviando un messaggio.",
-        alt: "Non li hai salvati? Trovali ora su viaggiaresicuri.it (ambasciata del tuo paese) e salvali. Fai uno screenshot con tutti i numeri e salvalo nella galleria del telefono — accessibile anche offline.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Informare un familiare",
-        desc: "Lascia a un familiare o persona di fiducia in Italia: copia di tutti i documenti, itinerario completo con hotel e numeri di telefono, contatti dell'azienda e del referente, copia della polizza assicurativa, autorizzazione a operare sul tuo conto in caso di necessita.",
-        check: "Prepara una busta con tutte queste informazioni prima di ogni trasferta lunga.",
-        alt: "Non lo hai fatto? Invia ora un messaggio o email al tuo contatto con le informazioni essenziali: dove sei, dove alloggi, quando torni.",
-        urgenza: "media"
-      }
-    ]
-  },
-  {
-    title: "8. Finanze e pagamenti",
-    icon: "💳",
-    intro: "Rimanere senza accesso al denaro all'estero e uno degli scenari piu comuni e piu stressanti. Pianificare i pagamenti prima di partire evita la maggior parte dei problemi.",
-    fonte: "Fonte: Banca d'Italia (bancaditalia.it) · Unione Europea — Regolamenti sui pagamenti internazionali",
-    voci: [
-      {
-        titolo: "Carte di credito e bancomat",
-        desc: "Porta almeno 2 carte di circuiti diversi (es. Visa e Mastercard) — alcune carte non sono accettate in certi paesi. Avvisa la tua banca della trasferta prima di partire per evitare blocchi per transazioni sospette all'estero. Verifica i costi di prelievo e cambio valuta — alcune carte (es. N26, Revolut, Wise) offrono cambi senza commissioni.",
-        check: "Chiama il numero sul retro della carta o usa l'app della banca per impostare il 'viaggio internazionale'.",
-        alt: "La carta e stata bloccata all'estero? Chiama immediatamente il numero di emergenza sul retro della carta (funziona anche dall'estero). Nel frattempo usa una carta di backup o richiedi un bonifico tramite il referente aziendale.",
-        urgenza: "alta"
-      },
-      {
-        titolo: "Contanti in valuta locale",
-        desc: "Porta sempre un minimo di contanti in valuta locale equivalente a 200-500 euro — molti paesi extra-EU usano poco le carte o hanno zone senza POS. Cambia valuta prima di partire in banca o ufficio postale (tassi migliori) piuttosto che all'aeroporto (commissioni molto alte). Conserva i contanti in posti diversi — mai tutto nello stesso posto.",
-        check: "Verifica qual e la valuta del paese di destinazione e il tasso di cambio attuale.",
-        alt: "Sei gia arrivato senza contanti locali? Usa il bancomat dell'aeroporto (commissioni alte ma funziona) o cerca una banca locale nelle prime ore. Evita i cambiavalute informali.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Rimborso spese aziendali",
-        desc: "Chiarisci con l'ufficio amministrativo prima di partire: quali spese sono rimborsabili, qual e il massimale giornaliero, quali ricevute sono necessarie, in quale valuta fare le note spese. Conserva TUTTE le ricevute — anche quelle di importo minimo.",
-        check: "Usa un'app per fotografia delle ricevute (es. Expensify, SAP Concur) — ti aiuta a non perderne nessuna.",
-        alt: "Non hai chiarito la procedura? Manda ora un messaggio all'amministrazione chiedendo le linee guida. Nel dubbio: conserva sempre la ricevuta.",
-        urgenza: "media"
-      },
-      {
-        titolo: "Fondo di emergenza separato",
-        desc: "Tieni sempre disponibile un fondo di emergenza separato dal budget ordinario: una carta prepagata con 500-1000 euro dedicata solo alle emergenze, oppure contanti nascosti in un posto diverso dal portafoglio principale. Questo fondo si usa SOLO in caso di furto, blocco delle altre carte o emergenza medica.",
-        check: "Una carta Revolut o Wise con saldo dedicato e perfetta per questo scopo — si ricarica facilmente dall'app.",
-        alt: "Non hai un fondo di emergenza? Tieni almeno 200 euro in contanti nascosti in una tasca interna della valigia o in un portafoglio nascosto. E una misura minima ma efficace.",
-        urgenza: "alta"
-      }
-    ]
-  }
-];
-
-function openManuale() {
-  document.getElementById("pman").style.display = "block";
-  document.getElementById("tman").classList.add("active");
-  setTimeout(function() {
-    var firstTab = document.querySelector("#man-nav .rtab");
-    if (firstTab) showCap(0, firstTab);
-  }, 50);
-}
-function closeManuale() {
-  document.getElementById("pman").style.display = "none";
-  document.getElementById("tman").classList.remove("active");
-}
-
 function showCap(idx, el) {
   document.querySelectorAll("#man-nav .rtab").forEach(function(t) { t.classList.remove("active"); });
   if (el) el.classList.add("active");
   var cap = CAPITOLI[idx];
-  var urgColors = {alta: "tr", media: "to", bassa: "tg"};
-  var html = '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:24px">';
-  html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="font-size:32px">' + cap.icon + '</div><div style="font-family:Cormorant Garamond,serif;font-size:24px;font-weight:300">' + cap.title + '</div></div>';
-  html += '<div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:10px">' + cap.intro + '</div>';
-  html += '<div style="font-size:11px;color:rgba(255,255,255,.3);font-style:italic">' + cap.fonte + '</div></div>';
-
-  cap.voci.forEach(function(v) {
-    html += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:14px">';
-    html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px">';
-    html += '<div style="font-size:15px;font-weight:600;color:#fff">' + v.titolo + '</div>';
-    html += '<span class="tag ' + (urgColors[v.urgenza]||"tb") + '" style="flex-shrink:0">Priorita ' + v.urgenza + '</span></div>';
-    html += '<div style="font-size:14px;color:rgba(255,255,255,.78);line-height:1.75;margin-bottom:12px">' + v.desc + '</div>';
-    html += '<div style="background:rgba(184,148,63,.1);border-left:3px solid var(--gold);padding:10px 14px;border-radius:4px;margin-bottom:10px;font-size:13px;color:var(--gl)">';
-    html += '<strong>Come verificarlo ora:</strong> ' + v.check + '</div>';
-    html += '<div style="background:rgba(58,140,92,.1);border-left:3px solid #2ecc71;padding:10px 14px;border-radius:4px;font-size:13px;color:#82e0aa">';
-    html += '<strong>Soluzione alternativa:</strong> ' + v.alt + '</div></div>';
-  });
-
+  var uc = {alta:"tr", media:"to", bassa:"tg"};
+  var html = "<div style='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:24px'>";
+  html += "<div style='display:flex;align-items:center;gap:12px;margin-bottom:12px'><div style='font-size:32px'>" + cap.icon + "</div><div style='font-family:Cormorant Garamond,serif;font-size:24px;font-weight:300'>" + cap.title + "</div></div>";
+  html += "<div style='font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:10px'>" + cap.intro + "</div>";
+  html += "<div style='font-size:11px;color:rgba(255,255,255,.3);font-style:italic'>" + cap.fonte + "</div></div>";
+  for (var i = 0; i < cap.voci.length; i++) {
+    var v = cap.voci[i];
+    html += "<div style='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:14px'>";
+    html += "<div style='display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px'>";
+    html += "<div style='font-size:15px;font-weight:600;color:#fff'>" + v.t + "</div>";
+    html += "<span class='tag " + (uc[v.u]||"tb") + "' style='flex-shrink:0'>Priorita " + v.u + "</span></div>";
+    html += "<div style='font-size:14px;color:rgba(255,255,255,.78);line-height:1.75;margin-bottom:12px'>" + v.d + "</div>";
+    html += "<div style='background:rgba(184,148,63,.1);border-left:3px solid var(--gold);padding:10px 14px;border-radius:4px;margin-bottom:10px;font-size:13px;color:var(--gl)'><strong>Come verificarlo ora:</strong> " + v.c + "</div>";
+    html += "<div style='background:rgba(58,140,92,.1);border-left:3px solid #2ecc71;padding:10px 14px;border-radius:4px;font-size:13px;color:#82e0aa'><strong>Soluzione alternativa:</strong> " + v.a + "</div></div>";
+  }
   document.getElementById("man-content").innerHTML = html;
 }
 
@@ -852,58 +550,30 @@ function addAIMsg(role, text) {
 
 function qa(t) { document.getElementById("aiin").value = t; sendAI(); }
 
-// Smart local AI using database content
-function smartSearch(query) {
-  var q = query.toLowerCase();
-  var keywords = {
-    "terremoto": 1, "sisma": 1, "scossa": 1,
-    "blackout": 2, "corrente": 2, "elettrico": 2, "luce": 2,
-    "conflitto": 3, "guerra": 3, "attacchi": 3, "militare": 3, "zona": 3, "instabilita": 3,
-    "passaporto": 4, "documenti": 4, "furto": 4, "perso": 4, "smarrito": 4,
-    "medica": 5, "medico": 5, "ospedale": 5, "ferito": 5, "malato": 5, "ambulanza": 5,
-    "alluvione": 6, "inondazione": 6, "acqua": 6, "esondazione": 6,
-    "attacco": 7, "terrorismo": 7, "sparo": 7, "bomba": 7,
-    "numeri": 8, "emergenza": 8, "chiamare": 8, "telefono": 8,
-    "tropicale": 9, "malaria": 9, "dengue": 9, "febbre": 9, "malattia": 9,
-    "volo": 10, "aereo": 10, "bagaglio": 10, "cancellato": 10,
-    "uragano": 11, "tifone": 11, "ciclone": 11, "vento": 11,
-    "furto": 12, "rapina": 12, "sicurezza": 12, "aggressione": 12
-  };
+function localSearch(q) {
+  var ql = q.toLowerCase();
+  var map = {"terremoto":1,"sisma":1,"scossa":1,"blackout":2,"corrente":2,"conflitto":3,"guerra":3,"passaporto":4,"documenti":4,"smarrito":4,"medica":5,"ospedale":5,"ferito":5,"alluvione":6,"inondazione":6,"attacco":7,"terrorismo":7,"numeri":8,"emergenza":8,"tropicale":9,"malaria":9,"febbre":9,"volo":10,"aereo":10,"bagaglio":10,"uragano":11,"tifone":11,"furto":12,"rapina":12};
   var bestId = null, bestScore = 0;
-  for (var kw in keywords) {
-    if (q.includes(kw)) {
-      var id = keywords[kw];
-      var score = kw.length;
-      if (score > bestScore) { bestScore = score; bestId = id; }
+  for (var kw in map) {
+    if (ql.indexOf(kw) >= 0 && kw.length > bestScore) {
+      bestScore = kw.length;
+      bestId = map[kw];
     }
   }
-  return bestId;
-}
-
-function buildReply(q) {
-  var id = smartSearch(q);
-  if (id) {
-    var entry = DB.find(function(e) { return e.id === id; });
-    if (entry) {
-      var clean = entry.body.replace(/<[^>]+>/g, "").replace(/[ ]+/g, " ").trim();
-      return entry.em + " " + entry.title.toUpperCase() + "\n\n" + clean + "\n\n" + entry.fonte.replace(/<[^>]+>/g, "");
+  if (bestId) {
+    var e = DB.find(function(x) { return x.id === bestId; });
+    if (e) {
+      var clean = e.body.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+      return e.em + " " + e.title.toUpperCase() + "\n\n" + clean + "\n\nFonte: " + e.fonte;
     }
   }
-  // Generic response
-  var matches = DB.filter(function(e) {
-    var qlow = q.toLowerCase();
-    return e.title.toLowerCase().includes(qlow) || e.tags.some(function(t) { return qlow.includes(t); });
-  });
+  var matches = DB.filter(function(e) { return e.title.toLowerCase().indexOf(ql) >= 0; });
   if (matches.length > 0) {
-    var e = matches[0];
-    var clean = e.body.replace(/<[^>]+>/g, "").replace(/[ ]+/g, " ").trim();
-    return e.em + " " + e.title.toUpperCase() + "\n\n" + clean;
+    var e2 = matches[0];
+    var clean2 = e2.body.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+    return e2.em + " " + e2.title.toUpperCase() + "\n\n" + clean2;
   }
-" + clean;
-  }
-  return "Non ho trovato una procedura specifica per questa situazione nel database. Usa la sezione Procedure per sfogliare tutte le schede disponibili, oppure in caso di pericolo chiama immediatamente il 112.
-
-  return "Non ho trovato una procedura specifica. Usa la sezione Procedure per sfogliare le schede, oppure chiama il 112 in caso di pericolo.";
+  return "Non ho trovato una procedura specifica per questa situazione. Usa la sezione Procedure per sfogliare tutte le schede, oppure in caso di pericolo chiama immediatamente il 112.\n\nFarnesina Crisi: +39 06 36225 (attivo 24h)";
 }
 
 async function sendAI() {
@@ -913,21 +583,18 @@ async function sendAI() {
   inp.value = "";
   addAIMsg("user", txt);
   var typing = addAIMsg("assistant", "...");
-
-  // Try Cloudflare Worker first (if online)
   if (navigator.onLine) {
     try {
       var r = await fetch("https://safepass-ai.giuliafumagalli1998.workers.dev", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          system: "Sei SafePass, assistente esperto in sicurezza per viaggiatori aziendali italiani in trasferta. Rispondi SEMPRE in italiano, in modo chiaro e pratico con procedure step-by-step numerate. In situazioni di pericolo: indica SEMPRE di chiamare il 112 come prima azione. Cita le fonti ufficiali (Protezione Civile, WHO, FEMA, Farnesina). Tono professionale e rassicurante.",
+          system: "Sei SafePass, assistente esperto in sicurezza per viaggiatori aziendali italiani. Rispondi SEMPRE in italiano, in modo chiaro e pratico con procedure step-by-step. In situazioni di pericolo indica SEMPRE di chiamare il 112 come prima azione. Cita le fonti ufficiali. Tono professionale.",
           messages: [{role:"user", content:txt}]
         })
       });
       if (r.ok) {
-        var raw = await r.text();
-        var data = JSON.parse(raw);
+        var data = await r.json();
         if (data.content && data.content[0] && data.content[0].text) {
           typing.textContent = data.content[0].text;
           return;
@@ -935,11 +602,7 @@ async function sendAI() {
       }
     } catch(e) {}
   }
-
-  // Fallback: smart local search
-  setTimeout(function() {
-    typing.textContent = buildReply(txt);
-  }, 600);
+  setTimeout(function() { typing.textContent = localSearch(txt); }, 500);
 }
 </script>
 </body>

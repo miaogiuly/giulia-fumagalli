@@ -157,6 +157,7 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
         <button class="tab active" id="tai" onclick="setMode('ai')">AI Assistant</button>
         <button class="tab" id="tdb" onclick="setMode('db')">Procedure</button>
         <button class="tab" id="tpaesi" onclick="setMode('paesi')">Paesi</button>
+        <button class="tab" id="tman" onclick="setMode('man')">Manuale</button>
       </div>
       <button style="font-size:12px;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer" onclick="doLogout()">Esci</button>
     </div>
@@ -224,6 +225,31 @@ body{font-family:Outfit,sans-serif;background:var(--navy);color:#fff;min-height:
   </div>
 </div>
 
+      <div id="pman" style="display:none">
+        <div class="ptitle">Manuale Pre-Partenza</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:24px">Tutto ciò che devi preparare prima di una trasferta di lavoro — con fonti ufficiali e soluzioni alternative se hai dimenticato qualcosa</div>
+
+        <!-- INTRO -->
+        <div style="background:rgba(184,148,63,.08);border:1px solid rgba(184,148,63,.2);border-radius:10px;padding:20px 24px;margin-bottom:28px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:10px;color:#fff">Perché prepararsi prima di partire?</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.8">In una situazione di crisi all'estero — un incidente medico, un disastro naturale, un'instabilità politica — avere i documenti giusti, i numeri salvati e le coperture assicurative attive può fare la differenza tra una risoluzione rapida e una situazione bloccata per giorni. Secondo la Farnesina, il 70% dei casi di assistenza agli italiani all'estero riguarda persone che non avevano registrato il viaggio o non avevano copia dei documenti. Questo manuale ti guida passo dopo passo.</div>
+        </div>
+
+        <!-- CAPITOLI NAVIGATION -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px" id="man-nav">
+          <div class="rtab active" onclick="showCap(0,this)">1 · Documenti</div>
+          <div class="rtab" onclick="showCap(1,this)">2 · Salute</div>
+          <div class="rtab" onclick="showCap(2,this)">3 · Assicurazioni</div>
+          <div class="rtab" onclick="showCap(3,this)">4 · Comunicazioni</div>
+          <div class="rtab" onclick="showCap(4,this)">5 · Sicurezza digitale</div>
+          <div class="rtab" onclick="showCap(5,this)">6 · Borsa di emergenza</div>
+          <div class="rtab" onclick="showCap(6,this)">7 · Registrazione e contatti</div>
+          <div class="rtab" onclick="showCap(7,this)">8 · Finanze</div>
+        </div>
+
+        <div id="man-content"></div>
+      </div>
+
 <div class="ov" id="ovp"><div class="det"><button class="detx" onclick="closeOv('ovp')">✕</button><div class="dem" id="dem"></div><div class="dtitle" id="dtitle"></div><div class="dmeta" id="dmeta"></div><div class="dbody" id="dbody"></div><div class="fonte" id="dfonte"></div></div></div>
 <div class="ov" id="ovpa"><div class="det" style="max-width:760px"><button class="detx" onclick="closeOv('ovpa')">✕</button><div style="display:flex;align-items:center;gap:14px;margin-bottom:8px"><div style="font-size:44px" id="pflag"></div><div><div class="dtitle" id="pname" style="margin-bottom:4px"></div><div class="dmeta" id="pregion"></div><div id="prischio"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ambasciata Italiana</h4><div id="pamb"></div></div><div class="iblock"><h4>Emergenze locali</h4><div id="pemg"></div></div></div><div class="pdet2"><div class="iblock"><h4>Ospedale di riferimento</h4><div id="posp"></div></div><div class="iblock"><h4>Polizia</h4><div id="ppol"></div></div></div><div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px">Mappa — clicca per aprire in Google Maps</div><div class="maplinks" id="pmaplinks"></div><div class="mapframe" id="pmap"></div><div class="fonte">Fonti: <a href="https://www.viaggiaresicuri.it" target="_blank">Farnesina Viaggiare Sicuri</a> · <a href="https://www.esteri.it" target="_blank">MAECI</a> · dati 2024-2025</div></div></div>
 
@@ -273,12 +299,13 @@ updateConn();
 
 function setMode(m) {
   mode = m;
-  ["ai","db","paesi"].forEach(function(p) {
+  ["ai","db","paesi","man"].forEach(function(p) {
     document.getElementById("p" + p).style.display = p === m ? "block" : "none";
     document.getElementById("t" + p).classList.toggle("active", p === m);
   });
   if (m === "db") renderCards(DB, curCat);
   if (m === "paesi") renderPaesi(curReg);
+  if (m === "man") showCap(0, document.querySelector("#man-nav .rtab"));
 }
 
 function onSearch() {
@@ -468,6 +495,315 @@ function openOv(id) { document.getElementById(id).classList.add("open"); }
 function closeOv(id) { document.getElementById(id).classList.remove("open"); }
 document.getElementById("ovp").addEventListener("click", function(e) { if (e.target === this) closeOv("ovp"); });
 document.getElementById("ovpa").addEventListener("click", function(e) { if (e.target === this) closeOv("ovpa"); });
+
+var CAPITOLI = [
+  {
+    title: "1. Documenti",
+    icon: "📄",
+    intro: "I documenti sono la tua identita all'estero. Perderli senza copie puo bloccarti per giorni. Preparare questo step richiede 15 minuti.",
+    fonte: "Fonte: MAECI — Ministero degli Affari Esteri e della Cooperazione Internazionale (esteri.it)",
+    voci: [
+      {
+        titolo: "Passaporto valido",
+        desc: "Verifica che il passaporto sia valido per tutta la durata del viaggio piu almeno 6 mesi oltre la data di rientro. Molti paesi rifiutano l'ingresso se la scadenza e inferiore a 6 mesi.",
+        check: "Come verificarlo: apri il passaporto alla pagina dei dati e controlla la data di scadenza.",
+        alt: "Hai dimenticato di controllare? Verifica immediatamente la validita: se scade entro 6 mesi puoi richiedere il rinnovo urgente in Questura (3-5 giorni lavorativi, tariffa maggiorata). In caso di emergenza, alcune ambasciate italiane rilasciano un documento di viaggio provvisorio.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Copia digitale e cartacea dei documenti",
+        desc: "Scansiona passaporto, carta d'identita, patente, tessera sanitaria, carta di credito (solo fronte). Salva le copie su cloud personale (Google Drive, iCloud) e invia una copia via email a un contatto fidato in Italia.",
+        check: "Fallo subito: fotografa tutti i documenti con il telefono e carica le immagini sul cloud.",
+        alt: "Sei gia partito senza farlo? Fotografa i documenti ora e inviati per email a te stesso e a un familiare. E una soluzione valida e accettata dalla maggior parte delle ambasciate come prova d'identita.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Visto e permessi di ingresso",
+        desc: "Verifica se il paese di destinazione richiede un visto per i cittadini italiani. Consulta il sito Viaggiare Sicuri della Farnesina per informazioni aggiornate su ogni singolo paese.",
+        check: "Controlla su: viaggiaresicuri.it — sezione paese di destinazione.",
+        alt: "Hai dimenticato di richiedere il visto? Alcuni paesi offrono visto all'arrivo (visa on arrival) o visto elettronico (e-visa) richiedibile online in 24-48 ore. Verifica immediatamente la situazione specifica del tuo paese di destinazione.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Documenti aziendali",
+        desc: "Porta con te: lettera di incarico aziendale in inglese (e nella lingua locale se possibile), biglietti da visita, eventuali contratti o accordi da firmare.",
+        check: "Chiedi all'ufficio HR o al tuo responsabile la lettera di missione prima di partire.",
+        alt: "Non hai la lettera di incarico? Un'email ufficiale del tuo responsabile con carta intestata aziendale in PDF puo essere sufficiente in molti contesti. Salvala offline sul telefono.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "2. Salute e vaccinazioni",
+    icon: "💉",
+    intro: "La preparazione sanitaria e spesso sottovalutata. Alcune malattie tropicali richiedono profilassi da iniziare settimane prima della partenza.",
+    fonte: "Fonte: Istituto Superiore di Sanita — Centro Nazionale per la Prevenzione delle Malattie e la Promozione della Salute (iss.it) · CDC Travelers Health (cdc.gov/travel)",
+    voci: [
+      {
+        titolo: "Vaccinazioni obbligatorie e raccomandate",
+        desc: "Alcuni paesi richiedono vaccinazioni obbligatorie per l'ingresso (es. febbre gialla per certi paesi africani e sudamericani). Consulta il medico almeno 4-6 settimane prima della partenza per vaccinazioni raccomandate: epatite A e B, febbre tifoidea, meningite, rabbia (per aree rurali).",
+        check: "Verifica le vaccinazioni richieste su: iss.it o cdc.gov/travel — inserisci il paese di destinazione.",
+        alt: "Parti tra pochi giorni? Alcune vaccinazioni possono essere fatte anche a breve termine (es. epatite A). Consulta immediatamente il tuo medico di base o un centro vaccinazioni internazionale. Per la febbre gialla serve il certificato internazionale — senza non puoi entrare in molti paesi.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Farmaci personali e kit di pronto soccorso",
+        desc: "Porta una scorta di farmaci sufficienti per tutta la durata del viaggio piu alcuni giorni extra. I farmaci con ricetta devono essere accompagnati dalla prescrizione medica in inglese. Kit minimo consigliato: antidolorifico, antifebbrifugo, antidiarroico, antibiotico ad ampio spettro (su prescrizione), cerotti, disinfettante, sali reidratanti.",
+        check: "Prepara una lista dei farmaci con nome generico e dosaggio — il nome commerciale varia da paese a paese.",
+        alt: "Hai dimenticato farmaci essenziali? Nelle grandi citta estere le farmacie internazionali sono accessibili. In caso di farmaci con ricetta: contatta il medico in Italia per una prescrizione urgente via email. Per i farmaci controllati (es. benzodiazepine) e obbligatoria la ricetta internazionale — senza non puoi portarli.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Cartella clinica e allergie",
+        desc: "Prepara un documento in inglese con: gruppo sanguigno, allergie a farmaci o alimenti, patologie croniche, farmaci assunti regolarmente, medico di riferimento in Italia con contatto.",
+        check: "Un semplice documento Word o PDF e sufficiente. Salvalo sul telefono e stampane una copia.",
+        alt: "Non ce l'hai? Crea subito un documento base con le informazioni essenziali (gruppo sanguigno, allergie) sul tuo telefono. Apps come Apple Health o Google Health permettono di salvare queste informazioni accessibili anche dalla schermata di blocco del telefono.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Tessera Sanitaria Europea (TEAM)",
+        desc: "Se viaggi in un paese EU/SEE, la Tessera Sanitaria Europea garantisce accesso alle cure mediche pubbliche nelle stesse condizioni dei cittadini locali. E gratuita e richiesta al tuo medico di base o CAF.",
+        check: "Verifica la data di scadenza della tua tessera sanitaria — di solito dura 6 anni.",
+        alt: "Hai dimenticato la TEAM o e scaduta? Puoi richiedere un Certificato Sostitutivo Provvisorio (CSP) via telefono al tuo Distretto ASL — viene inviato via email in pochi minuti e ha la stessa validita della tessera.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "3. Assicurazioni",
+    icon: "🛡️",
+    intro: "L'assicurazione di viaggio e la rete di sicurezza finanziaria che ti permette di ricevere cure senza preoccuparti dei costi. E spesso gia inclusa nelle polizze aziendali — verificala prima.",
+    fonte: "Fonte: IVASS — Istituto per la Vigilanza sulle Assicurazioni (ivass.it) · Farnesina — Viaggiare Sicuri",
+    voci: [
+      {
+        titolo: "Assicurazione sanitaria di viaggio",
+        desc: "Verifica se la tua azienda ha una polizza di assistenza per i dipendenti in trasferta. Deve coprire: spese mediche e ospedaliere, rimpatrio sanitario, evacuazione medica di emergenza. Il massimale consigliato e di almeno 500.000 euro per trasferte extra-EU.",
+        check: "Chiedi all'ufficio HR il certificato assicurativo prima di partire — salvalo sul telefono in PDF.",
+        alt: "Non hai copertura aziendale o non sai se ce l'hai? Acquista una polizza individuale di viaggio online: siti come AXA, Allianz Travel, ERGO offrono polizze attivabili anche all'ultimo minuto (alcune in pochi minuti). Costo medio: 20-80 euro per una settimana.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Assicurazione annullamento viaggio",
+        desc: "Copre le spese in caso di cancellazione del viaggio per cause documentate (malattia, lutto, eventi forza maggiore). Spesso inclusa nelle polizze multitrip aziendali o nelle carte di credito premium.",
+        check: "Verifica se la tua carta di credito aziendale include gia questa copertura — molte carte Visa Platinum e Mastercard Gold la includono.",
+        alt: "Non ce l'hai? Per trasferte brevi l'annullamento e raramente necessario. Se il viaggio e critico, aggiungila alla polizza sanitaria — costa pochi euro in piu.",
+        urgenza: "bassa"
+      },
+      {
+        titolo: "Responsabilita civile",
+        desc: "Copre i danni involontari causati a terzi durante la trasferta. Spesso inclusa nelle polizze aziendali. Particolarmente importante se si guida un veicolo a noleggio.",
+        check: "Per i veicoli a noleggio: verifica sempre se l'assicurazione inclusa copre i danni — spesso il massimale e basso. Considera l'acquisto di una copertura aggiuntiva in loco.",
+        alt: "Hai gia noleggiato senza copertura adeguata? Contatta la compagnia di noleggio per aggiungere la copertura danni — si puo fare anche dopo il ritiro del veicolo.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "4. Comunicazioni",
+    icon: "📱",
+    intro: "Rimanere raggiungibile e fondamentale sia per la tua sicurezza che per quella dell'azienda. Pianifica le comunicazioni prima di partire per evitare costi esorbitanti o isolamento.",
+    fonte: "Fonte: AGCOM — Autorita per le Garanzie nelle Comunicazioni (agcom.it) · Farnesina App",
+    voci: [
+      {
+        titolo: "Piano tariffario roaming o SIM locale",
+        desc: "Verifica il costo del roaming del tuo operatore nel paese di destinazione. In EU il roaming e gratuito (Regolamento EU 531/2012). Extra-EU: attiva un piano internazionale prima di partire o acquista una SIM locale all'arrivo. Considera eSIM internazionali (es. Airalo, Holafly) attivabili prima della partenza.",
+        check: "Chiama il tuo operatore o verifica sull'app il costo per chiamate, SMS e dati nel paese di destinazione.",
+        alt: "Sei gia all'estero senza piano internazionale? Connettiti al WiFi dell'hotel, usa WhatsApp o Signal per chiamate gratuite. Acquista una SIM locale all'aeroporto o in un negozio di telefonia locale — di solito costi molto bassi.",
+        urgenza: "media"
+      },
+      {
+        titolo: "App Farnesina — Unita di Crisi",
+        desc: "L'app ufficiale del Ministero degli Esteri italiano permette di registrare il viaggio, ricevere allerte di sicurezza per il paese di destinazione e contattare l'Unita di Crisi in caso di emergenza. E gratuita e disponibile per iOS e Android.",
+        check: "Scarica l'app 'Farnesina' dall'App Store o Google Play e registra il tuo viaggio (nome, destinazione, date, contatto in Italia).",
+        alt: "Non riesci a scaricarla? Registra il viaggio via web su: viaggiaresicuri.it/registrazione. Salva il numero dell'Unita di Crisi in rubrica: +39 06 36225 (attivo 24h).",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Mappe e contenuti offline",
+        desc: "Scarica le mappe della citta di destinazione in modalita offline su Google Maps o Maps.me prima di partire. Scarica anche: traduttore offline (Google Translate permette download delle lingue), guide della citta, orari dei trasporti.",
+        check: "Apri Google Maps, cerca la citta e seleziona 'Scarica' nella scheda del posto — la mappa sara disponibile senza connessione.",
+        alt: "Non le hai scaricate? Connettiti al WiFi dell'hotel appena arrivi e scaricale immediatamente. E una delle prime cose da fare all'arrivo.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Powerbank e adattatori",
+        desc: "Porta un powerbank con capacita sufficiente (minimo 10.000 mAh per smartphone). Verifica il tipo di presa elettrica del paese di destinazione: esistono almeno 15 tipi di prese diverse nel mondo. In molti paesi la tensione e 110V invece di 220V — verifica che i tuoi dispositivi siano compatibili.",
+        check: "Consulta il sito iec.ch/world-plugs per il tipo di presa del tuo paese di destinazione.",
+        alt: "Non hai l'adattatore? Acquistalo all'aeroporto (caro ma disponibile) oppure chiedi alla reception dell'hotel — spesso ne hanno di prestito. Un adattatore universale costa 10-15 euro.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "5. Sicurezza digitale",
+    icon: "🔐",
+    intro: "I tuoi dati aziendali e personali sono a rischio durante una trasferta. Reti WiFi pubbliche, dispositivi condivisi e furti fisici sono i rischi principali.",
+    fonte: "Fonte: ENISA — European Union Agency for Cybersecurity (enisa.europa.eu) · CISA (cisa.gov)",
+    voci: [
+      {
+        titolo: "VPN aziendale",
+        desc: "Usa sempre una VPN quando ti connetti a reti WiFi pubbliche (aeroporti, hotel, ristoranti). La VPN cifra il tuo traffico internet proteggendo dati aziendali e credenziali. Verifica se la tua azienda fornisce una VPN — se no, usa servizi affidabili come NordVPN, ExpressVPN o ProtonVPN.",
+        check: "Installa e testa la VPN prima di partire — alcune VPN sono bloccate in certi paesi (es. Cina).",
+        alt: "Non hai una VPN? Evita di accedere a sistemi aziendali o banche su WiFi pubblico. Usa i dati mobili del tuo telefono come hotspot personale — e molto piu sicuro del WiFi dell'hotel.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Autenticazione a due fattori",
+        desc: "Attiva l'autenticazione a due fattori (2FA) su tutti gli account importanti: email, banca, account aziendali. In caso di furto del dispositivo, senza il secondo fattore l'accesso e impossibile.",
+        check: "Verifica che il codice 2FA non arrivi solo via SMS al numero italiano — all'estero senza SIM potresti non riceverlo. Usa un'app come Google Authenticator o Authy che funziona offline.",
+        alt: "Non hai ancora attivato il 2FA? Fallo subito prima di partire — richiede 5 minuti per account. E una delle misure di sicurezza piu efficaci.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Backup dei dispositivi",
+        desc: "Esegui un backup completo di smartphone e laptop prima di partire. In caso di furto o danno perdi i dati sul dispositivo ma non quelli personali. Usa iCloud, Google Backup o backup locale su hard disk esterno.",
+        check: "Ultimo backup: vai in Impostazioni > [tuo nome] > iCloud > Backup (iOS) o Impostazioni > Sistema > Backup (Android).",
+        alt: "Non hai fatto backup? Collegati a un WiFi stabile appena possibile e avvia il backup. Per i dati critici aziendali: salvali sul cloud aziendale (SharePoint, Drive) immediatamente.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Blocco remoto dispositivi",
+        desc: "Attiva la funzione 'Trova il mio dispositivo' su tutti i tuoi device. In caso di furto potrai localizzare, bloccare o cancellare il dispositivo da remoto.",
+        check: "iOS: Impostazioni > [tuo nome] > Trova il mio iPhone. Android: myaccount.google.com/find-your-phone.",
+        alt: "Non ce l'hai attivato? Fallo subito — richiede 30 secondi. Se il dispositivo viene rubato senza questa funzione attiva, i tuoi dati sono potenzialmente accessibili.",
+        urgenza: "alta"
+      }
+    ]
+  },
+  {
+    title: "6. Borsa di emergenza",
+    icon: "🎒",
+    intro: "Una piccola borsa o tasca dedicata con gli essenziali puo fare la differenza in ogni situazione di crisi. Deve essere sempre con te, non nel bagaglio da stiva.",
+    fonte: "Fonte: FEMA Ready.gov (ready.gov) · Protezione Civile Italiana (protezionecivile.gov.it)",
+    voci: [
+      {
+        titolo: "Documenti essenziali sempre con te",
+        desc: "Nel bagaglio a mano tieni sempre: passaporto originale (o copia certificata), carta di credito di emergenza separata dalle altre, contanti in valuta locale (equivalente 200-500 euro), nota scritta con numeri di emergenza (ambasciata, referente aziendale, assicurazione).",
+        check: "Regola d'oro: i documenti non vanno mai nel bagaglio da stiva. Sempre con te.",
+        alt: "Hai gia consegnato il bagaglio con i documenti? Avvisa subito il personale dell'aeroporto prima che il bagaglio parta. Per i voli futuri: usa una piccola borsa a tracolla o marsupio sempre indossato.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Kit di pronto soccorso tascabile",
+        desc: "Mini kit da tenere in borsa: cerotti di varie misure, garza sterile, cerotto elastico, disinfettante in formato travel (max 100ml), antidolorifico, antidiarroico, sali reidratanti, termometro digitale tascabile.",
+        check: "Molte farmacie vendono kit da viaggio preconfezionati a circa 10-15 euro.",
+        alt: "Non hai preparato il kit? In ogni aeroporto internazionale ci sono farmacie. All'estero, le farmacie nelle grandi citta hanno di solito personale che parla inglese.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Accessori di sopravvivenza essenziali",
+        desc: "Aggiungi alla borsa: torcia tascabile o torcia da testa (utile in blackout), fischietto (segnalazione in caso di emergenza), cordino o zip tie multiuso, coltellino multiuso (attenzione: solo nel bagaglio da stiva, non nel bagaglio a mano), pennarello permanente e carta impermeabile per appunti.",
+        check: "Questi oggetti pesano pochissimo e occupano minimo spazio — non c'e motivo per non averli.",
+        alt: "Non hai la torcia? La torcia del telefono e un'alternativa valida ma consuma batteria. Priorita al powerbank in questo caso.",
+        urgenza: "bassa"
+      },
+      {
+        titolo: "Abbigliamento di emergenza nel bagaglio a mano",
+        desc: "Porta sempre nel bagaglio a mano: cambio di biancheria intima e calzini, camicia o maglietta di ricambio, farmaci essenziali, caricabatterie e cavi. Se il bagaglio viene perso o in ritardo, sei autonomo per almeno 24 ore.",
+        check: "Questa e la regola d'oro dei viaggiatori frequenti: tratta il bagaglio a mano come se fosse l'unico bagaglio che hai.",
+        alt: "Hai gia imbarcato tutto? Per il prossimo volo ricordatelo. Nel frattempo, molti hotel offrono kit di cortesia con prodotti essenziali.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "7. Registrazione e contatti",
+    icon: "📋",
+    intro: "Comunicare il tuo viaggio alle persone giuste e la misura di sicurezza piu semplice e spesso piu trascurata. Costa zero e in una situazione di crisi puo salvarti.",
+    fonte: "Fonte: Farnesina — Unita di Crisi MAECI (esteri.it) · ASIS International — Travel Security Guidelines",
+    voci: [
+      {
+        titolo: "Registrazione su Viaggiare Sicuri",
+        desc: "Registra il tuo viaggio sul portale Farnesina — viaggiaresicuri.it — prima di partire. Inserisci: paese di destinazione, date di viaggio, alloggio, contatto di riferimento in Italia. In caso di crisi nel paese, la Farnesina sapra che sei li e potra contattarti.",
+        check: "La registrazione richiede 5 minuti ed e gratuita. Usa l'app Farnesina o il sito web.",
+        alt: "Non lo hai ancora fatto? Puoi registrarti anche dopo la partenza, dall'estero. Fallo appena hai connessione WiFi.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Piano di comunicazione con l'azienda",
+        desc: "Prima di partire, definisci con il tuo referente aziendale: orario e modalita degli aggiornamenti quotidiani (es. messaggio ogni sera), numero di emergenza da chiamare in caso di problemi, procedura da seguire in caso di mancato contatto.",
+        check: "Un semplice messaggio WhatsApp quotidiano e sufficiente — l'importante e che qualcuno sappia che stai bene.",
+        alt: "Non hai definito un piano? Manda ora un messaggio al tuo responsabile con: dove sei, dove alloggi, quando torni, come contattarti. E il minimo indispensabile.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Numeri salvati in rubrica offline",
+        desc: "Salva nella rubrica del telefono (non solo nei preferiti del browser): Ambasciata italiana nel paese di destinazione, Unita di Crisi Farnesina (+39 06 36225), Referente aziendale con numero cellulare personale, Assicurazione di viaggio — numero di assistenza internazionale, Contatto familiare di riferimento in Italia.",
+        check: "Testa i numeri prima di partire — verifica che siano corretti chiamandoli o inviando un messaggio.",
+        alt: "Non li hai salvati? Trovali ora su viaggiaresicuri.it (ambasciata del tuo paese) e salvali. Fai uno screenshot con tutti i numeri e salvalo nella galleria del telefono — accessibile anche offline.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Informare un familiare",
+        desc: "Lascia a un familiare o persona di fiducia in Italia: copia di tutti i documenti, itinerario completo con hotel e numeri di telefono, contatti dell'azienda e del referente, copia della polizza assicurativa, autorizzazione a operare sul tuo conto in caso di necessita.",
+        check: "Prepara una busta con tutte queste informazioni prima di ogni trasferta lunga.",
+        alt: "Non lo hai fatto? Invia ora un messaggio o email al tuo contatto con le informazioni essenziali: dove sei, dove alloggi, quando torni.",
+        urgenza: "media"
+      }
+    ]
+  },
+  {
+    title: "8. Finanze e pagamenti",
+    icon: "💳",
+    intro: "Rimanere senza accesso al denaro all'estero e uno degli scenari piu comuni e piu stressanti. Pianificare i pagamenti prima di partire evita la maggior parte dei problemi.",
+    fonte: "Fonte: Banca d'Italia (bancaditalia.it) · Unione Europea — Regolamenti sui pagamenti internazionali",
+    voci: [
+      {
+        titolo: "Carte di credito e bancomat",
+        desc: "Porta almeno 2 carte di circuiti diversi (es. Visa e Mastercard) — alcune carte non sono accettate in certi paesi. Avvisa la tua banca della trasferta prima di partire per evitare blocchi per transazioni sospette all'estero. Verifica i costi di prelievo e cambio valuta — alcune carte (es. N26, Revolut, Wise) offrono cambi senza commissioni.",
+        check: "Chiama il numero sul retro della carta o usa l'app della banca per impostare il 'viaggio internazionale'.",
+        alt: "La carta e stata bloccata all'estero? Chiama immediatamente il numero di emergenza sul retro della carta (funziona anche dall'estero). Nel frattempo usa una carta di backup o richiedi un bonifico tramite il referente aziendale.",
+        urgenza: "alta"
+      },
+      {
+        titolo: "Contanti in valuta locale",
+        desc: "Porta sempre un minimo di contanti in valuta locale equivalente a 200-500 euro — molti paesi extra-EU usano poco le carte o hanno zone senza POS. Cambia valuta prima di partire in banca o ufficio postale (tassi migliori) piuttosto che all'aeroporto (commissioni molto alte). Conserva i contanti in posti diversi — mai tutto nello stesso posto.",
+        check: "Verifica qual e la valuta del paese di destinazione e il tasso di cambio attuale.",
+        alt: "Sei gia arrivato senza contanti locali? Usa il bancomat dell'aeroporto (commissioni alte ma funziona) o cerca una banca locale nelle prime ore. Evita i cambiavalute informali.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Rimborso spese aziendali",
+        desc: "Chiarisci con l'ufficio amministrativo prima di partire: quali spese sono rimborsabili, qual e il massimale giornaliero, quali ricevute sono necessarie, in quale valuta fare le note spese. Conserva TUTTE le ricevute — anche quelle di importo minimo.",
+        check: "Usa un'app per fotografia delle ricevute (es. Expensify, SAP Concur) — ti aiuta a non perderne nessuna.",
+        alt: "Non hai chiarito la procedura? Manda ora un messaggio all'amministrazione chiedendo le linee guida. Nel dubbio: conserva sempre la ricevuta.",
+        urgenza: "media"
+      },
+      {
+        titolo: "Fondo di emergenza separato",
+        desc: "Tieni sempre disponibile un fondo di emergenza separato dal budget ordinario: una carta prepagata con 500-1000 euro dedicata solo alle emergenze, oppure contanti nascosti in un posto diverso dal portafoglio principale. Questo fondo si usa SOLO in caso di furto, blocco delle altre carte o emergenza medica.",
+        check: "Una carta Revolut o Wise con saldo dedicato e perfetta per questo scopo — si ricarica facilmente dall'app.",
+        alt: "Non hai un fondo di emergenza? Tieni almeno 200 euro in contanti nascosti in una tasca interna della valigia o in un portafoglio nascosto. E una misura minima ma efficace.",
+        urgenza: "alta"
+      }
+    ]
+  }
+];
+
+function showCap(idx, el) {
+  document.querySelectorAll("#man-nav .rtab").forEach(function(t) { t.classList.remove("active"); });
+  if (el) el.classList.add("active");
+  var cap = CAPITOLI[idx];
+  var urgColors = {alta: "tr", media: "to", bassa: "tg"};
+  var html = '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:24px">';
+  html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="font-size:32px">' + cap.icon + '</div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300">' + cap.title + '</div></div>';
+  html += '<div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:10px">' + cap.intro + '</div>';
+  html += '<div style="font-size:11px;color:rgba(255,255,255,.3);font-style:italic">' + cap.fonte + '</div></div>';
+
+  cap.voci.forEach(function(v) {
+    html += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px 24px;margin-bottom:14px">';
+    html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px">';
+    html += '<div style="font-size:15px;font-weight:600;color:#fff">' + v.titolo + '</div>';
+    html += '<span class="tag ' + (urgColors[v.urgenza]||"tb") + '" style="flex-shrink:0">Priorita ' + v.urgenza + '</span></div>';
+    html += '<div style="font-size:14px;color:rgba(255,255,255,.78);line-height:1.75;margin-bottom:12px">' + v.desc + '</div>';
+    html += '<div style="background:rgba(184,148,63,.1);border-left:3px solid var(--gold);padding:10px 14px;border-radius:4px;margin-bottom:10px;font-size:13px;color:var(--gl)">';
+    html += '<strong>Come verificarlo ora:</strong> ' + v.check + '</div>';
+    html += '<div style="background:rgba(58,140,92,.1);border-left:3px solid #2ecc71;padding:10px 14px;border-radius:4px;font-size:13px;color:#82e0aa">';
+    html += '<strong>Soluzione alternativa:</strong> ' + v.alt + '</div></div>';
+  });
+
+  document.getElementById("man-content").innerHTML = html;
+}
 
 var aiHist = [];
 var AI_SYS = "Sei SafePass, assistente esperto in sicurezza per viaggiatori aziendali. Rispondi SEMPRE in italiano, in modo chiaro e pratico con procedure step-by-step. In situazioni di pericolo: indica SEMPRE di chiamare il 112 come prima azione. Cita SEMPRE le fonti (Protezione Civile, WHO, FEMA, Farnesina). Tono professionale e rassicurante.";
